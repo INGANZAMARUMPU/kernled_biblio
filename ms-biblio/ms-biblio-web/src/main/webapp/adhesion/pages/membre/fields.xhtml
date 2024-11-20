@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:o="http://omnifaces.org/ui">
+    <div class="grid">
+        <div class="col">
+            <p:tabView id="membreView">
+                <p:tab title="#{msga['biblio.pages.membre.edit.information-de-base']}">
+                    <ui:include src="tabs/information-base.xhtml"/>
+                </p:tab>
+                <p:tab title="#{msga['biblio.pages.membre.edit.renseignemments-generaux']}" rendered="#{membreBean.type.libelle != 'Physique'}">
+                    <ui:include src="tabs/morale.xhtml"/>
+                </p:tab>
+                <p:tab title="#{msga['biblio.pages.membre.edit.renseignemments-generaux']}" rendered="#{membreBean.type.libelle == 'Physique'}">
+                    <ui:include src="tabs/physique.xhtml"/>
+                </p:tab>
+                <p:tab title="#{msga['biblio.pages.membre.edit.autres-renseignemments']}">
+                    <ui:include src="tabs/autres-renseignements.xhtml"/>
+                </p:tab>
+                <p:tab title="#{msga['biblio.pages.membre.edit.photo']}">
+                    <ui:include src="tabs/photo.xhtml"/>
+                </p:tab>
+            </p:tabView>
+        </div>
+    </div>
+</ui:composition>

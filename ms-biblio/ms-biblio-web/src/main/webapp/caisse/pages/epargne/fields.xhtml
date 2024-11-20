@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:o="http://omnifaces.org/ui">
+    <div class="ui-fluid formgrid grid" >
+      <div class="field col md:col-4 lg:col-4 col-4">
+            <p:outputLabel value="#{msga['biblio.pages.organisation.fields.entite']}" rendered="#{not empty epargneBean.agences}"/>
+            <p:selectOneMenu rendered="#{not empty epargneBean.agences}"
+                             class="w-full" value="#{epargneBean.agence}" 
+                             converter="omnifaces.SelectItemsConverter">
+                 <f:selectItem itemLabel="-- #{msg['core.page.fields.select.message']} --" 
+                                   itemValue="#{null}" noSelectionOption="true" />
+                 <f:selectItems var="a" value="#{epargneBean.agences}" itemValue="#{a}" 
+                  itemLabel="#{a.denomination}" />
+                 <p:ajax listener="#{epargneBean.onAgenceChange()}"  process="@this" update="guichet mandataire compte"/>
+            </p:selectOneMenu>     
+        </div>
+    </div>
+    <div class="card">
+        <div class="formgrid grid ui-fluid">
+            <div class="field col md:col-4 lg:col-4 col-12">
+                <p:outputLabel value="#{msga['biblio.pages.reference.origine.title']}"/>
+                <p:selectOneMenu 
+                    class="w-full" value="#{epargneBean.entity.origine}" 
+                    converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemLabel="-- #{msg['core.page.fields.select.message']} --" 
+                                  itemValue="#{null}" noSelectionOption="true" />
+                    <f:selectItems var="o" value="#{epargneBean.origines}" itemValue="#{o}" itemLabel="#{o.libelle}" />
+                </p:selectOneMenu>
+            </div>
+            <div class="field col md:col-4 lg:col-4 col-12">
+                <p:outputLabel value="#{msga['caisse.pages.index.guichet.title']}"/>
+                <p:selectOneMenu id="guichet"
+                                 class="w-full" value="#{epargneBean.entity.guichet}" 
+                                 converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemLabel="-- #{msg['core.page.fields.select.message']} --"  itemValue="#{null}" noSelectionOption="true" />
+                    <f:selectItems var="g" value="#{epargneBean.guichets}" itemValue="#{g}" itemLabel="#{g.libelle}" />
+                </p:selectOneMenu>
+            </div>
+            <div class="field col md:col-4 lg:col-4 col-12">
+                <p:outputLabel value="#{msga['biblio.pages.procuration.list.mandataire']}"/>
+                <p:selectOneMenu id="mandataire"
+                                 class="w-full" value="#{epargneBean.entity.mandataire}" 
+                                 converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemLabel="-- #{msg['core.page.fields.select.message']} --" 
+                                  itemValue="#{null}" noSelectionOption="true" />
+                    <f:selectItems var="m" value="#{epargneBean.mandataires}" itemValue="#{m}" itemLabel="#{m.fullName}" />
+                </p:selectOneMenu>
+            </div>
+            <div class="field col md:col-4 lg:col-4 col-12">
+                <p:outputLabel  value="#{msga['caisse.pages.epargne.fields.compte-epargne']}"/>
+                <p:selectOneMenu id="compte" class="w-full" value="#{epargneBean.compteEpargne}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemLabel="-- #{msg['core.page.fields.select.message']} --" itemValue="#{null}" noSelectionOption="true" />
+                    <f:selectItems var="p" value="#{epargneBean.compteEpargnes}" itemValue="#{p}" itemLabel="#{p.libelle}"/>
+                    <p:ajax listener="#{epargneBean.onCompteChange()}"  process="@this" update="numeroCompte"/>
+                </p:selectOneMenu>
+            </div>
+            <div class="field col md:col-4 lg:col-4 col-12">
+                <p:outputLabel  value="#{msga['compte.pages.compte-epargne.numero-compte']}"/>
+                <p:inputText id="numeroCompte"  class="w-full" style="font-weight:bold"  value="#{epargneBean.numeroCompte}" placeholder="#{msga['compte.pages.compte-epargne.numero-compte']}" readonly="true" disabled="true"/>
+            </div>
+            <div class="field col md:col-4 lg:col-4 col-12">
+                <p:outputLabel  value="#{msga['caisse.pages.epargne.fields.type-operation']}"/>
+                <p:selectOneMenu id="typeOperation" class="w-full" value="#{epargneBean.entity.typeOperation}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemLabel="-- #{msg['core.page.fields.select.message']} --" itemValue="#{null}" noSelectionOption="true" />
+                    <f:selectItems var="p" value="#{epargneBean.typeOperations}" itemValue="#{p}" itemLabel="#{p.libelle}"/>
+                </p:selectOneMenu>          
+            </div>         
+            <div class="field col md:col-4 lg:col-4 col-12">
+                <p:outputLabel  value="#{msga['biblio.pages.membre.fields.numero-piece']}"/>
+                <p:inputText id="numeroPiece" required="true" class="w-full"  value="#{epargneBean.entity.numeroPiece}"
+                             placeholder="#{msga['biblio.pages.membre.fields.numero-piece']}"/>
+            </div>
+            <div class="field col md:col-4 lg:col-4 col-12">
+                <p:outputLabel  value="#{msga['biblio.pages.parametrage.tab-type-membre.label']}"/>
+                <p:inputText id="libelle" required="true" value="#{epargneBean.entity.libelle}" class="w-full"
+                             placeholder="#{msga['biblio.pages.parametrage.tab-type-membre.label']}"/>
+            </div>
+            <div class="field col md:col-4 lg:col-4 col-12">
+                <p:outputLabel  value="#{msga['caisse.pages.epargne.fields.calculer-interet']}"/>
+                <p:inputNumber id="calculInteret" required="true" class="w-full"  value="#{epargneBean.entity.calculInteret}"
+                             placeholder="#{msga['caisse.pages.epargne.fields.calculer-interet']}"/>
+            </div>
+            <div class="field col md:col-4 lg:col-4 col-12">
+                <p:outputLabel  value="#{msga['caisse.pages.epargne.fields.interet-credit']}"/>
+                <p:inputNumber id="interetCredit" required="true" class="w-full"  value="#{epargneBean.entity.interetCredit}"
+                             placeholder="#{msga['caisse.pages.epargne.fields.interet-credit']}"/>
+            </div>
+            <div class="field col md:col-4 lg:col-4 col-12">
+                <p:outputLabel  value="#{msga['caisse.pages.epargne.fields.interet-debit']}"/>
+                <p:inputNumber id="interetDebit" required="true" value="#{epargneBean.entity.interetDebit}" class="w-full"
+                             placeholder="#{msga['caisse.pages.epargne.fields.interet-debit']}"/>
+            </div>
+            <div class="field col md:col-4 lg:col-4 col-12">
+                <p:outputLabel  value="#{msga['biblio.pages.membre.fields.nbre-part-sociale']}"/>
+                <p:inputText id="nbps" required="true" value="#{epargneBean.entity.nombrePartSocial}" class="w-full"
+                             placeholder="#{msga['biblio.pages.membre.fields.nbre-part-sociale']}"/>
+            </div>
+
+            <div class="field col md:col-4 lg:col-4 col-12">
+                <p:outputLabel  value="#{msga['caisse.pages.epargne.fields.solde-nouveau']}"/>
+                <p:inputNumber id="soldeNouveau" required="true" class="w-full"  value="#{epargneBean.entity.soldeNouveau}"
+                             placeholder="#{msga['caisse.pages.epargne.fields.solde-nouveau']}"/>
+            </div>
+            <div class="field col md:col-4 lg:col-4 col-12">
+                <p:outputLabel  value="#{msga['caisse.pages.epargne.fields.solde-ancien']}"/>
+                <p:inputNumber id="soldeAncien" required="true" value="#{epargneBean.entity.soldeAncien}" class="w-full"
+                             placeholder="#{msga['caisse.pages.epargne.fields.solde-ancien']}"/>
+            </div>
+            <div class="field col md:col-4 lg:col-4 col-12">
+                <p:outputLabel  value="#{msga['caisse.pages.epargne.fields.montant-credit']}"/>
+                <p:inputNumber id="montantCredit" required="true" class="w-full"  value="#{epargneBean.entity.montantCredit}"
+                             placeholder="#{msga['caisse.pages.epargne.fields.montant-credit']}"/>
+            </div>
+            <div class="field col md:col-4 lg:col-4 col-12">
+                <p:outputLabel  value="#{msga['caisse.pages.epargne.fields.montant-debit']}"/>
+                <p:inputNumber id="montantDebit" required="true" value="#{epargneBean.entity.montantDebit}" class="w-full"
+                             placeholder="#{msga['caisse.pages.epargne.fields.montant-debit']}"/>
+            </div>
+            <div class="field col md:col-4 lg:col-4 col-12">
+                <p:outputLabel  value="#{msga['caisse.pages.epargne.fields.encaisse']}"/>
+                <p:inputText id="encaisse" required="true" class="w-full"  value="#{epargneBean.entity.encaisse}"
+                             placeholder="#{msga['caisse.pages.epargne.fields.encaisse']}"/>
+            </div>
+            <div class="field col md:col-4 lg:col-4 col-12">
+                <p:outputLabel  value="#{msga['caisse.pages.epargne.fields.tireur']}"/>
+                <p:inputText id="tireur" required="true" value="#{epargneBean.entity.tireur}" class="w-full"
+                             placeholder="#{msga['caisse.pages.epargne.fields.tireur']}"/>
+            </div>
+            <div class="field col md:col-4 lg:col-4 col-12">
+                <p:outputLabel value="#{msga['compte.pages.certificat.fields.date-operation']}"  class="w-full"/>
+                <p:calendar 
+                    class="w-full" id="dateOperation" required="true"  
+                    value="#{epargneBean.entity.dateOperation}"
+                    mindate="01/01/1923"  navigator="true" pattern="#{epargneBean.userSession.settings.formats.shortDatePattern}" 
+                    placeholder="#{msga['compte.pages.certificat.fields.date-operation']}"/>
+            </div>
+            <div class="field col md:col-4 lg:col-4 col-12">
+                <p:outputLabel value="#{msga['caisse.pages.epargne.fields.date-valeur']}"  class="w-full"/>
+                <p:calendar 
+                    class="w-full" id="dateValeur" required="true"  
+                    value="#{epargneBean.entity.dateValeur}"
+                    mindate="01/01/1923"  navigator="true" pattern="#{epargneBean.userSession.settings.formats.shortDatePattern}" 
+                    placeholder="#{msga['caisse.pages.epargne.fields.date-valeur']}"/>
+            </div>
+            <div class="formgrid grid ui-fluid">
+                <p:outputLabel  value="#{msga['caisse.pages.epargne.fields.autre']}" />  
+                <br/><p:spacer height="25"/>
+                <p:inputTextarea rows="4" cols="190" 
+                                 value="#{epargneBean.entity.autres}" required="true"
+                                 placeholder="#{msga['caisse.pages.epargne.fields.autre']}" /> 
+            </div>
+        </div>
+    </div>
+</ui:composition>

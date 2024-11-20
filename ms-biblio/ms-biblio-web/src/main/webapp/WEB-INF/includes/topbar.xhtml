@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
+                xmlns:h="jakarta.faces.html">
+
+    <h:form>
+        <div class="grid" >
+            <div class="col">
+                <p:panel style="height: .1em;width: 13rem;"
+                         rendered="#{appSessionBean.userSession.entity ==null and appSessionBean.canAccessOneEntity()==true and appSessionBean.userSession.user.username != 'admin'}"
+                         >
+                    <p:outputLabel  class="w-full" value="#{appSessionBean.afficherEntiteTempo().label}" />
+                </p:panel>
+                <p:selectOneMenu  
+                    rendered="#{appSessionBean.userSession.entity ==null and appSessionBean.canAccessMultipleEntities()==true and appSessionBean.userSession.user.username != 'admin'}"
+                    id="multiEntity" class="w-full" value="#{appSessionBean.entite}"
+                    requiredMessage="#{msg['core.pages.entity-variable.field.entity.requiredMessage']}"
+                    converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="-- #{msg['core.page.fields.select.message']} --" noSelectionOption="true" />
+                    <f:selectItems value="#{appSessionBean.entites}" var="e" itemValue="#{e}" itemLabel="#{e.label}" />
+                    <f:ajax render="@all" event="change" listener="#{appSessionBean.entiteChoisie()}"/>
+                </p:selectOneMenu>
+                <k:entitySelectOneMenu 
+                    rendered="#{appSessionBean.userSession.entity !=null or (appSessionBean.userSession.user.username == 'admin')}"
+                    id="entity" root="false" class="w-full"
+                    requiredMessage="#{msg['core.pages.entity-variable.field.entity.requiredMessage']}"
+                    value="#{appSessionBean.entite}">
+                    <f:ajax render="@all" event="change" listener="#{appSessionBean.entiteChoisie()}"/>
+                </k:entitySelectOneMenu>
+            </div>
+            <div class="col">
+                <p:selectOneMenu 
+                    id="journee" class="w-full" value="#{appSessionBean.journeeCourante}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemLabel="- #{msga['web-inf.includes.topbar.journee']} -" noSelectionOption="true"/>
+                    <f:selectItems value="#{appSessionBean.journees}" var="j" itemValue="#{j}" itemLabel="#{appSessionBean.formater(j.dateOuverture)}" />
+                </p:selectOneMenu>
+
+            </div>
+            <div class="col">
+                <p:selectOneMenu id="exercice" class="w-full" value="#{appSessionBean.exerciceCourant}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemLabel="- #{msga['web-inf.includes.topbar.exercice']} -" noSelectionOption="true"/>
+                    <f:selectItems value="#{appSessionBean.exercices}" var="e" itemValue="#{e}" itemLabel="#{appSessionBean.recupererAnnee(e.fin)}" />
+                </p:selectOneMenu>
+            </div>
+        </div>
+    </h:form>
+
+</ui:composition>

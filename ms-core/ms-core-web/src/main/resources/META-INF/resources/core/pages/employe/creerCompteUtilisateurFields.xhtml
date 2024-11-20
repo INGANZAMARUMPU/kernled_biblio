@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <div class="field">
+            <p:outputLabel value="#{msg['core.pages.user.fields.username']}"/>
+            <p:inputText required="true" requiredMessage="#{msg['core.pages.user.fields.username.requiredMessage']}"
+                         disabled="true" class="w-full" value="#{compteUtilisateurBean.username}" />
+        </div>
+        <div class="field">
+            <p:outputLabel for="password" value="#{msg['core.pages.person.fields.password']}"/>
+            <p:password id="password" placeholder="#{msg['core.pages.user.fields.password.placeholder']}" 
+                        label="#{msg['core.pages.person.fields.password']}" feedback="true"
+                        requiredMessage="#{msg['core.pages.person.fields.password.user.required']}"
+                        value="#{compteUtilisateurBean.password}" required="true" weakLabel="#{msg['core.pages.person.fields.password.user.weakLabel']}"
+                        goodLabel="#{msg['core.pages.person.fields.password.user.goodLabel']}" strongLabel="#{msg['core.pages.person.fields.password.user.strongLabel']}" class="w-full"/>
+
+        </div>
+        <div class="field">
+            <p:outputLabel for="passwordConfirmation" value="#{msg['core.pages.person.fields.passwordconfirmation']}"/>
+            <p:password id="passwordConfirmation" placeholder="#{msg['core.pages.person.fields.passwordconfirmation.placeholder']}" 
+                        requiredMessage="#{msg['core.pages.person.fields.passwordconfirmation.user.required']}"
+                        label="#{msg['core.pages.person.fields.passwordconfirmation']}" required="true" class="w-full"/>
+            <o:validateEqual id="equal" components="password passwordConfirmation"
+                             message="#{msg['core.pages.person.fields.passwordconfirmation.error']}" showMessageFor="passwordConfirmation" />
+        </div>
+        <div class="field">
+            <p:outputLabel  value="#{msg['core.pages.person.fields.role']}" />
+            <p:spacer width="25" /><br/>
+            <p:selectCheckboxMenu filter="true" filterMatchMode="startsWith" required="true"
+                                  label="#{msg['core.pages.person.fields.role']}" 
+                                  requiredMessage="#{msg['core.pages.user.fields.role.requiredMessage']}"
+                                  multiple="true" emptyLabel="-- #{msge['core.pages.employe.fields.institutioncore.pages.veuillez-choisir']} --" updateLabel="true"
+                                  style="min-width: 100%" panelStyle="width: 32rem" scrollHeight="250"
+                                  value="#{compteUtilisateurBean.rolesSelected}" >
+                <f:selectItems value="#{compteUtilisateurBean.roles}" var="item" itemLabel="#{item.label}"
+                               itemValue="#{item}"/>
+            </p:selectCheckboxMenu>
+        </div>
+    </body>
+</ui:composition>

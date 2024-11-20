@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
+             xmlns:p="http://primefaces.org/ui"
+             template="/core/templates/#{configBean.theme}/deco-crud.xhtml"
+             xmlns:f="jakarta.faces.core">
+
+
+    <ui:define name="deco-title">
+        #{msga['biblio.pages.donnee-de-reference.tab-maximum-journee.title']}
+    </ui:define>
+
+    <ui:define name="fields">
+        <div class="grid formgrid">
+            <div class="field col-12 md:col-6 lg:col-6">
+            </div>
+            <div class="field col-12 md:col-6 lg:col-6">
+            </div>
+        </div>
+    </ui:define>
+
+    <ui:define name="columns">
+        <p:column headerText="#{msga['core.pages.security-policy.label']}" sortBy="#{item.libelle}">
+            <h:outputText value="#{item.libelle}"/>
+        </p:column>
+    </ui:define>
+</ui:decorate>

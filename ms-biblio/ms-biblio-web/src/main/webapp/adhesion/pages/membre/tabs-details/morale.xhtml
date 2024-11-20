@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:o="http://omnifaces.org/ui">
+
+    <div class="card">
+
+        <div class="grid formgrid ui-fluid" jsf:rendered="#{not crudBean.entity.physique}">
+            <div class="field col lg:col-3 md:col-3" jsf:rendered="#{crudBean.entity.groupement}">
+                <p:outputLabel for="num-membre2" value="#{msga['biblio.pages.membre.fields.type-groupement']}"/>
+                <p:outputLabel class="w-full text-900 font-bold" id="num-membre2" value="#{crudBean.entity.typeGroupement.libelle}"/>
+            </div>
+            <div class="field col lg:col-3 md:col-3" jsf:rendered="#{crudBean.entity.groupement}">
+                <p:outputLabel for="nombre-homme" value="#{msga['biblio.pages.membre.fields.nombre-homme']}"/>
+                <p:outputLabel class="w-full text-900 font-bold" id="nombre-homme" value="#{crudBean.entity.nombreHomme}"/>
+            </div>
+            <div class="field col lg:col-3 md:col-3" jsf:rendered="#{crudBean.entity.groupement}">
+                <p:outputLabel for="nombre-femme" value="#{msga['biblio.pages.membre.fields.nombre-femme']}"/>
+                <p:outputLabel id="nombre-femme" class="w-full text-900 font-bold" value="#{crudBean.entity.nombreFemme}"/>
+            </div>
+            <div class="field col lg:col-3 md:col-3">
+                <p:outputLabel for="forme-juridique" value="#{msga['biblio.pages.membre.fields.forme-juridique']}"/>
+                <p:outputLabel id="forme-juridique" class="w-full text-900 font-bold" value="#{crudBean.entity.formeJuridique.label}"/>
+            </div>
+            <div class="field col lg:col-3 md:col-3">
+                <p:outputLabel for="raisonSociale" value="#{msga['biblio.pages.membre.fields.nom']}"/>
+                <p:outputLabel id="raisonSociale" class="w-full text-900 font-bold" value="#{crudBean.entity.raisonSociale}"/>
+            </div>
+            <div class="field col lg:col-3 md:col-3">
+                <p:outputLabel value="#{msga['biblio.pages.membre.fields.date-fondation']}"/>
+                <p:outputLabel class="w-full text-900 font-bold" value="#{crudBean.entity.dateFondation}">
+                    <f:convertDateTime type="localDate" pattern="#{crudBean.userSession.settings.formats.shortDatePattern}"/>
+                </p:outputLabel>
+            </div>
+            <div class="field col lg:col-3 md:col-3">
+                <p:outputLabel value="#{msga['biblio.pages.membre.fields.numero-installation']}"/>
+                <p:outputLabel class="w-full text-900 font-bold" value="#{crudBean.entity.numeroInstallation}"/>
+            </div>
+            <div class="field col lg:col-3 md:col-3">
+                <p:outputLabel for="rccm" value="#{msga['biblio.pages.membre.fields.rccm']}"/>
+                <p:outputLabel id="rccm" class="w-full text-900 font-bold" value="#{crudBean.entity.rccm}"/>
+            </div>
+            <div class="field col lg:col-3 md:col-3">
+                <p:outputLabel for="piece" value="#{msga['biblio.pages.membre.fields.type-piece']}"/>
+                <p:outputLabel id="piece" class="w-full text-900 font-bold" value="#{crudBean.entity.piece.typePiece.libelle}"/>
+            </div>
+            <div class="field col lg:col-3 md:col-3">
+                <p:outputLabel for="lieuEtablissementPiece" value="#{msga['biblio.pages.membre.fields.etabli-a']}"/>
+                <p:outputLabel id="lieuEtablissementPiece" class="w-full text-900 font-bold" value="#{crudBean.entity.piece.lieuEtablissement}"/>
+            </div>
+            <div class="field col lg:col-3 md:col-3">
+                <p:outputLabel for="numpiece" value="#{msga['biblio.pages.membre.fields.numero-piece']}"/>
+                <p:outputLabel id="numpiece" class="w-full text-900 font-bold" value="#{crudBean.entity.piece.numero}"/>
+            </div>
+            <div class="field col lg:col-3 md:col-3">
+                <p:outputLabel for="paysDelivrance" value="#{msga['biblio.pages.membre.fields.pays-delivrance']}"/>
+                <p:outputLabel id="paysDelivrance" class="w-full text-900 font-bold" value="#{crudBean.entity.piece.paysDelivrance.label}"/>
+            </div>
+            <div class="field col lg:col-3 md:col-3">
+                <p:outputLabel for="dateDelivrance" value="#{msga['biblio.pages.membre.fields.date-delivreance']}"/>
+                <p:outputLabel id="dateDelivrance" class="w-full text-900 font-bold" value="#{crudBean.entity.piece.dateCreation}">
+                    <f:convertDateTime type="localDate" pattern="#{crudBean.userSession.settings.formats.shortDatePattern}"/>
+                </p:outputLabel>
+            </div>
+            <div class="field col lg:col-3 md:col-3">
+                <p:outputLabel for="dateExpiration" value="#{msga['biblio.pages.membre.fields.date-expiration']}"/>
+                <p:outputLabel id="dateExpiration" class="w-full text-900 font-bold" value="#{crudBean.entity.piece.dateExpiration}">
+                    <f:convertDateTime type="localDate" pattern="#{crudBean.userSession.settings.formats.shortDatePattern}"/>
+                </p:outputLabel>
+            </div>
+        </div>
+
+    </div>
+
+</ui:composition>

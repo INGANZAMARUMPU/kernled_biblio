@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <p:panel >
+        <p:dataTable value="#{produitEpargneBean.entity.critereProduitEpargnes}" emptyMessage="#{msga['core.components.datatable.emptymessage']}"
+                     var="item">
+            <p:column headerText="#{msga['core.pages.security-policy.label']}">
+                <h:outputText value="#{item.libelle}" />
+            </p:column>
+            <p:column headerText="#{msga['biblio.pages.etat-membre.fields.valeur']}">
+                <h:outputText value="#{item.periode.grille.libelle}" rendered="#{item.trancheDureee}"/>
+                <h:outputText value="#{item.tranche.grille.libelle}"  rendered="#{item.trancheMontant}"/>
+                <p:dataTable value="#{item.sousTypeMembres}" var="ss" rendered="#{item.sousTypeMembre}">
+                    <p:column>
+                        <h:outputText value="#{ss.libelle}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:column>
+            <p:column headerText="#{msga['biblio.pages.part-sociale.fields.agios']}">
+                <h:outputText value="#{item.agios}" />
+            </p:column>
+            <p:column headerText="#{msga['biblio.pages.part-sociale.fields.taux-interete']}">
+                <h:outputText value="#{item.tauxInteret}" />
+            </p:column>
+        </p:dataTable>
+    </p:panel>
+</ui:composition>

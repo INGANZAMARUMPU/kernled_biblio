@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/core/templates/#{configBean.theme}/layout-details.xhtml">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="entityId" value="#{trancheMontantBean.entityId}" />
+            <f:viewAction action="#{trancheMontantBean.initEntity()}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:param name="crudBean" value="#{trancheMontantBean}"/>
+
+    <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
+        <li>#{msga['compte.pages.index.description']}</li>
+    </ui:define>
+
+    <ui:define name="title">
+        #{msga['compte.pages.grille.montant']}
+    </ui:define>
+
+    <ui:define name="fields">
+        <h:form>
+            <p:panel>
+                <p:outputPanel>
+                    <div class="grid formgrid mt-4">
+                        <div class="field col md:col-6 lg:col-6">
+                            <p:outputLabel for="entite" value="#{msga['biblio.pages.organisation.fields.entite']}"/>
+                            <p:outputLabel id="entite" styleClass="w-full" value="#{trancheMontantBean.entity.grille.entite.label}"
+                                           style="font-weight: bolder"/>
+                        </div>
+                        <div class="field col md:col-6 lg:col-6">
+                            <p:outputLabel for="grille" value="#{msga['compte.pages.grille.edit.title']}"/>
+                            <p:outputLabel id="grille" styleClass="w-full" value="#{trancheMontantBean.entity.grille.libelle}"
+                                           style="font-weight: bolder"/>
+                        </div>
+                        <div class="field col md:col-6 lg:col-6">
+                            <p:outputLabel for="debut" value="#{msga['compte.pages.tranche.fields.debut']}"/>
+                            <p:outputLabel id="debut" styleClass="w-full" value="#{trancheMontantBean.entity.debut}"
+                                           style="font-weight: bolder"/>
+                        </div>
+                        <div class="field col md:col-6 lg:col-6">
+                            <p:outputLabel for="fin" value="#{msga['compte.pages.tranche.fields.fin']}"/>
+                            <p:outputLabel id="fin" styleClass="w-full" value="#{trancheMontantBean.entity.fin}"
+                                           style="font-weight: bolder"/>
+                        </div>
+                    </div>
+                </p:outputPanel>
+            </p:panel>
+        </h:form>
+    </ui:define>
+    
+</ui:composition>

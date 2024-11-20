@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                template="/core/templates/#{configBean.theme}/layout-details.xhtml">
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="entityId" value="#{planEpargneAttenteBean.entityId}" />
+            <f:viewAction action="#{planEpargneAttenteBean.initEntity()}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:param name="crudBean" value="#{planEpargneAttenteBean}"/>
+
+   <ui:define name="breadcrumb">
+        <li>#{msga['compte.pages.index.description']}</li>
+    </ui:define>
+
+    <ui:define name="title">
+        #{msga['compte.pages.plan-epargne-attente.list.title']}
+    </ui:define>
+    <ui:define name="fields">
+        <h:form>
+            <div class="grid">
+                <div class="col">
+                    <p:tabView id="planEpargneView">
+                        <p:tab title="#{msga['compte.pages.plan-epargne.fields.information']}">
+                            <ui:include src="tabs/information.xhtml"/>
+                        </p:tab>
+                        <p:tab title="#{msga['biblio.pages.procuration.field.echeancier']}">
+                            <ui:include src="tabs/echeancier.xhtml"/>
+                        </p:tab>
+                        <p:tab title="#{msga['biblio.pages.procuration.field.cotisation']}">
+                           <ui:include src="tabs/cotisation.xhtml"/>
+                        </p:tab>
+                    </p:tabView>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>
+

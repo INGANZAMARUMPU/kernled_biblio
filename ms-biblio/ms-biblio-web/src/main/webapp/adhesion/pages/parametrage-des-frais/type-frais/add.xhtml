@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+                xmlns:p="http://primefaces.org/ui"
+                template="/core/templates/#{configBean.theme}/layout.xhtml">
+    <ui:define name="breadcrumb">
+        <li>#{msga['biblio.breadcrumb.biblio']}</li>
+    </ui:define>
+
+    <ui:define name="title">
+        #{msga['biblio.pages.parametrage.tab-type-frais.title']}
+    </ui:define>
+
+    <ui:define name="description">
+    </ui:define>
+    <ui:define name="content">
+        <div class="card">
+            <ui:include src="/biblio/pages/parametrage/tab-type-frais.xhtml"/>
+        </div>
+        <div class="card">
+            <p:button value="#{msga['biblio.pages.membre.fields.retour']}" 
+                      outcome="/biblio/pages/parametrage-des-frais/list.xhtml?faces-redirect=true" icon="fa fa-backward" class="ui-button-info"/> 
+        </div>
+    </ui:define>
+</ui:composition>

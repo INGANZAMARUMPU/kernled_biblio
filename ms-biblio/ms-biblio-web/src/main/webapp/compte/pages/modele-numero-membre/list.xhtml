@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/core/templates/#{configBean.theme}/layout-list.xhtml">
+
+    <ui:param name="crudBean" value="#{modeleNumeroMembreBean}"/>
+
+    <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
+        <li>#{msga['biblio.pages.modele-numero-membre']}</li>
+    </ui:define>
+
+    <ui:define name="title">
+        #{msga['biblio.pages.modele-numero-membre.title']}
+    </ui:define>
+
+    <ui:define name="description">
+        <h:outputText value="#{msga['biblio.pages.modele-numero-membre.description']}"/>
+    </ui:define>
+
+    <ui:define name="columns">
+        <p:column headerText="Format Complet" sortBy="#{item.format}" filterBy="#{item.modele}" filterMatchMode="contains">
+            <h:outputText value="#{item.modele}"/>
+        </p:column>
+        <p:column headerText="Entité" sortBy="#{item.kEntity.label}" filterBy="#{item.kEntity.label}" filterMatchMode="contains">
+            <h:outputText value="#{item.entity.label}"/>
+        </p:column>
+    </ui:define>
+
+    <ui:define name="actions">
+        <p:button title="#{msg['core.components.datatable.operations.edit']}"
+                  includeViewParams="true" rendered="#{cc.attrs.crudBean.canUpdate()}"
+                  icon="fa fa-edit" class="ui-button-info" outcome="edit">
+            <f:param name="entityId" value="#{cc.attrs.crudBean.getId(item)}"/>
+        </p:button>
+        <p:commandButton title="#{msg['core.components.datatable.operations.delete']}"
+                         rendered="#{cc.attrs.crudBean.canDelete()}"
+                         action="#{cc.attrs.crudBean.delete(item)}"
+                         icon="fa fa-trash" class="ui-button-danger">
+            <p:confirm header="Confirmation" icon="ui-icon-alert" 
+                       message="#{msg['core.components.datatable.operations.delete.confirmmessage']}"/>
+        </p:commandButton>
+    </ui:define>
+
+</ui:composition>

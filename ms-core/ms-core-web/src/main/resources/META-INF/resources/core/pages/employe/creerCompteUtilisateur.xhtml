@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/core/templates/#{configBean.theme}/layout-edit.xhtml">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam  name="employeId" value="#{compteUtilisateurBean.employeId}" />
+            <f:viewParam  name="entityId" value="#{compteUtilisateurBean.entityId}" />
+            <f:viewAction action="#{compteUtilisateurBean.initEntity()}"/>
+        </f:metadata>
+    </ui:define>
+    <ui:param name="crudBean" value="#{compteUtilisateurBean}"/>
+    <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
+        <li>#{msge['core.pages.employe-compte-utilisateur']}</li>
+    </ui:define>
+    <ui:define name="title">
+        #{msge['core.pages.employe-compte-utilisateur.creation']}
+    </ui:define>
+    <ui:define name="description">
+        <h:outputText value="#{msge['core.pages.employe-compte-utilisateur.creation']}"/>
+    </ui:define>
+    <ui:define name="fields">
+        <p:fieldset id="compteUser">
+            <h:panelGrid id="create">
+                <h:panelGroup>
+                    <div class="grid">
+                        <div class="col-6">
+                            <p:panel >
+                                <f:facet name="header">
+                                    <h:outputText value="#{msge['core.pages.employe.fields.info-personnel']}" />
+                                </f:facet>
+                                <ui:include src="employeInfo.xhtml"/>
+                            </p:panel>
+                        </div>
+                        <div class="col-6">
+                            <p:panel>
+                                <f:facet name="header">
+                                    <h:outputText  value="#{msge['core.pages.employe-compte-utilisateur.creation']}" />
+                                </f:facet>
+                                <ui:include src="creerCompteUtilisateurFields.xhtml"/>
+                            </p:panel>
+                        </div>
+                    </div>
+                </h:panelGroup>
+            </h:panelGrid>
+        </p:fieldset>
+    </ui:define>
+</ui:composition>
+

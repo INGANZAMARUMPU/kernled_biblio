@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/core/templates/#{configBean.theme}/layout-list.xhtml">
+
+    <ui:param name="crudBean" value="#{entiteSettingBean}"/>
+
+    <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
+        <li>#{msge['core.breadcrumb.entity']}</li>
+    </ui:define>
+
+    <ui:define name="title">
+        #{msge['core.pages.entite-setting.parametrage-journee.list']}
+    </ui:define>
+
+    <ui:define name="description">
+        #{msge['core.pages.entite-setting.parametrage-journeee.list.description']}
+    </ui:define>
+    <ui:define name="content">
+        <h:form id="entiteSetting">
+            <p:toolbarGroup>
+                <p:linkButton rendered="#{crudBean.canAdd()}" value="#{msg['core.layout.list.new']}" icon="pi pi-plus-circle"
+                              class="ui-button-default" outcome="edit?faces-redirect=true"/>
+                <ui:insert name="buttons-plus"/>
+            </p:toolbarGroup>
+
+            <div class="ui-g-12 col-12">
+                <div class="card grid">
+                    <div class="ui-g-12 col-12">
+
+                        <p:dataTable emptyMessage="#{msge['core.pages.entite-setting.list.entite-default-settings']}" var="item" 
+                                     rendered="#{!entiteSettingBean.entityDefaultSettings}" value="#{entiteSettingBean.settingList}"
+                                     paginator="true" rows="20" styleClass="es"  rowKey="#{item.id}">
+                            <p:column headerText="#{msge['core.pages.entite-setting.list.entite-setting.local-language']}" filterBy="#{item.localeLabel}"
+                                      filterMatchMode="contains">
+                                <h:outputText value="#{item.localeLabel}"/>
+                            </p:column>
+                            <p:column headerText="#{msge['core.pages.entite-setting.list.entite-setting.time-zone']}" filterBy="#{item.timezone}" 
+                                      filterMatchMode="contains">
+                                <h:outputText value="#{item.timezone}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:dataTable id="table" emptyMessage="#{msge['core.pages.entite-setting.list.entite-default-settings']}"
+                                     value="#{entiteSettingBean.entiteSettingsList}" var="item" rendered="#{entiteSettingBean.entityDefaultSettings}">
+                            <p:column headerText="#{msge['core.pages.entite-setting.list.entite-setting.entite']}" filterBy="#{item.entity.entity}"
+                                      filterMatchMode="contains">
+                                <h:outputText value="#{item.entity.label}"/>
+                            </p:column>
+                            <p:column headerText="#{msge['core.pages.entite-setting.list.entite-setting.Maximum-journee']}" filterBy="#{item.nmbreJrneeMaxOuvertes}" 
+                                      filterMatchMode="contains">
+                                <h:outputText value="#{item.nmbreJrneeMaxOuvertes}"/>
+                            </p:column>
+                            <p:column headerText="#{msge['core.pages.entite-setting.list.entite-setting.local-language']}" filterBy="#{item.localeLabel}"
+                                      filterMatchMode="contains">
+                                <h:outputText value="#{item.localeLabel}"/>
+                            </p:column>
+                            <p:column headerText="#{msge['core.pages.entite-setting.list.entite-setting.time-zone']}" filterBy="#{item.timezone}" 
+                                      filterMatchMode="contains">
+                                <h:outputText value="#{item.timezone}"/>
+                            </p:column>
+                            <p:column id="entTable" headerText="#{msge['core.pages.entite-setting.list.parametre-par-defaut']}" filterMatchMode="contains"
+                                      style="text-align: center">
+                                <h:outputText rendered="#{entiteSettingBean.entiteSettingId(item)== true}"
+                                              value="#{msge['core.pages.entite-setting.list.defaul-setting-config']}"/>
+                                <p:commandButton icon="pi pi-check" actionListener="#{entiteSettingBean.setDefaultSettings(item)}" 
+                                                 rendered="#{not entiteSettingBean.entiteSettingId(item)==true}" class="ui-button-info"
+                                                 title="#{msge['core.pages.entite-setting.list.defaul-setting-config-active']}" 
+                                                 styleClass="ui-button-outlined ui-button-info" value="#{msge['core.pages.entite-setting.list.defaul-setting']}"
+                                                 >
+                                    <p:ajax update="@this entTable" process="@this"/>
+                                </p:commandButton>
+                            </p:column>
+                            <p:column headerText="#{msg['core.components.datatable.operations']}" style="text-align: center">
+                                <div class="ui-button-group">
+                                    <p:button title="#{msg['core.components.datatable.operations.edit']}"
+                                              includeViewParams="true" rendered="#{crudBean.canUpdate()}"
+                                              icon="fa fa-edit" class="ui-button-info" outcome="edit">
+                                        <f:param name="entityId" value="#{crudBean.getId(item)}"/>
+                                    </p:button>
+                                    <p:button title="#{msg['core.components.datatable.operations.detail']}" includeViewParams="true"
+                                              rendered="#{crudBean.canAccessDetails()}"
+                                              icon="pi pi-info-circle" class="ui-button-success"
+                                              outcome="details">
+                                        <f:param name="entityId" value="#{crudBean.getId(item)}"/>
+                                    </p:button>
+                                    <p:commandButton title="#{msg['core.components.datatable.operations.delete']}"
+                                                     rendered="#{crudBean.canDelete()}"
+                                                     action="#{crudBean.delete(item)}"
+                                                     icon="fa fa-trash" class="ui-button-danger">
+                                        <p:confirm header="Confirmation" icon="ui-icon-alert" 
+                                                   message="#{msg['core.components.datatable.operations.delete.confirmmessage']}"/>
+                                    </p:commandButton>
+                                </div>
+                            </p:column>
+                        </p:dataTable>
+
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:o="http://omnifaces.org/ui">
+    <body>
+        <div class="grid" >
+            <div class="field col" style="margin-left: 1rem;">
+                <p:outputLabel class="w-full" for="num-membre" value="#{msga['biblio.pages.membre.fields.numero-membre']}"/>
+                <p:outputLabel class="w-full" style="font-weight:bold" id="num-membre" value="#{compteEpargneBean.membre.numeroMembre}"/>     
+                <p:outputLabel  class="w-full"  value="#{msga['biblio.pages.membre.fields.type-groupement']}" rendered="#{compteEpargneBean.membre.isGroupement()}"/>
+                <p:outputLabel class="w-full" style="font-weight:bold"  value="#{compteEpargneBean.membre.typeGroupement.libelle}" rendered="#{compteEpargneBean.membre.isGroupement()}"/>
+                <p:outputLabel class="w-full"  value="#{msga['biblio.pages.membre.fields.raison-sociale']}" />
+                <p:outputLabel class="w-full" style="font-weight:bold"    value="#{compteEpargneBean.membre.raisonSociale}" />
+                <p:outputLabel class="w-full" value="#{msga['biblio.pages.fermeture-de-compte.list.numero-compte']}" />
+                <p:outputLabel style="font-weight:bold" class="w-full text-900"  value="#{compteEpargneBean.recupererNumeroCompte(compteEpargneBean.membre)}" />
+                <p:outputLabel class="w-full"  value="#{msga['biblio.pages.membre.fields.forme-juridique']}" />
+                <p:outputLabel class="w-full" style="font-weight:bold"    value="#{compteEpargneBean.membre.formeJuridique.label}" />
+                <p:outputLabel class="w-full"  for="rccm" value="#{msga['biblio.pages.membre.fields.rccm']}" />
+                <p:outputLabel class="w-full" style="font-weight:bold" id="rccm"  value="#{compteEpargneBean.membre.rccm}" />
+                <p:outputLabel  class="w-full" value="#{msga['biblio.pages.membre.fields.numero-installation']}" />
+                <p:outputLabel class="w-full" style="font-weight:bold"  value="#{compteEpargneBean.membre.numeroInstallation}" />
+            </div>
+            <div class="field col">
+                <p:graphicImage  rendered="#{compteEpargneBean.membre.isEntreprise()}"
+                                 value="/resources/images/avatar/company.png" 
+                                 style="width: 130px;margin-left: -.1rem;"   />
+                <p:graphicImage  rendered="#{compteEpargneBean.membre.isGroupement()}"
+                                 value="/resources/images/avatar/team.png" 
+                                 style="width: 130px;margin-left: -.1rem;"   />
+            </div>
+        </div>
+    </body>
+</ui:composition>

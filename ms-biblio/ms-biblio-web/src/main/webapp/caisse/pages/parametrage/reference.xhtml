@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+                xmlns:p="http://primefaces.org/ui"
+                template="/core/templates/#{configBean.theme}/layout.xhtml">
+    <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
+        <p:menuitem value="Caisse" url="#"/>
+        #{msga['caisse.pages.index.description']}
+    </ui:define>
+
+    <ui:define name="title">
+        #{msga['biblio.breadcrumb.donnees-reference']}
+    </ui:define>
+
+    <ui:define name="description">
+    </ui:define>
+
+    <ui:define name="content">
+        <p:tabView id="params" orientation="right" dynamic="true" cache="true" effect="fold"
+                   class="ui-tabs ui-tabs-nav">
+            <p:tab title="#{msga['biblio.pages.reference.tab-type-guichet.tab-title']}" rendered="#{biblioParametreBean.peutAccederTypeGroupement()}">
+                <ui:include src="tab-type-guichet.xhtml"/>
+            </p:tab>
+            <p:tab title="#{msga['biblio.pages.reference.tab-origine.tab-title']}" rendered="#{biblioParametreBean.peutAccederTypeGroupement()}">
+                <ui:include src="tab-origine.xhtml"/>
+            </p:tab>
+        </p:tabView>
+    </ui:define>
+</ui:composition>

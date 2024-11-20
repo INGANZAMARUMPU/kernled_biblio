@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/core/templates/#{configBean.theme}/layout-details.xhtml">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="entityId" value="#{employeBean.entityId}" />
+            <f:viewAction action="#{employeBean.initEntity()}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:param name="crudBean" value="#{employeBean}"/>
+
+    <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
+        <li>#{msg['core.breadcrumb.entity']}</li>
+    </ui:define>
+
+    <ui:define name="title">
+        #{msge['core.pages.employe.detail.title']}
+    </ui:define>
+
+    <ui:define name="fields">
+        <h:form>
+            <p:tabView>
+                <p:tab title="#{msge['core.pages.employe.fields.info-personnel']}">
+                    <p:panel>
+                        <p:outputPanel>
+                            <div class="grid formgrid mt-4">
+                                <div class="field col-12 md:col-6 lg:col-4">
+                                    <p:outputLabel for="empEntity" value="#{msge['core.pages.employe.fields.entite-affecter']}"/>
+                                    <p:outputLabel id="empEntity" class="w-full text-900 font-bold" value="#{employeBean.entity.entity.label}"/>
+                                </div>
+                                <div class="field col-12 md:col-6 lg:col-4">
+                                    <p:outputLabel for="nom" value="#{msge['core.pages.employe.fields.nom']}"/>
+                                    <p:outputLabel id="nom" class="w-full text-900 font-bold" value="#{employeBean.entity.lastName}"/>
+                                </div>
+                                <div class="field col-12 md:col-6 lg:col-4">
+                                    <p:outputLabel for="prenom" value="#{msge['core.pages.employe.fields.prenom']}"/>
+                                    <p:outputLabel id="prenom" class="w-full text-900 font-bold" value="#{employeBean.entity.firstName}"/>
+                                </div>
+                                <div class="field col-12 md:col-6 lg:col-4">
+                                    <p:outputLabel for="birthDay" value="#{msge['core.pages.employe.fields.birthDay']}"/>
+                                    <p:outputLabel id="birthDay" class="w-full text-900 font-bold" value="#{employeBean.entity.birthDate}" >
+                                       <f:convertDateTime pattern="#{crudBean.userSession.settings.formats.shortDatePattern}" type="localDate"/>
+                                    </p:outputLabel>
+                                </div>
+                                <ui:fragment rendered="#{not empty employeBean.entity.birthPlace}">
+                                    <div class="field col-12 md:col-6 lg:col-4">
+                                        <p:outputLabel for="birthplace" value="#{msg['core.pages.person.fields.birthplace']}"/>
+                                        <p:outputLabel id="birthplace" class="w-full text-900 font-bold" value="#{employeBean.entity.birthPlace}" >
+                                           <f:convertDateTime pattern="#{crudBean.userSession.settings.formats.shortDatePattern}" type="localDate"/>
+                                        </p:outputLabel>
+                                    </div>
+                                </ui:fragment>
+                                <div class="field col-12 md:col-6 lg:col-4">
+                                    <p:outputLabel for="civility" value="#{msg['core.pages.person.fields.civility']}"/>
+                                    <p:outputLabel id="civility" class="w-full text-900 font-bold" value="#{employeBean.entity.civility.label}"/>
+                                </div>
+                                <div class="field col-12 md:col-6 lg:col-4">
+                                    <p:outputLabel for="numero_matricule" value="#{msge['core.pages.employe.fields.numeroMatricule']}"/>
+                                    <p:outputLabel id="numero_matricule" class="w-full text-900 font-bold" value="#{employeBean.entity.numeroMatricule}"/>
+                                </div>
+                                <div class="field col-12 md:col-6 lg:col-4">
+                                    <p:outputLabel for="phone1" value="#{msge['core.pages.employe.fields.telephone1']}"/>
+                                    <p:outputLabel id="phone1" class="w-full text-900 font-bold" value="#{employeBean.entity.telephon1}" />
+                                </div>
+
+                                <ui:fragment rendered="#{not empty employeBean.entity.telephone2}">
+                                    <div class="field col-12 md:col-6 lg:col-4">
+                                        <p:outputLabel for="phone2" value="#{msge['core.pages.employe.fields.telephone2']}"/>
+                                        <p:outputLabel id="phone2" class="w-full text-900 font-bold" value="#{employeBean.entity.telephone2}" />
+                                    </div>
+                                </ui:fragment>
+
+                                <div class="field col-12 md:col-6 lg:col-4">
+                                    <p:outputLabel for="locality" value="#{msg['core.pages.address.fields.locality']}"/>
+                                    <p:outputLabel id="locality" class="w-full text-900 font-bold" value="#{employeBean.entity.address.locality.label}"/>
+                                </div>
+
+                                <ui:fragment rendered="#{not empty personBean.entity.address.street}">
+                                    <div class="field col-12 md:col-6 lg:col-4">
+                                        <p:outputLabel for="street" value="#{msg['core.pages.address.fields.street']}"/>
+                                        <p:outputLabel id="street" class="w-full text-900 font-bold" value="#{employeBean.entity.address.street}"/>
+                                    </div>
+                                </ui:fragment>
+
+                                <ui:fragment rendered="#{not empty employeBean.entity.address.houseNumber}">
+                                    <div class="field col-12 md:col-6 lg:col-4">
+                                        <p:outputLabel for="houseNumber" value="#{msg['core.pages.address.fields.house-number']}"/>
+                                        <p:outputLabel id="houseNumber" class="w-full text-900 font-bold" value="#{employeBean.entity.address.houseNumber}"/>
+                                    </div>
+                                </ui:fragment>
+
+                                <ui:fragment rendered="#{not empty employeBean.entity.address.postalCode}">
+                                    <div class="field col-12 md:col-6 lg:col-4">
+                                        <p:outputLabel for="posteCode" value="#{msg['core.pages.address.fields.postal-code']}"/>
+                                        <p:outputLabel id="posteCode" class="w-full text-900 font-bold" value="#{employeBean.entity.address.postalCode}"/>
+                                    </div>
+                                </ui:fragment>
+                            </div>
+                        </p:outputPanel>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab title="#{msg['core.pages.person.details.user.infos']}" rendered="#{not empty employeBean.entity.user}">
+                    <p:panel>
+                        <p:outputPanel>
+                            <div class="grid formgrid ui-fluid">
+                                <div class="field col-12 md:col-6 lg:col-4">
+                                    <p:outputLabel for="username" value="#{msg['core.pages.user.fields.username']}"/>
+                                    <p:outputLabel id="username" class="w-full text-900 font-bold" value="#{employeBean.entity.user.username}"/>
+                                </div>
+                                <div class="field col-12 md:col-6 lg:col-4">
+                                    <p:outputLabel value="#{msg['core.pages.person.fields.role']}"/>
+                                    <div class="table-responsive">
+                                        <table class="ui-datatable-gridlines ui-datatable-striped ui-datatable-sm">
+                                            <tbody>
+                                                <ui:repeat value="#{employeBean.entity.user.roles}" var="e" varStatus="v">
+                                                    <tr>
+                                                        <td>
+                                                            <i class="fa fa-check-square-o mr-2"/>
+                                                            <p:outputLabel class="w-full text-900 font-bold" value="#{e.label}"/>
+                                                        </td>
+                                                    </tr>
+                                                </ui:repeat>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </p:outputPanel>
+                    </p:panel>
+
+                </p:tab>
+
+            </p:tabView>
+
+        </h:form>
+    </ui:define>
+</ui:composition>
+

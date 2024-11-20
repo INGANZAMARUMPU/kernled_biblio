@@ -1,0 +1,227 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:o="http://omnifaces.org/ui">
+
+    <p:panel id="filset2" class="mb-2" >
+        <p:panel>
+            <div class="grid formgrid">
+                <div class="field col-12 md:col-6 lg:col-4">
+                    <p:outputLabel for="pet" value="#{msga['compte.pages.compte-epargne.fields.type-produit-epargne']}"/>
+                    <p:selectOneMenu class="w-full" id="pet" value="#{produitEpargneBean.produitEpargneClass}"
+                                     converter="omnifaces.SelectItemsConverter" 
+                                     requiredMessage="#{msga['compte.pages.compte-epargne.fields.requiered-message.type-produit-epargne']}">
+                        <f:selectItem itemLabel="-- #{msg['core.page.fields.select.message']} --" noSelectionOption="true"/>
+                        <f:selectItems value="#{produitEpargneBean.produitEpargnes}" var="p" itemValue="#{p}" />
+                        <p:ajax listener="#{produitEpargneBean.onProduitEpargneChange()}" update="fildset1 critere filset2 @form" process="@this"/>
+                    </p:selectOneMenu>
+                </div>
+            </div>
+        </p:panel><br/>
+        <p:panel id="fildset1" header="#{msga['compte.pages.compte-epargne.edit.title']}" rendered="#{produitEpargneBean.showForm}">
+            <p:outputPanel >
+                <div class="grid formgrid mt-4">
+                    <div class="field col-12 md:col-6 lg:col-4">
+                        <p:outputLabel for="peEntity" value="#{msge['core.pages.employe.fields.entite-affecter']}"/>
+                        <k:entitySelectOneMenu id="peEntity" value="#{produitEpargneBean.entite}" 
+                                               requiredMessage="#{msga['compte.pages.compte-epargne.fields.requiered-message.entite']}">
+
+                        </k:entitySelectOneMenu>
+                    </div>
+                    <div class="field col-12 md:col-6 lg:col-4">
+                        <p:outputLabel for="code" value="#{msga['compte.pages.compte-epargne.fields.codeIG']}"/>
+                        <p:inputText id="code" class="w-full" required="true" value="#{produitEpargneBean.entity.code}" maxlength="5"
+                                     requiredMessage="#{['compte.pages.compte-epargne.fields.requiered-message.code']}"/>
+                    </div>
+                    <div class="field col-12 md:col-6 lg:col-4">
+                        <p:outputLabel for="libelle" value="#{msga['compte.pages.compte-epargne.fields.libelle']}"/>
+                        <p:inputText id="libelle" class="w-full" required="true" value="#{produitEpargneBean.entity.libelle}"
+                                     requiredMessage="#{msga['compte.pages.compte-epargne.fields.requiered-message.libelle']}"/>
+                    </div>
+                    <div class="field col-12 md:col-6 lg:col-4">
+                        <p:outputLabel for="soldeMinimum" value="#{msga['compte.pages.compte-epargne.fields.solde-min']}"/>
+                        <p:inputText id="soldeMinimum" class="w-full" required="true" value="#{produitEpargneBean.entity.minimumOuverture}"
+                                     requiredMessage="#{msga['compte.pages.compte-epargne.fields.requiered-message.minimumOuverture']}"/>
+                    </div>
+                    <div class="field col-12 md:col-6 lg:col-4">
+                        <p:outputLabel for="maxRetraitParJr" value="#{msga['compte.pages.compte-epargne.fields.max-retrait-par-jr']}"/>
+                        <p:spinner id="maxRetraitParJr" class="w-full" required="true" value="#{produitEpargneBean.entity.montantMaximum}" min="0" max="100" stepFactor="1"/>
+                    </div>
+                </div>
+                <div class="grid formgrid mt-4">
+                    <div class="col-12 md:col-6 lg:col-3">
+                        <p:outputLabel class="mt-4" value="#{msga['compte.pages.compte-epargne.fields.nantissement']}"/>
+                        <br/><p:spacer height="30"/>
+                        <p:toggleSwitch value="#{produitEpargneBean.entity.nantissement}" onIcon="pi pi-check" offIcon="pi pi-times"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3">
+                        <p:outputLabel value="#{msga['compte.pages.compte-epargne.fields.actif']}"/>
+                        <br/><p:spacer height="30"/>
+                        <p:toggleSwitch value="#{produitEpargneBean.entity.actif}" onIcon="pi pi-check" offIcon="pi pi-times"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3">
+                        <p:outputLabel value="#{msga['compte.pages.compte-epargne.fields.solde-negatif']}"/>
+                        <br/><p:spacer height="30"/>
+                        <p:toggleSwitch value="#{produitEpargneBean.entity.soldeNegatif}" onIcon="pi pi-check" offIcon="pi pi-times"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3">
+                        <p:outputLabel value="#{msga['compte.pages.compte-epargne.fields.operation-sur-compte']}"/>
+                        <br/><p:spacer height="30"/>
+                        <p:toggleSwitch value="#{produitEpargneBean.entity.opererSurCompte}" onIcon="pi pi-check" offIcon="pi pi-times"/>
+                    </div>
+                </div>
+                <div class="grid formgrid mt-4">
+                    <div class="col-12 md:col-6 lg:col-3">
+                        <p:outputLabel value="#{msga['compte.pages.compte-epargne.fields.tenue-de-compte']}"/>
+                        <br/><p:spacer height="30"/>
+                        <p:toggleSwitch value="#{produitEpargneBean.entity.tenueDeCompte}" onIcon="pi pi-check" offIcon="pi pi-times"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3">
+                        <p:outputLabel value="#{msga['compte.pages.compte-epargne.fields.caution']}"/>
+                        <br/><p:spacer height="30"/>
+                        <p:toggleSwitch value="#{produitEpargneBean.entity.caution}" onIcon="pi pi-check" offIcon="pi pi-times"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3">
+                        <p:outputLabel value="#{msga['compte.pages.compte-epargne.fields.calculer-interet']}"/>
+                        <br/><p:spacer height="30"/>
+                        <p:toggleSwitch value="#{produitEpargneBean.entity.calculerInteret}" onIcon="pi pi-check" offIcon="pi pi-times"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3">
+                        <p:outputLabel value="#{msga['compte.pages.compte-epargne.fields.afficher-sur-mobile-client']}"/>
+                        <br/><p:spacer height="30"/>
+                        <p:toggleSwitch value="#{produitEpargneBean.entity.afficherSurMobileClient}" onIcon="pi pi-check" offIcon="pi pi-times"/>
+                    </div>
+                </div>
+                <div class="grid formgrid mt-4">
+                    <div class=" col-12 md:col-6 lg:col-3">
+                        <p:outputLabel value="#{msga['compte.pages.compte-epargne.fields.afficher-a-lbiblio']}"/>
+                        <br/><p:spacer height="30"/>
+                        <p:toggleSwitch value="#{produitEpargneBean.entity.afficherBiblio}" onIcon="pi pi-check" offIcon="pi pi-times"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3">
+                        <p:outputLabel value="#{msga['compte.pages.compte-epargne.fields.depot-de-cheque']}"/>
+                        <br/><p:spacer height="30"/>
+                        <p:toggleSwitch value="#{produitEpargneBean.entity.depotCheque}" onIcon="pi pi-check" offIcon="pi pi-times"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3">
+                        <p:outputLabel value="#{msga['compte.pages.compte-epargne.fields.virement-prelevement']}"/>
+                        <br/><p:spacer height="30"/>
+                        <p:toggleSwitch value="#{produitEpargneBean.entity.virementPrelevement}" onIcon="pi pi-check" offIcon="pi pi-times"/>
+                    </div>
+
+                    <div class="col-12 md:col-6 lg:col-3">
+                        <p:outputLabel value="#{msga['compte.pages.compte-epargne.fields.repartition-groupe-obligatoir']}"/>
+                        <br/><p:spacer height="30"/>
+                        <p:toggleSwitch value="#{produitEpargneBean.entity.detailGroupeObligatoire}" onIcon="pi pi-check" offIcon="pi pi-times"/>
+                        <br/>
+                    </div> 
+                </div>
+            </p:outputPanel>
+        </p:panel><br/>
+        <p:panel id="critere" header="#{msga['compte.pages.compte-epargne.field.fieldset.title']}" rendered="#{produitEpargneBean.showParameters}">
+            <ui:fragment>
+                <div class="grid formgrid">
+                    <div class="field col-12 md:col-6 lg:col-4">
+                        <p:outputLabel for="critereProduitEpargne" value="#{msga['compte.pages.compte-epargne.field.fieldset.critere']}"/>
+                        <p:selectOneMenu class="w-full" id="critereProduitEpargne" value="#{produitEpargneBean.critereProduitsEpargneClass}"
+                                         converter="omnifaces.SelectItemsConverter">
+                            <f:selectItem itemLabel="-- #{msg['core.page.fields.select.message']} --" noSelectionOption="true"/>
+                            <f:selectItems value="#{produitEpargneBean.critereProduitEpargnes}" var="cpe" itemValue="#{cpe}" />
+                            <p:ajax listener="#{produitEpargneBean.onCritereProduitEpargneChange}" update="critere" process="@this"/>
+                        </p:selectOneMenu>
+                    </div>
+                </div>
+            </ui:fragment>
+            <div class="grid formgrid ui-fluid">
+                <ui:fragment rendered="#{produitEpargneBean.critereProduitEpargne.trancheDureee}">
+                    <div class="field col-12 md:col-6 lg:col-4">
+                        <p:outputLabel for="duree" value="#{msga['compte.pages.compte-epargne.fields.datatable.duree']}"/>
+                        <p:selectOneMenu class="w-full" id="duree" value="#{produitEpargneBean.critereProduitEpargne.periode}"
+                                         converter="omnifaces.SelectItemsConverter">
+                            <f:selectItem itemLabel="-- #{msg['core.page.fields.select.message']} --" noSelectionOption="true"/>
+                            <f:selectItems value="#{produitEpargneBean.trancheDurees}" var="duree" itemValue="#{duree}" 
+                                           itemLabel="#{duree.grille.libelle}  ( #{duree.debut} - #{duree.fin} mois )" />
+                        </p:selectOneMenu>
+                    </div>
+                </ui:fragment>
+                <ui:fragment rendered="#{produitEpargneBean.critereProduitEpargne.trancheMontant}">
+                    <div class="field col-12 md:col-6 lg:col-4">
+                        <p:outputLabel for="montant" value="#{msga['compte.pages.compte-epargne.fields.datatable.montant']}"/>
+                        <p:selectOneMenu class="w-full" id="montant" value="#{produitEpargneBean.critereProduitEpargne.tranche}"
+                                         converter="omnifaces.SelectItemsConverter">
+                            <f:selectItem itemLabel="-- #{msg['core.page.fields.select.message']} --" noSelectionOption="true"/>
+                            <f:selectItems value="#{produitEpargneBean.trancheMontants}" var="montant" itemValue="#{montant}" 
+                                           itemLabel="#{montant.grille.libelle}  ( #{montant.debut} - #{montant.fin} mois )" />
+                        </p:selectOneMenu>
+                    </div>
+                </ui:fragment>
+                <ui:fragment rendered="#{produitEpargneBean.critereProduitEpargne.sousTypeMembre}">
+                    <div class="field col-12 md:col-6 lg:col-4">
+                        <p:outputLabel for="sousTypeMembre" value="#{msga['compte.pages.compte-epargne.fields.datatable.sous-type-membre']}"/>
+                        <p:selectCheckboxMenu id="sousTypeMembre" value="#{produitEpargneBean.critereProduitEpargne.sousTypeMembres}"
+                                              label="#{msga['compte.pages.compte-epargne.fields.datatable.sous-type-membre']}" 
+                                              filter="true" filterMatchMode="startsWith" panelStyle="width: 20rem" scrollHeight="250" dynamic="true">
+                            <f:selectItems value="#{produitEpargneBean.sousTypeMembres}" var="stm" itemValue="#{stm}" itemLabel="#{stm.libelle}"/>
+                            <p:ajax listener="#{produitEpargneBean.onSousTypeMembre}" update="" process="@this"/>
+                        </p:selectCheckboxMenu>
+                    </div>
+                </ui:fragment>
+                <div class="field col-12 md:col-6 lg:col-4">
+                    <p:outputLabel for="libelleCritere" value="#{msga['compte.pages.compte-epargne.fields.libelle']}" rendered="#{produitEpargneBean.paramSousTypeMembre}"/>
+                    <p:inputText id="libelleCritere" class="w-full" required="true" value="#{produitEpargneBean.libelleCritere}" rendered="#{produitEpargneBean.paramSousTypeMembre}"/>
+                </div>
+                <div class="field col-12 md:col-6 lg:col-2">
+                    <p:outputLabel for="TI" value="#{msga['biblio.pages.part-sociale.fields.taux-interete']}" rendered="#{produitEpargneBean.paramSousTypeMembre}"/>
+                    <p:spinner id="TI" class="w-full" decimalPlaces="2" required="true" value="#{produitEpargneBean.tauxInteret}" min="0" max="100" stepFactor="1"
+                               rendered="#{produitEpargneBean.paramSousTypeMembre}"/>
+                </div>
+                <div class="field col-12 md:col-6 lg:col-1">
+                    <p:outputLabel for="agio" value="#{msga['biblio.pages.part-sociale.fields.agios']}"  
+                                   rendered="#{produitEpargneBean.paramSousTypeMembre}"/>
+                    <p:spinner id="agio" class="w-full" decimalPlaces="2" required="true" value="#{produitEpargneBean.agio}" 
+                               min="0" max="100" stepFactor="1" rendered="#{produitEpargneBean.paramSousTypeMembre}"/>
+                </div>
+                <div class="field col md:col-1 lg:col-1">
+                    <p:commandButton id="ajouter" icon="fa fa-plus" value="#{msga['biblio.pages.membre.fields.ajouter']}" update="critere table"
+                                     rendered="#{produitEpargneBean.showAddButton}" style="margin-top: 23px" action="#{produitEpargneBean.ajouter()}" process="critere"/>
+                </div>
+                <div class="ui-g-12 col-12"><br/>
+                    <p:dataTable id="table" emptyMessage="#{msga['biblio.pages.membre-attribut-param.fields.aucune-donnee']}"
+                                 value="#{produitEpargneBean.entity.critereProduitEpargnes}" var="cpe" rendered="#{produitEpargneBean.showTable}">
+                        <p:column headerText="#{msga['compte.pages.compte-epargne.detail.criteres']}">
+                            <h:outputText value="#{cpe.libelle}"/>
+                        </p:column>
+                        <p:column style="text-align: left" headerText="#{msga['biblio.pages.etat-membre.fields.valeur']}">
+                            <h:outputText value="#{cpe.periode.grille.libelle}" rendered="#{cpe.trancheDureee}"/>
+                            <h:outputText value="#{cpe.tranche.grille.libelle}"  rendered="#{cpe.trancheMontant}"/>
+                            <p:dataTable value="#{cpe.sousTypeMembres}" var="ss" rendered="#{cpe.sousTypeMembre}">
+                                <p:column>
+                                    <h:outputText value="#{ss.libelle}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:column>
+                        <p:column headerText="#{msga['biblio.pages.part-sociale.fields.agios']}">
+                            <h:outputText style="float: right;" value="#{cpe.agios}" >
+                                <f:convertNumber maxFractionDigits = "3"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{msga['biblio.pages.part-sociale.fields.taux-interete']}">
+                            <h:outputText style="float: right;"  value="#{cpe.tauxInteret}">
+                                <f:convertNumber maxFractionDigits = "3"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{msga['core.components.datatable.operations']}">
+                            <p:commandButton icon="fa fa-trash" class="ui-button-danger" action="#{produitEpargneBean.supprimerCritere(cpe)}"
+                                             update="table @form" process="@this"/>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </div>
+        </p:panel>
+    </p:panel>
+</ui:composition>
+

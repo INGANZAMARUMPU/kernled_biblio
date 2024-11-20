@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             xmlns:p="http://primefaces.org/ui"
+             template="/core/templates/#{configBean.theme}/deco-crud.xhtml"
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
+             xmlns:o="http://omnifaces.org/ui">
+    <ui:param name="bean" value="#{periodeBean}"/>
+    <ui:define name="deco-title">
+        #{msga['biblio.pages.parametrage-periode.list.description']}
+    </ui:define>
+    <ui:define name="fields">
+        <div class="grid formgrid">
+            <div class="field col-12 md:col-6 lg:col-6">
+                <p:outputLabel for="unite" value="#{msga['compte.pages.periodicite.fields.periode']}"/>
+                <p:inputText id="unite" required="true" class="w-full"
+                             requiredMessage="#{msga['compte.pages.periodicite.fields.periode.required']}"
+                             placeholder="#{msga['compte.pages.periodicite.fields.periode']}" 
+                             value="#{periodeBean.entity.unite}"/>
+            </div>
+        </div>
+    </ui:define>
+    <ui:define name="columns">
+        <p:column headerText="#{msga['compte.pages.periodicite.fields.periode']}">
+            <h:outputText value="#{item.unite}"/>
+        </p:column>
+    </ui:define>
+</ui:decorate>

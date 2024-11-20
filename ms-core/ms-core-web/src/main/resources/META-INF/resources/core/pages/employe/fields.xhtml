@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+    <div class="grid ui-fluid">
+        <div class="field col-12 md:col-6 lg:col-4">
+            <p:outputLabel for="empEntity" value="#{msge['core.pages.employe.fields.entite-affecter']}"/>
+            <k:entitySelectOneMenu id="empEntity" value="#{employeBean.entity.entity}"
+                                   requiredMessage="#{msgc['compta.pages.journee-comptable.edit.entite-requiered-message']}">
+            </k:entitySelectOneMenu>
+        </div>
+        <div class="field col-12 md:col-6 lg:col-4">
+            <p:outputLabel for="nom" value="#{msge['core.pages.employe.fields.nom']}"/>
+            <p:inputText id="nom" class="w-full" required="true" value="#{employeBean.entity.lastName}"
+                         requiredMessage="#{msge['core.pages.employe.fields.requiered-message.nom']}">
+                <p:ajax event="change" update="@this username" process="@this prenom" 
+                        listener="#{employeBean.userLabelFields()}"/>
+            </p:inputText>
+        </div>
+        <div class="field col-12 md:col-6 lg:col-4">
+            <p:outputLabel for="prenom" value="#{msge['core.pages.employe.fields.prenom']}"/>
+            <p:inputText id="prenom" class="w-full" required="true" value="#{employeBean.entity.firstName}"
+                         requiredMessage="#{msge['core.pages.employe.fields.requiered-message.prenom']}">
+                <p:ajax event="change" update="@this username" process="@this nom" 
+                        listener="#{employeBean.userLabelFields()}"/>
+            </p:inputText>
+        </div>
+        <div class="field col-12 md:col-6 lg:col-4">
+            <p:outputLabel for="birthDay" value="#{msge['core.pages.employe.fields.birthDay']}"/>
+            <div >
+                <p:calendar class="w-full" id="birthDay" required="true" value="#{employeBean.entity.birthDate}" 
+                            pattern="#{crudBean.userSession.settings.formats.shortDatePattern}" inputStyleClass="form-control" mindate="01/01/1923" navigator="true"
+                            requiredMessage="#{msge['core.pages.employe.fields.requiered-message.naissance']}"/>
+            </div>
+        </div>
+        <div class="field col-12 md:col-6 lg:col-4">
+            <p:outputLabel for="numero_matricule" value="#{msge['core.pages.employe.fields.numeroMatricule']}"/>
+            <p:inputText id="numero_matricule" class="w-full" required="true" value="#{employeBean.entity.numeroMatricule}"
+                         maxlength="10" requiredMessage="#{msge['core.pages.employe.fields.requiered-message.matricule']}">
+            </p:inputText>
+        </div>
+        <div class="field col-12 md:col-6 lg:col-4">
+            <p:outputLabel for="date_embauche" value="#{msge['core.pages.employe.fields.dateEmbauche']}"/>
+            <div >
+                <p:calendar class="w-full" id="date_embauche" required="true" value="#{employeBean.entity.dateEmbauche}" 
+                            pattern="#{crudBean.userSession.settings.formats.shortDatePattern}" inputStyleClass="form-control" mindate="01/01/1923" navigator="true"
+                            requiredMessage="#{msge['core.pages.employe.fields.requiered-message.date-embauche']}"/>
+            </div>
+        </div>
+        <div class="field col-12 md:col-6 lg:col-4">
+            <p:outputLabel for="phone1" value="#{msge['core.pages.employe.fields.telephone1']}"/>
+            <div class="ui-inputgroup">
+                <p:selectOneMenu class="ui-inputgroup-addon" id="phone1" value="#{employeBean.indicatif1}" 
+                                 style="width:95px; height: 35px;" converter="omnifaces.SelectItemsConverter"
+                                 requiredMessage="#{msge['core.pages.employe.fields.requiered-message.telephone1']}">
+                    <f:selectItems value="#{employeBean.countries}" var="item" itemLabel="#{item.phoneCode}" itemValue="#{item.phoneCode}" /> 
+                </p:selectOneMenu>
+                <p:inputText class="w-full" required="true" value="#{employeBean.te11}" 
+                             maxlength="25"
+                             requiredMessage="#{msge['core.pages.employe.fields.requiered-message.telephone1']}"/>
+            </div>
+        </div>
+        <div class="field col-12 md:col-6 lg:col-4">
+            <p:outputLabel for="phone2" value="#{msge['core.pages.employe.fields.telephone2']}"/>
+            <div class="ui-inputgroup">
+                <p:selectOneMenu class="ui-inputgroup-addon" id="phone2" value="#{employeBean.indicatif2}" 
+                                 style="width:95px; height: 35px;" converter="omnifaces.SelectItemsConverter"
+                                 requiredMessage="#{msge['core.pages.employe.fields.requiered-message.indicatif2']}">
+                    <f:selectItems value="#{employeBean.countries}" var="item" itemLabel="#{item.phoneCode}" itemValue="#{item.phoneCode}" /> 
+                </p:selectOneMenu>
+                <p:inputText class="w-full" value="#{employeBean.tel2}" required="false"
+                             maxlength="25"
+                             requiredMessage="#{msge['core.pages.employe.fields.requiered-message.indicatif2']}"/>
+            </div>
+        </div>
+        <div class="field col-12 md:col-6 lg:col-4">
+            <p:outputLabel for="civility" value="#{msg['core.pages.person.fields.civility']}"/>
+            <div class="ui-inputgroup">
+                <p:selectOneMenu required="true" requiredMessage="#{msg['core.pages.person.fields.civility.requiredMessage']}"
+                    class="w-full ui-inputgroup-addon" id="civility" value="#{employeBean.entity.civility}"
+                                 style="width:95px; height: 35px;" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemLabel="-- #{msg['core.page.fields.select.message']} --" />
+                    <f:selectItems value="#{employeBean.civilites}" var="item" itemLabel="#{item.label}" itemValue="#{item}" /> 
+                </p:selectOneMenu>
+            </div>
+        </div>
+    </div> 
+
+</ui:composition>

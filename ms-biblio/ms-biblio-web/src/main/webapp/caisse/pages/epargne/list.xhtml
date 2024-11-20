@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/core/templates/#{configBean.theme}/layout-list.xhtml">
+    <ui:param name="crudBean" value="#{epargneBean}"/>
+
+    <ui:define name="breadcrumb">
+        <li><i class="pi pi-angle-right"/></li>
+        <li>#{msga['caisse.pages.index.description']}</li>
+    </ui:define>
+    
+    <ui:define name="title">
+        <h:outputText value="#{msg['core.pages.user.edit.title']}"/>
+    </ui:define>
+    <ui:define name="title">
+        #{msga['caisse.pages.epargne.description']}
+    </ui:define>
+
+    <ui:define name="description">
+        <h:outputText value="#{msg['core.pages.user.edit.description']}"/>
+    </ui:define>
+    <ui:define name="content">
+
+        <h:form id="compte">
+            <p:toolbarGroup>
+                <p:linkButton rendered="#{crudBean.canDeposit()}"
+                               style="margin-left: 10px;" value="#{msga['biblio.pages.membre.fields.depot']}" 
+                               icon="fa fa-money" class="ui-button-info" outcome="depotOperation?faces-redirect=true"/>
+                <p:linkButton rendered="#{crudBean.canWithdrawal()}"
+                               style="margin-left: 10px;" value="#{msga['biblio.pages.membre.fields.retrait']}" 
+                               icon="fa fa-money" class="ui-button-danger" outcome="retraitOperation?faces-redirect=true"/>
+            </p:toolbarGroup>
+            <div class="field col md:col-4 lg:col-4 col-4" style="margin-top: 1rem;">
+                <p:outputLabel value="#{msga['biblio.pages.organisation.fields.entite']}" rendered="#{not empty epargneBean.agences}"/>
+                <k:entitySelectOneMenu required="false" id="agence" value="#{epargneBean.agence}">
+                    <p:ajax update="@(.cp)" event="change"/>
+                </k:entitySelectOneMenu>
+            </div>
+            <div class="ui-g grid">
+                <div class="ui-g-12 col-12">
+                    <div class="card grid">
+                        <div class="ui-g-12 col-12">
+                            <p:dataTable id="cp" var="item" value="#{epargneBean.model}" rowKey="#{item.id}" selection="#{epargneBean.selected}"
+                                         paginator="true" rows="20" styleClass="cp">
+                                <p:column headerText="#{msga['compte.pages.certificat.fields.date-operation']}"
+                                        sortBy="#{item.dateOperation}" filterBy="#{item.dateOperation}" filterMatchMode="contains">  
+                                  <h:outputText value="#{item.dateOperation}">
+                                      <f:convertDateTime type="localDate" pattern="#{crudBean.userSession.settings.formats.shortDatePattern}" />
+                                  </h:outputText>
+                                </p:column>
+                                <p:column headerText="#{msga['caisse.pages.epargne.fields.date-valeur']}"
+                                        sortBy="#{item.dateValeur}" filterBy="#{item.dateValeur}" filterMatchMode="contains">  
+                                  <h:outputText value="#{item.dateValeur}">
+                                      <f:convertDateTime type="localDate" pattern="#{crudBean.userSession.settings.formats.shortDatePattern}" />
+                                  </h:outputText>
+                                </p:column>
+                                <p:column headerText="#{msga['caisse.pages.epargne.fields.montant-credit']}"
+                                        sortBy="#{item.montantCredit}" filterBy="#{item.montantCredit}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{item.montantCredit}" style="float: right;"/>
+                                </p:column>
+                                <p:column headerText="#{msga['caisse.pages.epargne.fields.montant-debit']}"
+                                   sortBy="#{item.montantDebit}" filterBy="#{item.montantDebit}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{item.montantDebit}" style="float: right;"/>
+                                </p:column>
+                                <p:column headerText="#{msga['biblio.pages.reference.origine.title']}"
+                                        sortBy="#{item.origine.libelle}" filterBy="#{item.origine.libelle}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{item.origine.libelle}" />
+                                </p:column>
+                                <p:column headerText="#{msga['caisse.pages.index.guichet.title']}"
+                                        sortBy="#{item.guichet.libelle}" filterBy="#{item.guichet.libelle}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{item.guichet.libelle}" />
+                                </p:column>
+                                <p:column headerText="#{msga['caisse.pages.epargne.fields.entite']}"
+                                        sortBy="#{item.agence.denomination}" filterBy="#{item.agence.denomination}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{item.agence.denomination}" />
+                                </p:column>
+                                <p:column headerText="#{msg['core.components.datatable.operations']}">
+                                    <div class="ui-button-group">
+                                        <p:button title="#{msg['core.components.datatable.operations.edit']}"
+                                                  includeViewParams="true" rendered="#{epargneBean.canUpdate()}"
+                                                  icon="fa fa-edit" class="ui-button-info" outcome="edit">
+                                            <f:param name="entityId" value="#{epargneBean.getId(item)}"/>
+                                        </p:button>
+                                        <p:spacer width="3"/>
+                                        <p:button title="#{msga['biblio.pages.membre.fields.details']}"
+                                                  includeViewParams="true"
+                                                  icon="fa fa-eye" class="ui-button-success" outcome="details">
+                                            <f:param name="entityId" value="#{epargneBean.getId(item)}"/>
+                                        </p:button>
+                                        <p:spacer width="3"/>
+                                    </div>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>
+
+
+
+
+
+
+

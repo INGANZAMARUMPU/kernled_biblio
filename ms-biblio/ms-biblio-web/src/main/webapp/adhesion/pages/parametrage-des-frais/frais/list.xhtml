@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/core/templates/#{configBean.theme}/layout-list.xhtml">
+    <ui:param name="crudBean" value="#{critereFraisBean}"/>
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewAction action="#{critereFraisBean.listeFrais()}"/>
+        </f:metadata>
+    </ui:define>
+    <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
+        <li>#{msga['biblio.breadcrumb.biblio']}</li>
+    </ui:define>
+
+    <ui:define name="title">
+        #{msga['biblio.pages.fais.bouton.frais.list']}
+    </ui:define>
+    <ui:define name="content">
+        <h:form id="form">
+            <div class="ui-g grid">
+                <div class="ui-g-12 col-12">
+                    <div class="card grid">
+                        <div class="ui-g-12 col-12">
+                            <p:dataTable id="table"
+                                         var="item" value="#{crudBean.frais}" rowKey="#{item.id}"
+                                         selectionMode="single">
+                                <p:column headerText="#{msga['biblio.pages.organisation.fields.entite']}"
+                                          sortBy="#{item.entity.label}" filterBy="#{item.entity.label}" filterMatchMode="contains">
+                                    <h:outputText value="#{item.entity.label}"/>
+                                </p:column>
+                                <p:column headerText="#{msga['biblio.pages.parametrage.tab-type-frais.libelle']}"
+                                          sortBy="#{item.libelle}" filterBy="#{item.libelle}" filterMatchMode="contains">
+                                    <h:outputText value="#{item.libelle}"/>
+                                </p:column>
+                                <p:column headerText="#{msga['biblio.pages.parametrage-frais.list.montant']}"
+                                          sortBy="#{item.montant}" filterBy="#{item.montant}" filterMatchMode="contains">
+                                    <h:outputText value="#{item.montant}" style="float: right;"/>
+                                </p:column>
+                                <p:column headerText="#{msga['biblio.pages.parametrage-frais.list.priorite']}"
+                                          sortBy="#{item.priorite}" filterBy="#{item.priorite}" filterMatchMode="contains">
+                                    <h:outputText value="#{item.priorite}" style="float: right;"/>
+                                </p:column>
+                                <p:column headerText="#{msga['biblio.pages.parametrage-frais.list.typeFrais']}"
+                                          sortBy="#{item.typeFrais.libelle}" filterBy="#{item.typeFrais.libelle}" filterMatchMode="contains">
+                                    <h:outputText value="#{item.typeFrais.libelle}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+        <div class="card">
+            <p:button value="#{msga['biblio.pages.membre.fields.retour']}" 
+                      outcome="/biblio/pages/parametrage-des-frais/list.xhtml?faces-redirect=true" icon="fa fa-backward" class="ui-button-info"/> 
+        </div>
+    </ui:define>
+</ui:composition>

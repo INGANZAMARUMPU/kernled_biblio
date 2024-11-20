@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" 
+                xmlns:p="http://primefaces.org/ui"
+                template="/core/templates/#{configBean.theme}/layout-edit.xhtml">
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="entityId" value="#{ordreVirementAttenteBean.entityId}" />
+            <f:viewAction action="#{ordreVirementAttenteBean.initEntity()}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:param name="crudBean" value="#{ordreVirementAttenteBean}"/>
+
+    <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
+        <li>#{msga['compte.pages.index.description']}</li>
+    </ui:define>
+    <ui:define name="title">
+        <h:outputText value="#{msga['compte.pages.ordre-virement-attente.edit.title']}"/>
+    </ui:define>
+
+    <ui:define name="description">
+        <h:outputText value="#{msga['compte.pages.ordre-virement-attente.edit.title']}"/>
+    </ui:define>
+
+    <ui:define name="fields">
+        <ui:include src="fields.xhtml"/>
+    </ui:define>
+    <ui:define name="form-actions">
+        <p:commandButton value="#{msg['core.layout.edit.save-add']}" icon="fa fa-save"
+                         class="ui-button-primary"
+                         actionListener="#{crudBean.beforeAdd()}"
+                         action="#{crudBean.add()}" ajax="false" />
+        <p:spacer width="5"/>
+        <p:commandButton value="#{msga['compte.operation.edit.save-add']}" icon="fa fa-check"
+                         class="ui-button-success"
+                         action="#{crudBean.valider()}" ajax="false" />
+        <p:spacer width="5"/>
+        <p:commandButton value="#{msg['core.layout.edit.cancel']}" icon="fa fa-remove"
+                         immediate="true" class="ui-button-warning"
+                         actionListener="#{crudBean.beforeDelete()}"
+                         action="#{crudBean.cancel()}" ajax="false" />
+    </ui:define>
+</ui:composition>
+

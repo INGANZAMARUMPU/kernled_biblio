@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             xmlns:p="http://primefaces.org/ui"
+             template="/core/templates/#{configBean.theme}/deco-crud.xhtml">
+
+    <ui:define name="title">
+        #{msge['core.pages.donnees-reference.tab-forme-juridique']}
+    </ui:define>
+
+    <ui:param name="bean" value="#{statutLegalBean}"/>
+
+    <ui:define name="deco-title">
+        #{msge['core.pages.donnees-reference.tab-forme-juridique']}
+    </ui:define>
+
+    <ui:define name="fields">
+        <div class="grid formgrid">
+            <div class="field col-12 md:col-8">
+                <p:outputLabel for="code" value="#{msge['core.pages.entity.fields.entity-type.code']}"/>
+                <p:inputText id="code" required="true" class="w-full"  
+                             placeholder="#{msge['core.pages.donnees-reference.tab-forme-juridique.code.placeholder']}" 
+                             label="#{msge['core.pages.entity.fields.entity-type.code']}"
+                             value="#{statutLegalBean.entity.code}"/>
+            </div>
+            <div class="field col-12 md:col-8">
+                <p:outputLabel for="libelle" value="#{msge['core.pages.locality.fields.locality-label']}"/>
+                <p:inputText id="libelle" required="true" class="w-full"  
+                             placeholder="#{msge['core.pages.donnees-reference.tab-forme-juridique.libelle.placeholder']}" 
+                             label="#{msge['core.pages.locality.fields.locality-label']}"
+                             value="#{statutLegalBean.entity.libelle}"/>
+            </div>
+        </div>
+    </ui:define>
+
+    <ui:define name="columns">
+        <p:column headerText="#{msge['core.pages.entity.fields.entity-type.code']}" sortBy="#{item.code}">
+            <h:outputText value="#{item.code}"/>
+        </p:column>
+        <p:column headerText="#{msge['core.pages.locality.fields.locality-label']}" sortBy="#{item.libelle}">
+            <h:outputText value="#{item.libelle}"/>
+        </p:column>
+    </ui:define>
+</ui:decorate>

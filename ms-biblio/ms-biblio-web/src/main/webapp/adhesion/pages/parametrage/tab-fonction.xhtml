@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
+             xmlns:p="http://primefaces.org/ui"
+             template="/core/templates/#{configBean.theme}/deco-crud.xhtml"
+             xmlns:f="jakarta.faces.core">
+
+    <ui:param name="bean" value="#{fonctionBean}"/>
+
+    <ui:define name="deco-title">
+        #{msga['core.pages.fonction.list.title']}
+    </ui:define>
+
+    <ui:define name="fields">
+        <div class="grid formgrid">
+            <div class="field col-12 md:col-12 lg:col-12">
+                <p:outputLabel for="label" value="#{msga['core.pages.fonction.list.label']}"/>
+                <p:inputText id="label" required="true" class="w-full"
+                             requiredMessage="#{msga['core.pages.fonction.list.label.requiredMessage']}"
+                             placeholder="#{msga['core.pages.fonction.list.label']}"
+                             label="#{msga['core.pages.fonction.list.label']}" value="#{fonctionBean.entity.label}"/>
+            </div>
+        </div>
+    </ui:define>
+
+    <ui:define name="columns">
+        <p:column headerText="#{msga['core.pages.fonction.list.label']}" sortBy="#{item.label}">
+            <h:outputText value="#{item.label}"/>
+        </p:column>
+    </ui:define>
+</ui:decorate>

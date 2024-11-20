@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/core/templates/#{configBean.theme}/layout.xhtml"
+>
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:event listener="#{processusBiblioBean.initList()}" type="preRenderView" />
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="breadcrumb">
+        <li><i class="pi pi-angle-right"/></li>
+        <li>#{msga['biblio.pages.index.description']}</li>
+    </ui:define>
+
+    <ui:define name="title">
+        #{msga['biblio.pages.processus-biblio.liste']}
+    </ui:define>
+
+    <ui:define name="content">
+        <style>
+            .ui-filter-column .ui-column-customfilter .custom-filter {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        </style>
+        <div class="card">
+            <h:form id="processus">
+                <p:toolbarGroup>
+                    <p:linkButton rendered="#{processusBiblioBean.canAdd()}" value="#{msg['core.layout.list.new']}" icon="pi pi-plus-circle" 
+                                  class="ui-button-primary mb-2" outcome="edit?faces-redirect=true"/>  
+<!--                    <p:linkButton rendered="# {processusBiblioBean.canHistorize()}"
+                        style="margin-left: 10px;" value="# {msga['biblio.pages.biblio-membre-historisation.list.title']}" 
+                        icon="fa fa-history" class="ui-button-secondary" outcome="/biblio/pages/parametrage-processus-biblio/historisation?faces-redirect=true"/>-->
+                </p:toolbarGroup>
+
+                <div class="field col md:col-6 lg:col-6 col-6" style="margin-top: 1rem;">
+                    <p:outputLabel value="#{msga['biblio.pages.organisation.fields.entite']}" rendered="#{not empty processusBiblioBean.agences}"/>
+                    <k:entitySelectOneMenu required="false" id="agence" value="#{processusBiblioBean.agence}">
+                        <p:ajax update="@(.pr)" event="change"/>
+                    </k:entitySelectOneMenu>
+                </div>
+                <p:dataTable id="pr" var="item" value="#{processusBiblioBean.listEtapes}" 
+                             sortBy="#{item.processusBiblio.libelle}" widgetVar="processusTable"
+                             emptyMessage="#{msga['core.components.datatable.emptymessage']}" styleClass="pr"> 
+                    <p:headerRow field="processusBiblio.libelle"
+                                 expandable="true"
+                                 expanded="#{item.processusBiblio.libelle}">
+                        <p:column colspan="2">
+                            <div class="inline-flex align-items-center" style="vertical-align: middle">
+                                <h:outputText styleClass="ml-2" value="#{item.processusBiblio.libelle}"/>
+                            </div>
+                        </p:column>
+                        <p:column colspan="3" class="field col md:col-2 lg:col-2 col-2">
+                            <p:commandButton style="float: right; margin-left: .2rem;" title="#{msg['core.components.datatable.operations.delete']}" 
+                                             rendered="#{processusBiblioBean.canDelete()}"
+                                             action="#{processusBiblioBean.delete(item.processusBiblio)}"
+                                             icon="fa fa-trash" class="ui-button-danger"
+                                             process="@this">
+                                <p:confirm header="Confirmation" icon="ui-icon-alert" 
+                                           message="#{msg['core.components.datatable.operations.delete.confirmmessage']}"/>
+                            </p:commandButton>
+                            <p:button title="#{msg['core.components.datatable.operations.edit']}" style="float: right;"
+                                      includeViewParams="true" rendered="#{processusBiblioBean.canUpdate()}"
+                                      icon="fa fa-edit" class="ui-button-info" outcome="edit">
+                                <f:param name="entityId" value="#{processusBiblioBean.getId(item.processusBiblio)}"/>
+                            </p:button> 
+                        </p:column>
+                    </p:headerRow>
+                    <p:column headerText="#{msga['biblio.pages.processus-biblio.libelle']}">
+                        <h:outputText value="#{item.processusBiblio.libelle}" styleClass="ml-6"/>
+                    </p:column>
+                    <p:column headerText="#{msga['biblio.pages.etape-biblio.libelle']}">
+                        <h:outputText value="#{item.libelleEtapeClass}" />
+                    </p:column>
+                    <p:column headerText="#{msga['biblio.pages.etape-biblio.descriptif']}">
+                        <h:outputText value="#{item.libelle}" />
+                    </p:column>
+                    <p:column headerText="#{msga['caisse.pages.epargne.fields.entite']}">
+                        <h:outputText value="#{item.processusBiblio.entite.label}"/>
+                    </p:column>
+                    <p:column headerText="#{msga['biblio.pages.membre.fields.numero-ordre']}" style="text-align: right;">
+                        <h:outputText style="margin-left: 40px;" value="#{item.ordre}" />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

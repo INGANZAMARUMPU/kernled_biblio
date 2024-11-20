@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/core/templates/#{configBean.theme}/layout-list.xhtml">
+    
+    <ui:param name="crudBean" value="#{planEpargneBean}"/>
+    
+    <ui:define name="breadcrumb">
+        <li><i class="pi pi-angle-right"/></li>
+        <li>#{msga['compte.pages.compte-epargne']}</li>
+    </ui:define>
+    <ui:define name="title">
+        #{msga['compte.pages.plan-epargne.list.title']}
+    </ui:define>
+    
+    <ui:define name="description">
+        #{msga['compte.pages.compte-epargne.list.description']}
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h:form id="compte">
+            <p:toolbarGroup>
+                <p:linkButton rendered="#{creadBean.canAdd()}" value="#{msg['core.layout.list.new']}" icon="pi pi-plus-circle"
+                              class="ui-button-default" outcome="edit?faces-redirect=true"/>
+        <p:spacer width="3"/>
+                <p:linkButton rendered="#{crudBean.canCotisationLot()}" id="btnCotisationLot" value="Côtisation par lôt" outcome="cotisation/lot"  icon="pi pi-list" />
+            </p:toolbarGroup>
+            <div class="field col md:col-4 lg:col-4 col-4" style="margin-top: 1rem;">
+                <p:outputLabel value="#{msga['biblio.pages.organisation.fields.entite']}" rendered="#{not empty planEpargneBean.agences}"/>
+                <k:entitySelectOneMenu id="agence" value="#{planEpargneBean.agence}">
+                    <p:ajax update="@(.pl)" event="change"/>
+                </k:entitySelectOneMenu>
+            </div>
+            <div class="ui-g grid">
+                <div class="ui-g-12 col-12">
+                    <div class="card grid">
+                        <div class="ui-g-12 col-12">
+                            <p:dataTable id="pl" var="item" value="#{planEpargneBean.model}" rowKey="#{item.id}" selection="#{planEpargneBean.selected}"
+                                         paginator="true" rows="20" styleClass="pl">
+                               <p:column headerText="#{msga['compte.pages.plan-epargne.fields.numero-membre']}" 
+                                        sortBy="#{item.membre.numeroMembre}"
+                                        filterBy="#{item.membre.numeroMembre}" filterMatchMode="contains">
+                                  <h:outputText value="#{item.membre.numeroMembre}" />                    
+                              </p:column>
+                              <p:column headerText="#{msga['compte.pages.plan-epargne.fields.numero-compte-epargne']}" 
+                                        sortBy="#{item.compteEpargne.numeroCompte}"
+                                        filterBy="#{item.compteEpargne.numeroCompte}" filterMatchMode="contains">
+                                  <h:outputText value="#{item.compteEpargne.numeroCompte}" />                    
+                              </p:column>
+                              <p:column headerText="#{msga['compte.pages.plan-epargne.fields.numero-contrat']}" sortBy="#{item.numeroContrat}"
+                                        filterBy="#{item.numeroContrat}" filterMatchMode="contains">
+                                  <h:outputText value="#{item.numeroContrat}" />                    
+                              </p:column>
+                              <p:column headerText="#{msga['compte.pages.ordre-virement.fields.montant']}" sortBy="#{item.montant}"
+                                        filterBy="#{item.montant}" filterMatchMode="contains">
+                                  <h:outputText value="#{item.montant}" style="float: right;">
+                                      <f:convertNumber maxFractionDigits = "3"/>
+                                  </h:outputText>
+                              </p:column>
+                              <p:column headerText="#{msga['compte.pages.ordre-virement.fields.periodicite']}" 
+                                        sortBy="#{item.periodicite.libelle}"
+                                        filterBy="#{item.periodicite.libelle}" filterMatchMode="contains">
+                                  <h:outputText value="#{item.periodicite.libelle}"/>
+                              </p:column>
+                              <p:column headerText="#{msga['compte.pages.plan-epargne.fields.montant-periodique']}" sortBy="#{item.montantPeriodique}"
+                                        filterBy="#{item.montantPeriodique}" filterMatchMode="contains">
+                                  <h:outputText value="#{item.montantPeriodique}" style="float: right;">
+                                      <f:convertNumber maxFractionDigits = "3" />
+                                  </h:outputText>
+                              </p:column>
+                              <p:column headerText="#{msg['core.components.datatable.operations']}">
+                                <p:splitButton value="#{msga['core.components.datatable.autres']}" icon="pi pi-list" type="button" ajax="false" rendered="#{item.viser}">
+                                    <p:menuitem value="#{msga['compte.pages.plan-epargne.cotisation.cotiser']}" outcome="cotisation/edit" icon="fas fa-money-check" 
+                                                includeViewParams="true" actionListener="#{crudBean.initCotisation}">
+                                        <f:param name="entityId" value="#{planEpargneBean.getId(item)}"/>
+                                        <f:param name="rupture" value="#{false}"/>
+                                        <f:param name="cotisation" value="#{true}"/>
+                                    </p:menuitem>
+                                    <p:menuitem value="#{msga['compte.plan-epargne.actions.rompre']}" ajax="false" icon="pi pi-times" includeViewParams="true"
+                                                outcome="cotisation/edit" actionListener="#{crudBean.initRupture()}">
+                                        <f:param name="entityId" value="#{planEpargneBean.getId(item)}"/>
+                                        <f:param name="rupture" value="#{true}"/>
+                                        <f:param name="cotisation" value="#{false}"/>
+                                    </p:menuitem>
+                                </p:splitButton>
+                                <p:button title="#{msga['biblio.pages.membre.fields.details']}"
+                                          includeViewParams="true"
+                                          icon="fa fa-eye" class="ui-button-success" outcome="details">
+                                    <f:param name="entityId" value="#{planEpargneBean.getId(item)}"/>
+                                </p:button>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" lang="fr">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <p:fieldset>
+            <p:outputPanel id="formBenefPanel" styleClass="groupClass">
+                <div class="card"> 
+                    <div class="grid formgrid ui-fluid">
+                        <div class="field col-12 md:col-3 lg:col-3">
+                            <p:outputLabel for="beneficiaire-nom" value="#{msga['biblio.pages.membre.fields.nom']}"/>
+                            <p:inputText id="beneficiaire-nom" required="false" class="w-full" value="#{crudBean.acteur.nom}"/>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-3">
+                            <p:outputLabel for="beneficiaire-prenom" value="#{msga['biblio.pages.membre.fields.prenom']}"/>
+                            <p:inputText id="beneficiaire-prenom" required="false" class="w-full" value="#{crudBean.acteur.prenom}"/>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-3">
+                            <p:outputLabel for="beneficiaire-naissance" value="#{msga['biblio.pages.membre.fields.naissance']}"/> <br/>
+                            <p:calendar id="beneficiaire-naissance" required="false" inputStyleClass="form-control" 
+                                        mindate="01/01/1923" class="w-full" value="#{crudBean.acteur.dateNaissance}" 
+                                        navigator="true" pattern="#{crudBean.userSession.settings.formats.shortDatePattern}"/>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-3">
+                            <p:outputLabel for="beneficiaire-lieu-naissance" value="#{msga['biblio.pages.membre.fields.lieu-naissance']}"/>
+                            <p:inputText id="beneficiaire-lieu-naissance" class="w-full" value="#{crudBean.acteur.lieuNaissance}"/>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-3">
+                            <p:outputLabel for="beneficiaire-adresse" value="#{msga['biblio.pages.membre.fields.adresse']}"/>
+                            <p:inputText id="beneficiaire-adresse" required="false" class="w-full" value="#{crudBean.streetAddressActeur}"/>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-3">
+                            <p:outputLabel value="#{msga['biblio.pages.membre.fields.bp']}"/>
+                            <p:inputText class="w-full" value="#{crudBean.postalCodeActeur}"/>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-3">
+                            <p:outputLabel for="typePiece" value="#{msga['biblio.pages.type-membre-type-piece.list.libelle']}"/>
+                            <p:selectOneMenu  filter="true" filterMatchMode="contains" class="w-full" id="typePiece" value="#{crudBean.typePieceActeur}" converter="omnifaces.SelectItemsConverter">
+                                <f:selectItem itemValue="#{null}" itemLabel="-- #{msg['core.page.fields.select.message']} --" noSelectionOption="true"/>
+                                <f:selectItems var="t" value="#{crudBean.typePieces}" itemLabel="#{t.libelle}" itemValue="#{t}"/>
+                            </p:selectOneMenu>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-3">
+                            <p:outputLabel for="numeroPiece" value="#{msga['biblio.pages.procuration.mandataire.field.numero.placeholder']}"/>
+                            <p:inputText id="numeroPiece" class="w-full" value="#{crudBean.numeroPieceActeur}"  />
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-3">
+                            <p:outputLabel for="QActeur" value="#{msga['biblio.pages.membre.fields.quartier']}"/>
+                            <p:selectOneMenu  filter="true" filterMatchMode="contains" id="QActeur" class="w-full" value="#{crudBean.localityActeur}" 
+                                             converter="omnifaces.SelectItemsConverter">
+                                <f:selectItem itemLabel="-- #{msg['core.page.fields.select.message']} --" noSelectionOption="true"/>
+                                <f:selectItems value="#{crudBean.localities}" var="l" itemValue="#{l}" itemLabel="#{l.label}" />
+                            </p:selectOneMenu>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-3">
+                            <p:outputLabel value="#{msga['biblio.pages.membre.fields.email']}"/>
+                            <p:inputText class="w-full" value="#{crudBean.acteur.email}"/>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-3">
+                            <p:outputLabel for="genre" value="#{msga['biblio.pages.membre.fields.genre']}"/>
+                            <p:selectOneMenu  filter="true" filterMatchMode="contains" required="false" class="w-full" id="genre" value="#{crudBean.acteur.sexe}" converter="omnifaces.SelectItemsConverter">
+                                <f:selectItem itemLabel="-- #{msg['core.page.fields.select.message']} --" noSelectionOption="true" />
+                                <f:selectItems value="#{crudBean.sexes}"  var="item" itemLabel="#{item.libelle}"
+                                               itemValue="#{item}"/>
+                            </p:selectOneMenu>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-3">
+                            <p:outputLabel value="#{msga['biblio.pages.membre.fields.nom-jeune-fille']}"/>
+                            <p:inputText class="w-full" value="#{crudBean.acteur.nomJeuneFille}"/>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-3">
+                            <p:outputLabel for="beneficiaire-filiation" value="#{msga['biblio.pages.membre.fields.filiation']}"/>
+                            <p:selectOneMenu  filter="true" filterMatchMode="contains" required="false" class="w-full" id="beneficiaire-filiation" value="#{crudBean.acteur.typeFiliation}" converter="omnifaces.SelectItemsConverter">
+                                <f:selectItem itemLabel="-- #{msg['core.page.fields.select.message']} --" noSelectionOption="true" />
+                                <f:selectItems value="#{crudBean.typeFiliations}"  var="item" itemLabel="#{item.libelle}"
+                                               itemValue="#{item}"/>
+                            </p:selectOneMenu>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <div class="mt-3">
+                        <p:commandButton id="ajouterBenef" icon="fa fa-plus" value="#{msga['biblio.pages.membre.fields.ajouter']}" action="#{crudBean.ajouterBeneficiaire()}" 
+                                         process="formBenefPanel" update="formBenefPanel, tableBeneficiare" rendered="#{not crudBean.modifierBeneficiaire}"/>
+                        <p:spacer width="2"/>
+                        <p:commandButton id="modifierMP" icon="fa fa-edit" action="#{crudBean.modifierMP()}" value="#{msga['biblio.pages.membre.fields.modifier']}"
+                                     process="formBenefPanel" update="formBenefPanel, tableBeneficiare" rendered="#{crudBean.modifierBeneficiaire}"/>
+                        <p:spacer width="2"/>
+                        <p:commandButton id="btnReinit" value="#{msga['biblio.pages.membre.fields.reinitialiser']}" type="reset" class="btn-default" process="formBenefPanel" update="formBenefPanel" icon="fa fa-refresh" />
+                    </div>
+                </div>
+            </p:outputPanel>
+            <div class="mt-3">
+                <p:dataTable id="tableBeneficiare" emptyMessage="#{msga['biblio.pages.membre.fields.aucun-beneficiaire']}" 
+                             value="#{crudBean.acteurs}" var="item" 
+                         widgetVar="acteursTable"
+                         rows="10"
+                         paginator="true" paginatorPosition="both"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} enregistrements"
+                         rowsPerPageTemplate="5,10,{ShowAll|'Tout'}">
+                    <p:column headerText="#{msga['biblio.pages.membre.fields.nom']}" sortBy="#{item.nom}" filterBy="#{item.nom}" filterMatchMode="contains">
+                        <h:outputText value="#{item.nom}"/>
+                    </p:column>
+
+                    <p:column headerText="#{msga['biblio.pages.membre.fields.prenom']}" sortBy="#{item.prenom}" filterBy="#{item.prenom}" filterMatchMode="contains">
+                        <h:outputText value="#{item.prenom}"/>
+                    </p:column>
+                    <p:column headerText="#{msga['biblio.pages.membre.fields.lieu-naissance']}" sortBy="#{item.lieuNaissance}" filterBy="#{item.lieuNaissance}" filterMatchMode="contains">
+                        <h:outputText value="#{item.lieuNaissance}"/>
+                    </p:column>
+                    <p:column headerText="#{msga['biblio.pages.membre.fields.actif']}" >
+                        <p:tag rendered="#{item.actif == true}" icon="pi pi-check-circle" severity="success" value="Oui"/>
+                        <p:tag rendered="#{item.actif == false}" icon="pi pi-times-circle" severity="warning" value="Non"/>
+                    </p:column>
+                    <p:column headerText="Actions">
+                        <p:commandButton rendered="#{item.id ==null}" icon="fa fa-minus" class="ui-button-danger" action="#{crudBean.retirerActeur(item)}" process="tableBeneficiare" update="tableBeneficiare" title="#{msga['biblio.pages.membre.fields.retirer']}"/> 
+                        <p:commandButton icon="fa fa-edit" style="margin-left: 0.25em" action="#{crudBean.trouverActeur(item)}" title="#{msg['core.components.datatable.operations.edit']}" process="tableBeneficiare" update="@(.groupClass), tableBeneficiare"/> 
+                        <p:commandButton rendered="#{item.id !=null and item.actif == false}"
+                                         title="#{msga['biblio.pages.membre.fields.activer']}"
+                                         style="margin-left: 0.25em"  icon="fa fa-toggle-on" class="ui-button-success"
+                                         action="#{crudBean.activer(item)}" update="tableBeneficiare" process="tableBeneficiare">
+                            <p:confirm header="Confirmation" message="Êtes-vous sûrs d'activer ce membre ?" icon="pi pi-exclamation-triangle"/>
+                        </p:commandButton>
+                        <p:commandButton rendered="#{item.id !=null and item.actif == true}"
+                                         icon="fa fa-ban" class="ui-button-danger" style="margin-left: 0.25em" 
+                                         title="#{msga['biblio.pages.membre.fields.desactiver']}" 
+                                         action="#{crudBean.desactiver(item)}" process="tableBeneficiare" update="tableBeneficiare">
+                            <p:confirm header="Confirmation" message="Êtes-vous sûrs de désactiver ce membre ?" icon="pi pi-exclamation-triangle"/>
+                        </p:commandButton> 
+                    </p:column>
+                </p:dataTable>
+            </div>
+        </p:fieldset>
+    </h:body>
+</html>

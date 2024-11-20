@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/core/templates/#{configBean.theme}/layout-list.xhtml">
+
+    <ui:param name="crudBean" value="#{ordreVirementAttenteBean}"/>
+
+    <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
+        <li>#{msga['biblio.breadcrumb.biblio']}</li>
+    </ui:define>
+
+    <ui:define name="title">
+        #{msga['compte.pages.ordre-virement-attente.list.title']}
+    </ui:define>
+    <ui:define name="content">
+        <h:form prependId="false">
+            <div class="ui-g grid">
+                <div class="ui-g-12 col-12">
+                    <div class="card grid">
+                        <div class="ui-g-12 col-12">
+                            <p:dataTable id="tableOrdreVirEnAttente" var="item" value="#{ordreVirementAttenteBean.model}" rowKey="#{item.id}" selection="#{ordreVirementAttenteBean.selected}"
+                                         paginator="true" rows="15">
+                                <f:facet name="header">
+                                    <p:commandButton rendered="#{ordreVirementAttenteBean.canValidate()}"
+                                        title="Valider l'Ordre de virement" value="Valider" action="#{ordreVirementAttenteBean.validerParLot()}" icon="pi pi-check" 
+                                                     update="tableOrdreVirEnAttente"  styleClass="rounded-button ui-button-success">
+                                        <p:confirm header="#{msga['core.components.datatable.operations.delete.confirmtitle']}" 
+                                                   message="#{msga['compte.pages.ordre-virement.confirmer-validation-ordres-virements']}" icon="ui-icon-alert"/>
+                                    </p:commandButton>
+                                </f:facet>
+                                <p:column selectionMode="multiple" style="width: 16px; text-align: center"/>
+                                <p:column headerText="#{msga['compte.pages.ordre-virement.fields.date-operation']}">  
+                                    <h:outputText value="#{item.dateOperation}" >
+                                        <f:convertDateTime type="localDate" pattern="#{crudBean.userSession.settings.formats.shortDatePattern}" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="#{msga['compte.pages.ordre-virement.fields.compte-source']}">
+                                    <h:outputText value="#{item.compteSource.numeroCompte}" />
+                                </p:column>
+                                <p:column headerText="#{msga['compte.pages.ordre-virement.fields.compte-destination']}">
+                                    <h:outputText value="#{item.compteDestination.numeroCompte}" />
+                                </p:column>
+                                <p:column headerText="#{msga['compte.pages.ordre-virement.fields.montant']}">
+                                    <h:outputText value="#{item.montant}" style="float: right;">
+                                        <f:convertNumber maxFractionDigits = "3"/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="#{msga['compte.pages.ordre-virement.fields.motif']}">
+                                    <h:outputText value="#{item.motif}" />
+                                </p:column>
+
+                                <p:column headerText="#{msg['core.components.datatable.operations']}"
+                                          exportable="false" style="text-align: center">
+                                    <div class="ui-button-group">
+                                        <p:button title="#{msg['core.components.datatable.operations.edit']}"
+                                                  includeViewParams="true" rendered="#{ordreVirementAttenteBean.canUpdate()}"
+                                                  icon="fa fa-edit" class="ui-button-info" outcome="edit" styleClass="rounded-button">
+                                            <f:param name="entityId" value="#{ordreVirementAttenteBean.getId(item)}"/>
+                                        </p:button>
+                                        <p:spacer width="3"/>
+                                        <p:commandButton title="#{msga['compte.pages.ordre-virement.valider']}" action="#{ordreVirementAttenteBean.valider(item)}" 
+                                                         icon="pi pi-check" process="@this" update="tableOrdreVirEnAttente"
+                                                         styleClass="rounded-button ui-button-success">
+                                            <p:confirm header="#{core.components.datatable.operations.delete.confirmtitle}" 
+                                                       message="" icon="ui-icon-alert"/>
+                                        </p:commandButton>
+                                    </div>
+                                </p:column>
+
+                            </p:dataTable>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

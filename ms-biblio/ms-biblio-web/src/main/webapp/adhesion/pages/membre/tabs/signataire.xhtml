@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <p:fieldset>
+            <div class="mb-2">
+                <p:outputPanel id="signPanel">
+                    <p:fieldset>
+                        <div class="grid formgrid">
+                            <div class="grid formgrid col-12 md:col-10 lg:col-10">
+                                <div class="field col-12 md:col-4 lg:col-4">
+                                    <p:outputLabel for="signataire-nom" value="#{msga['biblio.pages.membre.fields.nom']}"/>
+                                    <p:inputText id="signataire-nom" required="true" class="w-full" value="#{crudBean.acteur.nomActeur}"/>
+                                </div>
+                                <div class="field col-12 md:col-4 lg:col-4">
+                                    <p:outputLabel for="signataire-prenom" value="#{msga['biblio.pages.membre.fields.prenom']}"/>
+                                    <p:inputText id="signataire-prenom" required="true" class="w-full" value="#{crudBean.acteur.prenomActeur}"/>
+                                </div>
+                                <div class="field col-12 md:col-4 lg:col-4">
+                                    <p:outputLabel for="signataire-naissance" value="#{msga['biblio.pages.membre.fields.naissance']}"/> <br/>
+                                    <p:calendar id="signataire-naissance"  inputStyleClass="form-control" showOn="button"
+                                                mindate="01/01/1923" class="w-full" value="#{crudBean.acteur.dateNaissance}" navigator="true" pattern="#{crudBean.userSession.settings.formats.shortDatePattern}"/>
+                                </div>
+                                <div class="field col-12 md:col-4 lg:col-4">
+                                    <p:outputLabel for="signataire-a" value="#{msga['biblio.pages.membre.fields.a']}"/>
+                                    <p:inputText id="signataire-a" class="w-full" value="#{crudBean.acteur.lieuNaissance}"/>
+                                </div>
+                                <div class="field col-12 md:col-4 lg:col-4">
+                                    <p:outputLabel for="signataire-rue-maison" value="#{msga['biblio.pages.membre.fields.rue-maison']}"/>
+                                    <p:inputText id="signataire-rue-maison"  class="w-full" value="#{crudBean.acteur.adresse.street}"/>
+                                </div>
+                                <div class="field col-12 md:col-4 lg:col-4">
+                                    <p:outputLabel for="signataire-email" value="#{msga['biblio.pages.membre.fields.email']}"/>
+                                    <p:inputText id="signataire-email" class="w-full" value="#{crudBean.acteur.email}"/>
+                                </div>
+                                <div class="field col-12 md:col-4 lg:col-4">
+                                    <p:outputLabel value="#{msga['biblio.pages.membre.fields.bp']}"/>
+                                    <p:inputText class="w-full" value="#{crudBean.acteur.adresse.postalCode}"/>
+                                </div>
+                                <div class="field col-12 md:col-4 lg:col-4">
+                                    <p:outputLabel for="signataire-tel-fix" value="#{msga['biblio.pages.membre.fields.tel-fix']}"/>
+                                    <p:inputText id="signataire-tel-fix"  class="w-full" value="#{crudBean.acteur.telephone}"/>
+                                </div>
+                                <div class="field col-12 md:col-4 lg:col-4">
+                                    <p:outputLabel for="signataire-sexe" value="#{msga['biblio.pages.membre.fields.sexe']}"/>
+                                    <p:selectOneMenu class="w-full" id="signataire-sexe" value="#{crudBean.acteur.sexe}" converter="omnifaces.SelectItemsConverter">
+                                        <f:selectItem itemLabel="-- #{msg['core.page.fields.select.message']} --" noSelectionOption="true" />
+                                        <f:selectItems value="#{crudBean.sexes}"  var="item" itemLabel="#{item.libelle}"
+                                                       itemValue="#{item}"/>
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="field col-12 md:col-4 lg:col-4">
+                                    <p:outputLabel for="signataire-actif" value="#{msga['biblio.pages.membre.fields.actif']}"/>
+                                    <div class="field-checkbox">
+                                        <p:selectBooleanCheckbox id="signataire-actif" value="#{crudBean.acteur.actif}" />
+                                    </div>
+                                </div>
+                                <div class="field col">
+                                    <p:outputLabel for="signataire-obligatoire" value="#{msga['biblio.pages.membre.fields.obligatoire']}"/>
+                                    <div class="field-checkbox">
+                                        <p:selectBooleanCheckbox  id="signataire-obligatoire" title="#{msga['biblio.pages.membre.fields.obligatoire']}" 
+                                                                  value="#{crudBean.acteur.obligatoire}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p:fieldset>
+                    <div class="mt-3">
+                        <p:commandButton id="signataire-ajouter" value="Ajouter" icon="fa fa-save" action ="#{crudBean.ajouterSignataire()}" process="signPanel" update="signataire-table" />
+                        <p:spacer width="2"/>
+                        <p:commandLink id="signataire-fermer" class="text-white bg-primary-500 border-primary-500 px-2 py-2 text-base border-1 border-solid border-round cursor-pointer transition-all transition-duration-200 hover:bg-primary-600 hover:border-primary-600 active:bg-primary-700 active:border-primary-700" style="text-decoration: none">
+                            <strong>
+                                <i class="fa fa-close"></i> #{msga['biblio.pages.membre.fields.fermer']}
+                            </strong>
+                        </p:commandLink>
+                    </div>
+                </p:outputPanel>
+            </div>
+            <div class="mt-3">
+                <p:dataTable id="signataire-table" emptyMessage="#{msga['biblio.pages.membre.fields.aucun-signataire-renseigne']}" value="#{crudBean.entity.acteurs}" var="r">
+
+                    <p:column class="text-center" headerText="#{msga['biblio.pages.membre.fields.nom']}">
+                        <h:outputText value="#{r.nomActeur}"/>
+                    </p:column>
+
+                    <p:column class="text-center" headerText="#{msga['biblio.pages.membre.fields.prenom']}">
+                        <h:outputText value="#{r.prenomActeur}"/>
+                    </p:column>
+                    <p:column class="text-center" headerText="#{msga['biblio.pages.membre.fields.chef']}">
+                        <h:outputText value="#{r.chef}"/>
+                    </p:column>
+
+                    <p:column class="text-center" headerText="#{msga['biblio.pages.membre.fields.actif']}">
+                        <h:outputText value="#{r.actif}"/>
+                    </p:column>
+                    <p:column class="text-center" headerText="#{msga['biblio.pages.membre.fields.adresse']}">
+                        <h:outputText value="#{r.adresse.street}"/>
+                    </p:column>
+                </p:dataTable>
+            </div>
+        </p:fieldset>
+    </h:body>
+</html>

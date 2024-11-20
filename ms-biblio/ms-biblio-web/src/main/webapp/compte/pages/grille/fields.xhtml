@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:o="http://omnifaces.org/ui">
+
+
+    <p:fieldset styleClass="mb-3" legend="#{msga['compte.pages.grille.field.label']}">
+        <div class="formgrid grid ui-fluid">
+            <div class="field col-12 md:col-4 lg:col-4">
+                <p:outputLabel for="entity" value="#{msga['compte.pages.grille.fields.entity']}"/>
+                <k:entitySelectOneMenu id="entity" value="#{grilleBean.entity.entite}" required="true"
+                                       requiredMessage="#{msga['compte.pages.grille.fields.entity.required-message']}"/>
+            </div>
+            <div class="field col-12 md:col-4 lg:col-4">
+                <p:outputLabel for="produit" value="#{msga['compte.pages.certificat.fields.produit']}"/>
+                <p:selectOneMenu id="produit" class="w-full" value="#{grilleBean.entity.produit}" converter="omnifaces.SelectItemsConverter"
+                                 requiredMessage="#{msga['compte.pages.grille.fields.produit.required-message']}" required="true">
+                    <f:selectItem itemLabel="#{msga['biblio.pages.attente.fields.selectionner']}"  noSelectionOption="true" />
+                    <f:selectItems  var="e" value="#{grilleBean.produits}" itemValue="#{e}" itemLabel="#{e.libelle}"/>
+                </p:selectOneMenu>
+            </div>
+            <div class="field col-12 md:col-4 lg:col-4">
+                <p:outputLabel for="typeTranche" value="#{msga['compte.pages.type-tranche.list.title']}"/>
+                <p:selectOneMenu disabled="#{grilleBean.updating}" id="typeTranche" required="true" class="w-full" value="#{grilleBean.entity.typeTranche}" 
+                                 converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith" filterNormalize="true"
+                                 requiredMessage="#{msga['compte.pages.grille.fields.type-tranche.required-message']}">
+                    <f:selectItem itemLabel="#{msga['biblio.pages.attente.fields.selectionner']}" itemDisabled="true" noSelectionOption="false"/>
+                    <f:selectItems  var="e" value="#{grilleBean.typeTranches}" itemValue="#{e}" itemLabel="#{e.libelle}"/>
+                    <p:ajax listener="#{grilleBean.changeTypeTranche()}" update="tranches periodicite periode" process="@this"/>
+                </p:selectOneMenu>
+            </div>
+            <div class="field col-12 md:col-6 lg:col-6">
+                <p:outputLabel for="libelle" value="#{msga['biblio.pages.grille.fields.libelle']}"/>
+                <p:inputText id="libelle" required="true" value="#{grilleBean.entity.libelle}"
+                             requiredMessage="#{msga['biblio.pages.grille.fields.libelle.required-message']}" class="w-full"/>
+            </div>
+            <h:panelGroup id="periode" class="field col-12 md:col-6 lg:col-6">
+                <ui:fragment rendered="#{grilleBean.entity.typeTranche.code ==  grilleBean.getCodeTrancheDuree()}" >
+                    <div class="field col-12 md:col-12 lg:col-12">
+                        <p:outputLabel for="periodicite" value="#{msga['compte.pages.grille.fields.periodicite']}"/>
+                        <p:selectOneMenu id="periodicite" required="true"
+                                         value="#{grilleBean.entity.periodicite}" converter="omnifaces.SelectItemsConverter"
+                                         requiredMessage="#{msga['compte.pages.grille.fields.periodicite.required-message']}">
+                            <f:selectItem itemLabel="#{msga['biblio.pages.attente.fields.selectionner']}"  noSelectionOption="true" />
+                            <f:selectItems  var="e" value="#{grilleBean.periodicites}" itemValue="#{e}" itemLabel="#{e.libelle}" />
+                        </p:selectOneMenu>
+                    </div> 
+                </ui:fragment>
+            </h:panelGroup>
+
+        </div>
+    </p:fieldset>
+
+
+    <h:panelGroup id="tranches">
+        <ui:fragment rendered="#{grilleBean.entity.typeTranche != null}">
+            <p:fieldset styleClass="mb-3" legend="#{msga['compte.pages.grille.field.tranche-label']}">
+                <p:fieldset id="tranche">
+                    <div class="formgrid grid ui-fluid">
+                        <div class="field col-12 md:col-6 lg:col-6">
+                            <p:outputLabel for="debut" value="#{msga['compte.pages.grille.fields.debut']}"/>
+                            <p:inputText id="debut" class="w-full" value="#{grilleBean.tranche.debut}"/>
+                        </div>
+                        <div class="field col-12 md:col-6 lg:col-6">
+                            <p:outputLabel for="fin" value="#{msga['compte.pages.grille.fields.fin']}"/>
+                            <p:inputText id="fin" class="w-full" value="#{grilleBean.tranche.fin}"/>
+                        </div>
+                        <div class="field">
+                            <p:commandButton value="#{msga['core.components.datatable.add']}" icon="fa fa-save" style="margin-top: 1rem;"
+                                             action="#{grilleBean.ajouter()}" update="tranches" process="tranches"
+                                             class="ui-button-primary"/>
+                        </div>
+                    </div>
+                </p:fieldset>
+                <p:fieldset styleClass="mb-3" id="datatable" style="margin-top: 1rem;">
+                    <div class="ui-g-12 col-12">
+                        <p:dataTable var="e" paginator="true" 
+                                     value="#{grilleBean.entity.tranches}" rows="5" rowKey="#{e.id}">
+                            <f:facet name="header">
+                                <p:outputLabel class="text-center text-xl" value="#{msga['compte.pages.grille.fields.datatable.header']}"/>
+                            </f:facet>
+                            <p:column headerText="#{msga['compte.pages.grille.fields.debut2']}" >
+                                <h:outputText value="#{e.debut}" >
+                                </h:outputText>
+
+                            </p:column>
+                            <p:column headerText="#{msga['compte.pages.grille.fields.fin2']}" >
+                                <h:outputText value="#{e.fin}" />
+                            </p:column>
+                            <p:column headerText="#{msg['core.components.datatable.operations']}"
+                                      exportable="false" style="text-align: center">
+                                <div class="ui-button-group">
+
+                                    <p:commandButton id="editButon" icon="fa fa-edit" class="ui-button-success" action="#{grilleBean.mofifier(e)}"
+                                                     update="editForm:tranches" process="editForm:tranches" 
+                                                     disabled="#{grilleBean.updateTrancheItem}" 
+                                                     />
+                                    <ui:fragment rendered="#{!grilleBean.updating}">
+                                        <p:commandButton id="deleteButon" icon="fa fa-trash" class="ui-button-danger" action="#{grilleBean.supprimer(e)}"
+                                                         update="editForm:tranches" process="editForm:tranches"
+                                                         />
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{grilleBean.updating}">
+                                        <p:commandButton id="deleteButon1" action="#{grilleBean.supprimer(e)}"  class="ui-button-danger" icon="fa fa-trash"
+                                                         update="editForm:tranches" process="editForm:tranches">
+                                            <p:confirm type="popup" header="#{msga['compte.pages.grille.fields.dialog-header']}" class="font-bold font-semibold"
+                                                       message="#{msga['compte.pages.grille.fields.dialog-message']}" 
+                                                       icon="pi pi-exclamation-triangle"/>
+                                        </p:commandButton>
+                                    </ui:fragment>
+                                </div>
+                            </p:column>
+                        </p:dataTable>
+                    </div> 
+                    <p:confirmPopup global="true">
+                        <p:commandButton value="#{msga['compte.pages.grille.fields.dialog-message.oui']}" type="button" styleClass="ui-confirm-popup-yes" />
+                        <p:commandButton value="#{msga['compte.pages.grille.fields.dialog-message.non']}" type="button" styleClass="ui-confirm-popup-no ui-button-flat"/>
+                    </p:confirmPopup>
+                </p:fieldset>
+            </p:fieldset>
+        </ui:fragment>
+    </h:panelGroup>
+
+    <p:confirmDialog header="#{msga['compte.pages.grille.fields.dialog-header']}" 
+                     widgetVar="confirmDialogwidget" global="true" showEffect="fade" 
+                     hideEffect="fade" responsive="true" width="350" 
+                     severity="alert" closable="false" 
+                     message="#{msga['compte.pages.grille.fields.dialog-message']}">
+        <p:commandButton value="#{msga['compte.pages.grille.fields.dialog-message.oui']}" 
+                         update="datatable periodicite periode" 
+                         onclick="PF('confirmDialogwidget').hide()" 
+                         styleClass="ui-confirmdialog-yes" 
+                         process="@this"
+                         action="#{grilleBean.onPositiveClick()}"
+                         />
+        <p:commandButton value="#{msga['compte.pages.grille.fields.dialog-message.non']}" 
+                         update="typeTranche periodicite periode"
+                         onclick="PF('confirmDialogwidget').hide()" 
+                         process="@this"
+                         styleClass="ui-confirmdialog-no ui-button-flat" 
+                         action="#{grilleBean.onNegativeClick()}" 
+                         />
+    </p:confirmDialog>
+
+</ui:composition>

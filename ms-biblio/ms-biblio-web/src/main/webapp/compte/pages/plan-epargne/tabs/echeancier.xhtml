@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:o="http://omnifaces.org/ui"
+                >
+    <div class="card">
+            <p:dataTable var="item" value="#{planEpargneBean.entity.echeances}" widgetVar="echeancierEpargneTable"
+                         emptyMessage="#{msga['core.components.datatable.emptymessage']}">
+                <p:column headerText="#{msga['compte.pages.echeance.fields.numero-echeance']}" sortBy="#{item.numero}"
+                          filterBy="#{item.numero}" filterMatchMode="contains">
+                    <h:outputText value="#{item.numero}" style="float: right;"/>                    
+                </p:column>
+                <p:column headerText="#{msga['compte.pages.ordre-virement.fields.montant']}" sortBy="#{item.montant}"
+                          filterBy="#{item.montant}" filterMatchMode="contains">
+                    <h:outputText value="#{item.montant}" style="float: right;">
+                                   <f:convertNumber maxFractionDigits = "3"/>
+                    </h:outputText>                    
+                </p:column>
+                <p:column headerText="#{msga['compte.pages.echeance.fields.date-echeance']}" sortBy="#{item.dateEcheance}"
+                          filterBy="#{item.dateEcheance}" filterMatchMode="contains">
+                    <h:outputText value="#{item.dateEcheance}" >
+                        <f:convertDateTime type="localDate" pattern="#{planEpargneBean.userSession.settings.formats.shortDatePattern}" />
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="#{msga['compte.pages.echeance.fields.date-cotisation']}" sortBy="#{item.dateCotisation}"
+                          filterBy="#{item.dateCotisation}" filterMatchMode="contains">
+                    <h:outputText value="#{item.dateCotisation}" >
+                        <f:convertDateTime type="localDate" pattern="#{planEpargneBean.userSession.settings.formats.shortDatePattern}" />
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="#{msga['compte.pages.echeance.fields.date-echeance-ok']}" sortBy="#{item.dateEcheanceOk}"
+                          filterBy="#{item.dateEcheanceOk}" filterMatchMode="contains">
+                    <h:outputText value="#{item.dateEcheanceOk}" >
+                        <f:convertDateTime type="localDate" pattern="#{planEpargneBean.userSession.settings.formats.shortDatePattern}" />
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="#{msga['compte.pages.echeance.fields.fecheance-ok']}" 
+                          sortBy="#{item.fEcheanceOk ? 'OUI' : 'NON'}"
+                          filterBy="#{item.fEcheanceOk ? 'OUI' : 'NON'}" filterMatchMode="contains">
+                    <h:outputText value="#{item.fEcheanceOk ? 'OUI' : 'NON'}" />                    
+                </p:column>
+            </p:dataTable>
+    </div>
+</ui:composition>

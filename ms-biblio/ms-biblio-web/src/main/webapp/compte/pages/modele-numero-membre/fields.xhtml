@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:faces="jakarta.faces">
+
+    <div class="grid formgrid">
+        <div class="field col-4 md:col-4 lg:col-3">
+            <p:outputLabel class="w-full" value="#{modeleNumeroMembreBean.modeles.institution}" />
+            <p:outputLabel class="w-full" style="font-weight:bold;" value="#{modeleNumeroMembreBean.modeles.institution_info}"/>
+        </div>
+        <div class="field col-4 md:col-4 lg:col-3">
+            <p:outputLabel class="w-full" value="#{modeleNumeroMembreBean.modeles.agence}" />
+            <p:outputLabel class="w-full" style="font-weight:bold;" value="#{modeleNumeroMembreBean.modeles.agence_info}"/>
+        </div>
+        <div class="field col-4 md:col-4 lg:col-3">
+            <p:outputLabel class="w-full" value="#{modeleNumeroMembreBean.modeles.tm}" />
+            <p:outputLabel class="w-full" style="font-weight:bold;" value="#{modeleNumeroMembreBean.modeles.tm_info}"/>
+        </div>
+        <div class="field col-4 md:col-4 lg:col-3">
+            <p:outputLabel class="w-full" value="#{modeleNumeroMembreBean.modeles.cmp}" />
+            <p:outputLabel class="w-full" style="font-weight:bold;" value="#{modeleNumeroMembreBean.modeles.cmp_info}"/>
+        </div>
+    </div><br/>
+
+    <br/><div class="grid formgrid">
+        <div class="field col-4 md:col-4 lg:col-3">
+            <p:outputLabel class="w-full" value="#{modeleNumeroMembreBean.modeles.prfx_inst}" />
+            <p:outputLabel class="w-full" style="font-weight:bold;" value="#{modeleNumeroMembreBean.modeles.prfx_inst_info}"/>
+        </div>
+        <div class="field col-4 md:col-4 lg:col-3">
+            <p:outputLabel class="w-full" value="#{modeleNumeroMembreBean.modeles.prfx_agence}" />
+            <p:outputLabel class="w-full" style="font-weight:bold;" value="#{modeleNumeroMembreBean.modeles.prfx_agence_info}"/>
+        </div>
+        <div class="field col-4 md:col-4 lg:col-3">
+            <p:outputLabel class="w-full" value="#{modeleNumeroMembreBean.modeles.prfx_type_membre}" />
+            <p:outputLabel class="w-full" style="font-weight:bold;" value="#{modeleNumeroMembreBean.modeles.prfx_type_membre_info}"/>
+        </div>
+        <div class="field col-4 md:col-4 lg:col-3">
+            <p:outputLabel class="w-full" value="#{modeleNumeroMembreBean.modeles.prfx_compteur}" />
+            <p:outputLabel class="w-full" style="font-weight:bold;" value="#{modeleNumeroMembreBean.modeles.prfx_compteur_info}"/>
+        </div>
+    </div>
+    
+    <div class="grid formgrid">
+        <div class="field col-12 md:col-12 lg:col-12">
+            <p:outputLabel class="w-full" value="#{modeleNumeroMembreBean.modeles.exemple_de_modele}" />
+            <p:outputLabel style="font-size: 18px;font-weight:bold;" value="#{modeleNumeroMembreBean.modeles.exemple_de_modele_info}"/>
+        </div>
+    </div><br/>
+
+    <div id="model_num_memb" class="grid formgrid">
+        <div class="field col-4 md:col-4 lg:col-4">
+            <p:outputLabel for="entite" value="#{msga['biblio.pages.organisation.fields.entite']}"/>
+            <k:entitySelectOneMenu id="entite" value="#{modeleNumeroMembreBean.entity.entity}" required="true"
+                                   requiredMessage="#{msga['compte.pages.compte-epargne.fields.requiered-message.entite']}">
+
+            </k:entitySelectOneMenu> 
+        </div>
+        <div class="field col-8 md:col-8 lg:col-8">
+            <p:outputLabel for="modele" value="#{msga['biblio.pages.modele-numero-membre.fields.modele']}"/>
+            <p:inputText id="modele" required="true" value="#{modeleNumeroMembreBean.entity.modele}" 
+                         placeholder="Saisir le modèle" class="w-full" requiredMessage="#{msga['compte.pages.compte-epargne.fields.requiered-message.modele']}"/>
+        </div>
+    </div><br/>
+
+    <p:panel header="#{msga['biblio.pages.modele-numero-membre.fields.simulation']}">
+        <p:commandButton action="#{modeleNumeroMembreBean.apercuNumeroGenerer()}" update="@form" process="@form" 
+                         value="#{msga['biblio.pages.modele-numero-membre.fields.generer']}"/>
+        <p:outputLabel value="#{modeleNumeroMembreBean.apercu}" style="font-size: 14px; font-weight: bold; color: chocolate; margin-left: 10%"/> 
+    </p:panel><br/>
+
+</ui:composition>

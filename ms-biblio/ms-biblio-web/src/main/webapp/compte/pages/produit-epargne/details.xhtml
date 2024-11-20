@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:o="http://omnifaces.org/ui"
+                template="/core/templates/#{configBean.theme}/layout-details.xhtml">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="entityId" value="#{produitEpargneBean.entityId}" />
+            <f:viewAction action="#{produitEpargneBean.initEntity()}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:param name="crudBean" value="#{produitEpargneBean}"/>
+
+    <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
+        <li>#{msga['compte.pages.index.description']}</li>
+    </ui:define>
+
+    <ui:define name="title">
+        #{msga['compte.pages.compte-epargne.edit.title']}
+    </ui:define>
+
+    <ui:define name="fields">
+        <h:form>
+            <div class="grid">
+                <div class="col">
+                    <p:tab title="#{msga['compte.pages.compte-epargne.detail.title']}">
+                        <p:tabView id="produitEpargneView">
+                            <p:tab id="produitEpargne" title="#{msga['compte.pages.compte-epargne.detail.title']}">
+                                <ui:include src="tabs/produitEpargne.xhtml" />
+                            </p:tab>
+                            <p:tab id="critereProduitEpargne" title="#{msga['compte.pages.compte-epargne.detail.critere']}">
+                                <ui:include src="tabs/critere.xhtml" />
+                            </p:tab>
+                        </p:tabView>
+                    </p:tab>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>
+

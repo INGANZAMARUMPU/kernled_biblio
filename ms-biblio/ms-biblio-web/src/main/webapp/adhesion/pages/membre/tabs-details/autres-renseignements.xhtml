@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:o="http://omnifaces.org/ui">
+
+    <div class="card">
+        <div class="grid formgrid ui-fluid">
+            <div class="field col lg:col-3 md:col-3">
+                <p:outputLabel for="quartier" value="#{msga['biblio.pages.membre.fields.quartier']}"/>
+                <p:outputLabel id="quartier" class="w-full text-900 font-bold" value="#{crudBean.entity.adresse.locality.label}"/>
+            </div>
+            <div class="field col lg:col-3 md:col-3">
+                <p:outputLabel for="rue-maison" value="#{msga['biblio.pages.membre.fields.rue-maison']}"/>
+                <p:outputLabel id="rue-maison" class="w-full text-900 font-bold" value="#{crudBean.entity.adresse.street}"/>
+            </div>
+            <div class="field col">
+                <p:outputLabel for="mail" value="#{msga['biblio.pages.membre.fields.email']}"/>
+                <p:outputLabel id="mail" class="w-full text-900 font-bold" value="#{crudBean.entity.email}"/>
+            </div>
+            <div class="field col">
+                <p:outputLabel for="code-postal" value="#{msga['biblio.pages.membre.fields.bp']}"/>
+                <p:outputLabel id="code-postal" class="w-full text-900 font-bold" value="#{crudBean.entity.adresse.postalCode}"/>
+            </div> 
+            <div class="field field col-12 lg:col-3 md:col-4 sm:col-6">
+                <p:outputLabel for="telephone1" value="#{msga['biblio.pages.membre.fields.tel-fix']}"/>
+                <p:outputLabel id="telephone1" class="w-full text-900 font-bold" value="#{crudBean.entity.telephone1}"/>
+            </div>
+            <div class="field field col-12 lg:col-3 md:col-4 sm:col-6">
+                <p:outputLabel for="portable" value="#{msga['biblio.pages.membre.fields.portable']}"/>
+                <p:outputLabel id="portable" class="w-full text-900 font-bold" value="#{crudBean.entity.portable}"/>
+            </div>
+            <div class="field field col-12 lg:col-3 md:col-4 sm:col-6">
+                <p:outputLabel for="vip" value="#{msga['biblio.pages.membre.fields.vip']}"/>
+                <p:outputLabel id="vip" class="w-full text-900 font-bold" value="#{crudBean.entity.privilege == true ? 'Oui' : 'Non'}" />
+            </div>
+            <div class="field field col-12 lg:col-3 md:col-4 sm:col-6">
+                <p:outputLabel for="nombre-signataires-exiges" value="#{msga['biblio.pages.membre.fields.nombre-signataires-exiges']}"/>
+                <p:outputLabel id="nombre-signataires-exiges" class="w-full text-900 font-bold" value="#{crudBean.entity.nombreSignataireExige}"/>
+            </div>
+            <div class="field field col-12 lg:col-3 md:col-4 sm:col-6">
+                <p:outputLabel for="latitude" value="#{msga['biblio.pages.membre.fields.latitude']}"/>
+                <p:outputLabel id="latitude" class="w-full text-900 font-bold" value="#{crudBean.entity.adresse.locality.latitude}"/>
+            </div>
+            <div class="field field col-12 lg:col-3 md:col-4 sm:col-6">
+                <p:outputLabel for="longitude" value="#{msga['biblio.pages.membre.fields.longitude']}"/>
+                <p:outputLabel id="longitude" class="w-full text-900 font-bold" value="#{crudBean.entity.adresse.locality.longitude}"/>
+            </div>
+            <div class="field field col-12 lg:col-3 md:col-4 sm:col-6" jsf:rendered="#{crudBean.type.libelle == 'Physique'}">
+                <p:outputLabel for="nomPere" value="#{msga['biblio.pages.membre.fields.pere']}"/>
+                <p:outputLabel class="w-full text-900 font-bold" value="#{crudBean.entity.nomPere}"/>
+            </div>
+            <div class="field field col-12 lg:col-3 md:col-4 sm:col-6" jsf:rendered="#{crudBean.type.libelle == 'Physique'}">
+                <p:outputLabel value="#{msga['biblio.pages.membre.fields.mere']}"/>
+                <p:outputLabel class="w-full text-900 font-bold" value="#{crudBean.entity.nomMere}"/>
+            </div>
+            <div class="field field col-12 lg:col-3 md:col-4 sm:col-6" jsf:rendered="#{crudBean.type.libelle == 'Physique'}">
+                <p:outputLabel for="personne-contacter" value="#{msga['biblio.pages.membre.fields.personne-contacter']}"/>
+                <p:outputLabel id="personne-contacter" class="w-full text-900 font-bold" value="#{crudBean.entity.nomMere}"/>
+            </div>
+            <div class="field field col-12 lg:col-3 md:col-4 sm:col-6">
+                <p:outputLabel for="observation" value="#{msga['biblio.pages.membre.fields.observation']}"/>
+                <p:outputLabel id="observation" class="w-full text-900 font-bold" value="#{crudBean.entity.observation}"/>
+            </div>
+        </div>
+    </div>
+
+</ui:composition>

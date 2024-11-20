@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/core/templates/#{configBean.theme}/layout-list.xhtml">
+
+    <ui:param name="crudBean" value="#{entiteBean}"/>
+
+    <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
+        <li>#{msg['core.breadcrumb.entity']}</li>
+    </ui:define>
+
+    <ui:define name="title">
+        #{msge['core.pages.entity.list.title']}
+    </ui:define>
+
+    <ui:define name="description">
+    </ui:define>
+
+    <ui:define name="content" >
+        <p:treeTable id="docs" value="#{entiteBean.racine}" var="item" >
+            <f:facet name="header" >
+                <p:linkButton rendered="#{crudBean.canAdd()}"  value="#{msg['core.layout.list.new']}" icon="pi pi-plus-circle"
+                               class="ui-button-primary" outcome="edit?faces-redirect=true"/>
+            </f:facet>
+            <p:column headerText="#{msge['core.pages.entity.fields.legalName']}" sortBy="#{item.label}">
+                <i class="pi #{item.entityType.code}" />
+                <h:outputText style="margin-left: .5rem"   value="#{item.label}"/>
+            </p:column>
+            <p:column headerText="#{msge['core.pages.entity.fields.denomination']}" sortBy="#{item.denomination}" responsivePriority="3">
+                <h:outputText value="#{item.denomination}"/>
+            </p:column>
+            <p:column headerText="#{msge['core.pages.entite.list.numero-agrement']}" sortBy="#{item.numeroApprouve}" responsivePriority="2">
+                <h:outputText value="#{item.numeroApprouve}"/>
+            </p:column>
+            <p:column headerText="#{msge['core.pages.entity.fields.entity-type.label']}" sortBy="#{item.entityType.label}" responsivePriority="3">
+                <h:outputText value="#{item.entityType.label}"/>
+            </p:column> 
+            <p:column headerText="#{msga['biblio.pages.fais.bouton.actions.label']}">
+                <div class="ui-button-group">    
+                    <p:button title="#{msg['core.components.datatable.operations.edit']}"
+                              includeViewParams="true" rendered="#{entiteBean.canUpdate()}"
+                              icon="fa fa-edit" class="ui-button-info" outcome="edit">
+                        <f:param name="entityId" value="#{item.id}"/>
+                    </p:button>
+                    <p:button icon="pi pi-plus-circle"
+                              includeViewParams="true" rendered="#{entiteBean.canAddChild()}"
+                              class="ui-button-seccondary" outcome="edit">
+                        <f:param name="idEntite" value="#{item.id}"/>
+                    </p:button>
+                    <p:button title="#{msg['core.components.datatable.operations.detail']}" includeViewParams="true"
+                              rendered="#{entiteBean.canAccessDetails()}" icon="pi pi-info-circle" class="ui-button-success"
+                              outcome="details">
+                        <f:param name="entityId" value="#{entiteBean.getId(item)}"/>
+                    </p:button>
+                    <p:commandButton title="#{msg['core.components.datatable.operations.delete']}"
+                                     rendered="#{entiteBean.canDelete()}"
+                                     action="#{entiteBean.delete(item)}"
+                                     icon="fa fa-trash" class="ui-button-danger"
+                                     process="@this">
+                        <p:confirm header="Confirmation" icon="ui-icon-alert" 
+                                   message="#{msg['core.components.datatable.operations.delete.confirmmessage']}"/>
+                    </p:commandButton>
+                </div>
+            </p:column>
+        </p:treeTable>
+    </ui:define>
+</ui:composition>

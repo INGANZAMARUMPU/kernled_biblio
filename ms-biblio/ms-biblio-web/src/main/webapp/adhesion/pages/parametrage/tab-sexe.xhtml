@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             xmlns:p="http://primefaces.org/ui"
+             template="/core/templates/#{configBean.theme}/deco-crud.xhtml">
+    <ui:param name="bean" value="#{sexeBean}"/>
+
+    <ui:define name="deco-title">
+        #{msga['biblio.pages.parametrage.tab-sexe.title']}
+    </ui:define>
+
+    <ui:define name="fields">
+        <div class="grid formgrid">
+            <div class="field col-12">
+                <p:outputLabel for="codeCivilite" value="#{msga['biblio.pages.parametrage.tab-sexe.code']}"/>
+                <p:inputText id="codeCivilite" required="true" class="w-full"
+                             requiredMessage="#{msga['biblio.pages.parametrage.tab-sexe.code.required']}"
+                             placeholder="#{msga['biblio.pages.parametrage.tab-sexe.code.placeholder']}" 
+                             label="#{msga['biblio.pages.parametrage.tab-sexe.code.placeholder']}"
+                             value="#{sexeBean.entity.code}"/>
+            </div>
+            <div class="field col-12">
+                <p:outputLabel for="libelle" value="#{msga['biblio.pages.parametrage.tab-sexe.label']}"/>
+                <p:inputText id="libelle" required="true" class="w-full" 
+                             requiredMessage="#{msga['biblio.pages.parametrage.tab-sexe.label.required']}"
+                             placeholder="#{msga['biblio.pages.parametrage.tab-sexe.label.placeholder']}" 
+                             label="Libellé"
+                             value="#{sexeBean.entity.libelle}"/>
+            </div>
+        </div>
+    </ui:define>
+
+    <ui:define name="columns">
+        <p:column headerText="#{msga['biblio.pages.parametrage.tab-sexe.code']}" sortBy="#{item.code}">
+            <h:outputText value="#{item.code}"/>
+        </p:column>
+        <p:column headerText="#{msga['biblio.pages.parametrage.tab-sexe.label']}" sortBy="#{item.libelle}">
+            <h:outputText value="#{item.libelle}"/>
+        </p:column>
+    </ui:define>
+</ui:decorate>

@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/core/templates/#{configBean.theme}/layout-list.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
+    <ui:param name="crudBean" value="#{periodiciteBean}"/>
+
+    <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
+        <li>#{msga['compte.pages.index.description']}</li>
+    </ui:define>
+
+    <ui:define name="title">
+        #{msga['compte.pages.periodicite']}
+    </ui:define>
+
+    <ui:define name="columns">
+        <p:column headerText="#{msga['compte.pages.periodicite.fields.code']}">
+            <p:outputLabel value="#{item.code}" />
+        </p:column>
+        <p:column headerText="#{msga['core.pages.security-policy.label']}">
+            <p:outputLabel value="#{item.libelle}" />
+        </p:column>
+        <p:column headerText="#{msga['compte.pages.periodicite.fields.denominateur']}">
+            <p:outputLabel value="#{item.denominateur}" style="float:  right;"/>
+        </p:column>
+        <p:column headerText="#{msga['compte.pages.periodicite.fields.constant']}">
+            <p:outputLabel value="#{item.constante}" style="float:  right;"/>
+        </p:column>
+        <p:column headerText="#{msga['compte.pages.periodicite.fields.periode']}">
+            <p:outputLabel value="#{item.periode.unite}" />
+        </p:column>
+    </ui:define>
+</ui:composition>

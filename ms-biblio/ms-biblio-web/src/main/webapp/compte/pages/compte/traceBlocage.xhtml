@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/core/templates/#{configBean.theme}/layout-list.xhtml">
+    <ui:param name="crudBean" value="#{traceBlocageBean}"/>
+    <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
+        <li>#{msga['compte.pages.compte-epargne.list']}</li>
+    </ui:define>
+    <ui:define name="title">
+        #{msga['compte.pages.compte-epargne.trace-blocage']}
+    </ui:define>
+    <ui:define name="content">
+        <h:form prependId="false">
+            <div class="ui-fluid formgrid grid" >
+                <div class="field col md:col-6 lg:col-6 col-6">
+                    <p:outputLabel value="#{msga['biblio.pages.organisation.fields.entite']}" rendered="#{not empty traceBlocageBean.agences}"/>
+                    <p:selectOneMenu rendered="#{not empty traceBlocageBean.agences}"
+                                    class="w-full" value="#{traceBlocageBean.entity.agence}" 
+                                    converter="omnifaces.SelectItemsConverter">
+                        <f:selectItem itemLabel="-- #{msg['core.page.fields.select.message']} --" 
+                                          itemValue="#{null}" noSelectionOption="true" />
+                        <f:selectItems var="a" value="#{traceBlocageBean.agences}" itemValue="#{a}" 
+                         itemLabel="#{a.denomination}" />
+                      <p:ajax event="change" process="@this" update="@(.tb)" />
+                    </p:selectOneMenu>            
+                </div>
+            </div>
+            <div class="ui-g grid">
+                <div class="ui-g-12 col-12">
+                    <div class="card grid">
+                        <div class="ui-g-12 col-12">
+                            <p:dataTable id="tb" var="item" value="#{traceBlocageBean.model}" rowKey="#{item.id}" selection="#{traceBlocageBean.selected}"
+                                         paginator="true" rows="20">
+                                <p:column headerText="#{msga['compte.pages.certificat.fields.date-operation']}" sortBy="#{item.dateOperation}"
+                                          filterBy="#{item.dateOperation}" filterMatchMode="contains">
+                                    <h:outputText value="#{item.dateOperation}">
+                                        <f:convertDateTime type="localDate" pattern="#{crudBean.userSession.settings.formats.shortDatePattern}" />
+                                    </h:outputText>                    
+                                </p:column>
+                                <p:column headerText="#{msga['compte.pages.compte-epargne.numero-compte']}" 
+                                          sortBy="#{item.compteEpargne.numeroCompte}" filterBy="#{item.compteEpargne.numeroCompte}" filterMatchMode="contains">
+                                    <h:outputText value="#{item.compteEpargne.numeroCompte}"/>
+                                </p:column>
+                                <p:column headerText="#{msga['compte.pages.compte-epargne.montant-bloque']}" 
+                                          sortBy="#{item.montantBloque}" filterBy="#{item.montantBloque}" filterMatchMode="contains">
+                                    <h:outputText value="#{item.montantBloque !=null ? item.montantBloque : 0}" style="float: right;"/>
+                                </p:column>
+                                <p:column headerText="#{msga['compte.pages.compte-epargne.montant-debloque']}" 
+                                          sortBy="#{item.montantLibere}" filterBy="#{item.montantLibere}" filterMatchMode="contains">
+                                    <h:outputText value="#{item.montantLibere !=null ? item.montantLibere : 0}" style="float: right;"/>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+        <div class="card">
+            <p:button value="#{msga['biblio.pages.membre.fields.retour']}" 
+                outcome="/compte/pages/compte/list?faces-redirect=true" icon="fa fa-backward" class="ui-button-info"/> 
+        </div>
+    </ui:define>
+</ui:composition>

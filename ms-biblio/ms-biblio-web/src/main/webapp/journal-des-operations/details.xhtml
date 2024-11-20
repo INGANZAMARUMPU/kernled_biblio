@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/core/templates/#{configBean.theme}/layout-details.xhtml">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="entityId" value="#{historisationBean.entityId}" />
+            <f:viewAction action="#{historisationBean.initDetails()}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:param name="crudBean" value="#{historisationBean}"/>
+
+    <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
+        <li>#{msga['biblio.breadcrumb.biblio']}</li>
+    </ui:define>
+
+    <ui:define name="title">
+        #{msga['biblio.pages.historique']}
+    </ui:define>
+
+    <ui:define name="fields">
+        <h:form>
+            <p:fieldset legend="#{msga['biblio.pages.historique.journal-des-operation']}" class="mb-3">
+                <div class="grid formgrid ui-fluid">
+                    <div class="field col-12 md:col-6 lg:col-4">
+                        <p:outputLabel for="entite" value="#{msga['biblio.pages.fields.groupe-solidaire.entite-affecte']}"/>
+                        <p:outputLabel id="entite" styleClass="w-full" value="#{historisationBean.entity.entity.label}" style="font-weight: bolder"/>
+                    </div>
+                    <div class="field col-12 md:col-6 lg:col-4">
+                        <p:outputLabel for="type-operation" value="#{msga['biblio.pages.parametrage.tab-type-frais.type-operation']}"/>
+                        <p:outputLabel id="type-operation" styleClass="w-full" value="#{historisationBean.entity.typeOperation.libelle}" style="font-weight: bolder"/>
+                    </div>
+                    <div class="field col-12 md:col-6 lg:col-4">
+                        <p:outputLabel for="libelle" value="#{msga['biblio.pages.motif.field.libelle']}"/>
+                        <p:outputLabel id="libelle" styleClass="w-full" value="#{historisationBean.entity.label}" style="font-weight: bolder"/>
+                    </div>
+                </div><br/>
+                <div class="grid formgrid ui-fluid">
+                    <div class="field col-12 md:col-6 lg:col-4">
+                        <p:outputLabel for="am" value="#{msga['biblio.pages.motif.field.libelle']}"/>
+                        <p:outputLabel id="am" styleClass="w-full" value="#{historisationBean.entity.label}" style="font-weight: bolder"/>
+                    </div>
+                    <div class="field col-12 md:col-6 lg:col-4">
+                        <p:outputLabel for="do" value="#{msga['compte.pages.certificat.fields.date-operation']}"/>
+                        <p:outputLabel id="do" styleClass="w-full" value="#{historisationBean.entity.dateOperation}" style="font-weight: bolder">
+                            <f:convertDateTime type="localDateTime" timeZone="#{userSessionBean.timezone}" 
+                                               pattern="#{userSessionBean.getDateTimePattern('MEDIUM')}"/>
+                        </p:outputLabel>
+                    </div>
+                    <div class="field col-12 md:col-6 lg:col-4">
+                        <p:outputLabel for="status" value="#{msga['biblio.pages.motif.field.satatus']}"/>
+                        <p:outputLabel id="status" styleClass="w-full" value="#{historisationBean.entity.status}" style="font-weight: bolder"/>
+                    </div>
+                </div><br/>
+                <div class="grid formgrid ui-fluid">
+                    <div class="field col-12 md:col-6 lg:col-4">
+                        <p:outputLabel for="user" value="#{msga['biblio.pages.motif.field.user-name']}"/>
+                        <p:outputLabel id="user" styleClass="w-full" value="#{historisationBean.entity.user.displayName}" style="font-weight: bolder"/>
+                    </div>
+                </div>
+            </p:fieldset>
+        </h:form>
+    </ui:define>
+    <ui:define name="action">
+        <p:button value="Retour" outcome="historisation?faces-redirect=true" icon="fa fa-backward" class="ui-button-info"/>
+    </ui:define>
+</ui:composition>

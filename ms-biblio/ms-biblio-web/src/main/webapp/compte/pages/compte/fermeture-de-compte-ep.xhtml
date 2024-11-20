@@ -1,0 +1,237 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                template="/core/templates/#{configBean.theme}/layout-details.xhtml">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="entityId" value="#{compteEpargneBean.entityId}"/>
+            <f:viewAction action="#{compteEpargneBean.initEntity()}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:param name="crudBean" value="#{compteEpargneBean}"/>
+
+    <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
+        <li>#{msga['compte.pages.index.description']}</li>
+    </ui:define>
+
+    <ui:define name="title">
+        #{msga['compte.pages.compte-epargne.details-compte']}
+    </ui:define>
+
+    <ui:define name="fields">
+        <h:form>
+            <div id="fermeture-de-compte-epargne">
+                <p:panel id="fermeture_id" header="#{msga['compte.pages.index.client.fermeture']}" rendered="#{compteEpargneBean.fermerCmp}">
+                    <div class="formgrid grid ui-fluid">
+                        <div class="field col-6 md:col-6 lg:col-12">
+                            <p:outputLabel for="motif-fermeture" value="#{msga['compte.pages.ordre-virement.fields.motif']}" />  
+                            <br/><p:spacer height="10"/>
+                            <p:inputTextarea id="motif-fermeture" value="#{compteEpargneBean.motif}" required="true" 
+                                             requiredMessage="#{msga['compte.pages.compte-epargne.field.required-message.motif-fermeture']}"
+                                             placeholder="#{msga['biblio.pages.donnee-de-reference.motif-fermeture']}" /> 
+                        </div>
+                    </div>
+                    <p:commandButton value="#{msga['biblio.pages.fermeture-de-compte-save']}" icon="fa fa-save"
+                                     rendered="#{not crudBean.updating}" class="ui-button-primary"
+                                     actionListener="#{crudBean.beforeAdd()}" process="@form" update="@form"
+                                     action="#{crudBean.add()}" >
+                        <p:confirm header="#{msga['core.components.fermeture.saving']}" icon="ui-icon-alert" 
+                                   message="#{msga['core.components.reouverture.save-message']}"/>
+                    </p:commandButton>
+                    <p:spacer width="5"/>
+                    <p:commandButton value="#{msga['biblio.pages.fermeture-de-compte-update']}" icon="fa fa-edit"
+                                     rendered="#{crudBean.updating}" class="ui-button-primary" process="@form" update="@form"
+                                     actionListener="#{crudBean.beforeUpdate()}"
+                                     action="#{crudBean.update()}" >
+                        <p:confirm header="#{msga['core.components.fermeture.saving']}" icon="ui-icon-alert" 
+                                   message="#{msga['core.components.reouverture.save-message']}"/>
+                    </p:commandButton>
+                    <p:spacer width="5"/>
+                    <br/><br/><br/>
+                </p:panel>
+                <p:panel id="rouverture_id" header="#{msga['compte.pages.index.client.rouverture']}" rendered="#{compteEpargneBean.rouvrirCmp}">
+                    <div class="formgrid grid ui-fluid">
+                        <div class="field col-6 md:col-6 lg:col-12">
+                            <p:outputLabel for="motif-rouverture" value="#{msga['compte.pages.ordre-virement.fields.motif']}" />  
+                            <br/><p:spacer height="10"/>
+                            <p:inputTextarea id="motif-rouverture" value="#{compteEpargneBean.motif}" required="true" 
+                                             requiredMessage="#{msga['compte.pages.compte-epargne.field.required-message.motif-rouverture']}"
+                                             placeholder="#{msga['biblio.pages.donnee-de-reference.motif-rouverture']}" /> 
+                        </div>
+                    </div>
+                    <p:commandButton value="#{msga['biblio.pages.fermeture-de-compte-save']}" icon="fa fa-save"
+                                     rendered="#{not crudBean.updating}" class="ui-button-primary"
+                                     actionListener="#{crudBean.beforeAdd()}"  process="@form" update="@form"
+                                     action="#{crudBean.add()}" >
+                        <p:confirm header="#{msga['core.components.reouverture.saving']}" icon="ui-icon-alert" 
+                                   message="#{msga['core.components.reouverture.save-message']}"/>
+                    </p:commandButton>
+                    <p:spacer width="5"/>
+                    <p:commandButton value="#{msga['biblio.pages.fermeture-de-compte-update']}" icon="fa fa-edit"
+                                     rendered="#{crudBean.updating}" class="ui-button-primary"
+                                     actionListener="#{crudBean.beforeUpdate()}"  process="@form" update="@form"
+                                     action="#{crudBean.update()}" >
+                        <p:confirm header="#{msga['core.components.reouverture.updating']}" icon="ui-icon-alert" 
+                                   message="#{msga['core.components.reouverture.update-message']}"/>
+                    </p:commandButton>
+                    <p:spacer width="5"/>
+                    <br/>
+                </p:panel>
+            </div><br/>
+
+            <ui:define name="action" rendered="#{!compteEpargneBean.canBlock}">
+                <p:button value="Retour" outcome="list?faces-redirect=true" icon="fa fa-backward" class="ui-button-info"/>
+            </ui:define><br/>
+        </h:form>
+        <div class="grid">
+            <div class="col-6">
+                <p:panel>
+                    <f:facet name="header">
+                        <h:outputText  value="#{msga['compte.pages.index.description']}" />
+                    </f:facet>
+                    <ui:include src="info.xhtml">
+                        <ui:param name="stats" value="#{compteEpargneBean.compteInfos(compteEpargneBean.entity)}"/>
+                        <ui:param name="isRendered" value="#{compteEpargneBean.rendered}"/>
+                    </ui:include>
+                </p:panel>
+            </div>
+            <div class="col-6">
+                <p:panel>
+                    <f:facet name="header">
+                        <h:outputText value="#{msga['biblio.pages.membre.fields.details']}"/>
+                    </f:facet>
+                    <div class="formgrid grid ui-fluid">
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['compte.pages.compte-epargne.date-creation']}"/>
+                            <p:outputLabel  style="font-weight:bold" value="#{compteEpargneBean.entity.createdAt}">
+                                <f:convertDateTime dateStyle="full" type="localDate" pattern="#{crudBean.userSession.settings.formats.shortDatePattern}" />
+                            </p:outputLabel>
+                        </div> 
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['compte.pages.plan-epargne.fields.numero-comptabilite']}"/>
+                            <p:outputLabel   class="w-full text-900" style="font-weight:bold;" value="#{compteEpargneBean.entity.numeroComptabilite}" />
+                        </div> 
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['compte.pages.plan-epargne.fields.option-epargne']}"/>
+                            <p:outputLabel   class="w-full text-900" style="font-weight:bold;" value="#{compteEpargneBean.entity.optionEpargne}" />
+                        </div>
+                    </div>
+                    <div class="formgrid grid ui-fluid">
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['compte.pages.plan-epargne.fields.type-epargne']}"/>
+                            <p:outputLabel   class="w-full text-900" style="font-weight:bold;" value="#{compteEpargneBean.entity.typeEpargne}" />
+                        </div>   
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['compte.pages.plan-epargne.fields.montant-ouverture']}"/>
+                            <p:outputLabel   class="w-full text-900" style="font-weight:bold;float: right;" value="#{compteEpargneBean.entity.montantOuverture}">
+                                <f:convertNumber maxFractionDigits = "3"/>
+                            </p:outputLabel>
+                        </div>   
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['compte.pages.plan-epargne.fields.montant-global']}"/>
+                            <p:outputLabel   class="w-full text-900" style="font-weight:bold;float: right;" value="#{compteEpargneBean.entity.montantMG}" >
+                                <f:convertNumber maxFractionDigits = "3"/>
+                            </p:outputLabel>
+                        </div>   
+                    </div>
+                    <div class="formgrid grid ui-fluid">
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['compte.pages.certificat.fields.taux']}"/>
+                            <p:outputLabel   class="w-full text-900" style="font-weight:bold;" value="#{compteEpargneBean.entity.taux}" />
+                        </div>
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['core.components.datatable.operations.collect']}"/>
+                            <p:outputLabel   class="w-full text-900" style="font-weight:bold;" value="#{compteEpargneBean.entity.encaisse}" />
+                        </div>
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['biblio.pages.part-sociale.fields.agios']}"/>
+                            <p:outputLabel   class="w-full text-900" style="font-weight:bold;" value="#{compteEpargneBean.entity.agios}" />
+                        </div>
+                    </div>
+                    <div class="formgrid grid ui-fluid">
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['biblio.pages.membre.fields.etat']}"/>
+                            <p:outputLabel   class="w-full text-900" style="font-weight:bold;" value="#{compteEpargneBean.entity.bloque == true ? 'Bloqué':'Débloqué'}" />
+                        </div>
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['biblio.pages.membre.fields.fermer']}"/>
+                            <p:outputLabel   class="w-full text-900" style="font-weight:bold;" value="#{compteEpargneBean.entity.ferme}" />
+                        </div>
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['compte.pages.certificat.fields.exonerer']}"/>
+                            <p:outputLabel   class="w-full text-900" style="font-weight:bold;" value="#{compteEpargneBean.entity.exonere}" />
+                        </div>
+                    </div>
+                    <div class="formgrid grid ui-fluid">
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['compte.pages.plan-epargne.fields.interet']}"/>
+                            <p:outputLabel   class="w-full text-900" style="font-weight:bold;" value="#{compteEpargneBean.entity.interet}" />
+                        </div>
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['compte.pages.plan-epargne.fields.montant-interet']}"/>
+                            <p:outputLabel   class="w-full text-900" style="font-weight:bold;float: right;" value="#{compteEpargneBean.entity.montantInteret}" >
+                                <f:convertNumber maxFractionDigits = "3"/>
+                            </p:outputLabel>
+                        </div>
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['compte.pages.compte-epargne.date-deblocage']}"/>
+                            <p:outputLabel  style="font-weight:bold" value="#{compteEpargneBean.entity.dateDeblocage}">
+                                <f:convertDateTime dateStyle="full" type="localDate" pattern="#{crudBean.userSession.settings.formats.shortDatePattern}" />
+                            </p:outputLabel>
+                        </div>
+                    </div>
+                    <div class="formgrid grid ui-fluid">
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['compte.pages.compte-epargne.date-fermeture']}"/>
+                            <p:outputLabel   class="w-full text-900" style="font-weight:bold;" value="#{compteEpargneBean.entity.dateFermeture}" >
+                                <f:convertDateTime dateStyle="full" type="localDate" pattern="#{crudBean.userSession.settings.formats.shortDatePattern}" />
+                            </p:outputLabel>
+                        </div>
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['compte.pages.echeance.fields.date-echeance']}"/>
+                            <p:outputLabel   class="w-full text-900" style="font-weight:bold;" value="#{compteEpargneBean.entity.dateEcheance}" >
+                                <f:convertDateTime dateStyle="full" type="localDate" pattern="#{crudBean.userSession.settings.formats.shortDatePattern}" />
+                            </p:outputLabel>
+                        </div>
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['compte.pages.certificat.fields.duree']}"/>
+                            <p:outputLabel   class="w-full text-900" style="font-weight:bold;" value="#{compteEpargneBean.entity.duree}" />
+                        </div>
+                    </div>
+                    <div class="formgrid grid ui-fluid">
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['compte.pages.compte-epargne.montant-depot']}"/>
+                            <p:outputLabel   class="w-full text-900" style="font-weight:bold;float: right;" value="#{compteEpargneBean.entity.montantDepot}" >
+                                <f:convertNumber maxFractionDigits = "3"/>
+                            </p:outputLabel>
+                        </div>
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['compte.pages.compte-epargne.details-depot']}"/>
+                            <p:outputLabel   class="w-full text-900" style="font-weight:bold;" value="#{compteEpargneBean.entity.detailDepot}" />
+                        </div>
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['compte.pages.compte-epargne.prioritaire']}"/>
+                            <p:outputLabel   class="w-full text-900" style="font-weight:bold;" value="#{compteEpargneBean.entity.prioritaire}" />
+                        </div>
+                    </div>
+                    <div class="formgrid grid ui-fluid">
+                        <div class="field col">
+                            <p:outputLabel class="w-full" value="#{msga['compte.pages.certificat.fields.remarque']}"/>
+                            <p:outputLabel   class="w-full text-900" style="font-weight:bold;" value="#{compteEpargneBean.entity.remarque}" />
+                        </div>
+                    </div>
+                </p:panel>
+            </div>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/core/templates/#{configBean.theme}/deco-crud.xhtml">
+
+    <ui:param name="bean" value="#{typePieceTypeMembreBean}"/>
+
+    <ui:define name="deco-title">
+        #{msga['biblio.pages.type-membre-type-piece.edit.description']}
+    </ui:define>
+
+    <ui:define name="fields">
+        <div class="ui-g grid">
+            <div class="ui-g-12 col-12">
+                <div class="ui-g grid">
+                    <div class="ui-g-12 col-12">
+                        <ui:define name="fields">
+                        </ui:define>
+                        <div class="grid formgrid">
+                            <div class="field col-8 md:col-5 lg:col-5">
+                                <p:outputLabel for="selectMenu" value="#{msga['biblio.pages.type-membre-type-piece.TypeMembre']}"
+                                               style="font-size: large" rendered="true"/>
+                                <p:selectOneMenu id="selectMenu" class="w-full" value="#{typePieceTypeMembreBean.typeMembre}" style="font-size: large"
+                                                 converter="omnifaces.SelectItemsConverter" required="true" >
+                                    <f:selectItem itemLabel="-- #{msg['core.page.fields.select.message']} --" noSelectionOption="true"/>
+                                    <f:selectItems value="#{typePieceTypeMembreBean.typesMembres}" var="tm" itemLabel="#{tm.libelle}" itemValue="#{tm}" />
+                                    <p:ajax listener="#{typePieceTypeMembreBean.recupererTypePieceSelected}" process="selectMenu" update="selectTable, selectMenu, @form"/>
+                                </p:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="grid formgrid">
+                            <div class="field col-12" id = "refreshTypePiecePage">
+                                <p:panel id="selectTable" header="#{msga['biblio.pages.type-membre-type-piece.type-piece']}" toggleable="true">
+                                    <div class="grid formgrid">
+                                        <ui:repeat value="#{typePieceTypeMembreBean.typePieces}" var="tp">
+                                            <div class="field col-12 md:col-4 lg:col-4">
+                                                <div class="field-checkbox">
+                                                    <p:selectBooleanCheckbox id="typePieces" value="#{typePieceTypeMembreBean.checkMap[tp.id]}"/>
+                                                    <p:outputLabel for="typePieces" value="#{tp.libelle}"/>
+                                                </div>
+                                            </div>
+                                        </ui:repeat>
+                                    </div>
+                                </p:panel>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+    <ui:define name="columns">
+
+        <p:headerRow field="typeMembre.libelle" expandable="true" expanded="#{item.typeMembre.libelle}">
+            <p:column colspan="1">
+                <div class="inline-flex align-items-center" style="vertical-align: middle">
+                    <h:outputText styleClass="ml-6" value="#{item.typeMembre.libelle}"/>
+                </div>
+            </p:column>
+        </p:headerRow>
+
+        <p:column headerText="#{msga['biblio.pages.parametre.type-piece-type-membre.type-pieces.libelle']}" 
+                  sortBy="#{item.typePiece.libelle}">
+            <h:outputText value="#{item.typePiece.libelle}"/>
+        </p:column>
+
+    </ui:define>
+
+</ui:composition>
+

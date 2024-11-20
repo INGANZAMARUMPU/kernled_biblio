@@ -1,0 +1,152 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/core/templates/pandora/layout.xhtml">
+
+    <ui:define name="title">${msga['biblio.pages.index.title']}</ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <div class="grid layout-dashboard"> 
+                <div class="col-12 md:col-6 lg:col-4">
+                    <div class="overview-box messages" style="background-color:  darkgreen">
+                        <div class="col-5">
+                            <div class="grid" style="text-align: right">
+                                <p:spacer width="110"/>
+                                <p:outputLabel value="#{dashbordBean.totalMembre}" style="font-size: 5em; color: aliceblue; margin-left: 40%" />
+                                <p:spacer height="60"/>
+                            </div>
+                            <div class="grid">
+                                <p:spacer width="3"/>
+                                <p:outputLabel value="#{msga['webPage.index.membrePhysique']}" style=" margin-bottom: 0.5em;
+                                               font-size: x-small;text-align: center; margin-left: 5%; color: aliceblue; margin-top: 1.5em" />
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="grid">
+                                <p:spacer width="5"/>
+                                <span style="font-size: 1.5em" ><i class="fa-solid fa-user" style="margin-top: 0.5em; font-size: 1em; color: aliceblue"></i></span>
+                                <p:spacer width="17"/>
+                                <p:outputLabel style="color: aliceblue; font-size: large ; margin-top: 0.5em" value="#{dashbordBean.stat.physique}"/>
+                                <p:spacer height="55"/>
+                            </div>
+                            <div class="grid">
+                                <p:spacer width="5"/>
+                                <span  style="font-size: 1.25em"><i class="fa-solid fa-users" style=" font-size: 1em; color: aliceblue"></i></span>
+                                <p:spacer width="14"/>
+                                <p:outputLabel style="color: aliceblue; font-size: large ; margin-top: 0.1em" value="#{dashbordBean.stat.groupement}"/>
+                                <p:spacer height="45"/>
+                            </div>
+                            <div class="grid">
+                                <p:spacer width="1"/>
+                                <span  style="font-size: 1.25em"><i class="pi pi-building" style=" font-size: 1em; margin-left: 0.25em ; color: aliceblue"></i></span>
+                                <p:spacer width="20"/>
+                                <p:outputLabel style="color: aliceblue; font-size: large ; margin-top: 0.01em" value="#{dashbordBean.stat.entreprise}"/>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="grid" style="text-align: right">
+                                <p:spacer width="90"/>
+                                <p:outputLabel value="#{dashbordBean.nombreDeCompteTotal}" style="font-size: 5em; color: aliceblue; margin-left: 20%" />
+                                <p:spacer height="60"/>
+                            </div>
+                            <div class="grid">
+                                <p:spacer width="3"/>
+                                <p:outputLabel value="#{msga['webPage.index.membrePhysique.dataTable.compte-total']}" style=" margin-bottom: -0.2em;
+                                               font-size: x-small;text-align: center; margin-left: 35%; color: aliceblue; margin-top: 1.5em" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <div class="overview-box messages" style="background-color: darkgrey">
+                        <div class="box-text">
+
+                        </div>
+                        <div class="box-text">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <div class="overview-box messages" style="background-color: deepskyblue">
+                        <div class="box-text">
+
+                        </div>
+                        <div class="box-text">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="grid">
+                        <div class="col-12 md:col-8 lg:col-12">
+                            <div class="grid">
+                                <div class="col-12 md:col-4 lg:col-4">
+                                    <div class="card profile">
+                                        <div class="profile-header">
+                                            <div class="grid">
+                                            </div>
+                                        </div>
+                                        <div class="profile-content">
+                                            <h4 class="tests">Adhésions en attente</h4>
+                                            <div class="grid">
+                                                <p:dataTable value="#{dashbordBean.membres}" var="member" styleClass="noHeader" emptyMessage="Aucune adhésion en attente" >
+                                                    <p:column rendered="#{member.dtype == 'MP'}" style="text-align: center;padding: 0 0;" width="5">
+                                                        <h:outputText styleClass="fas fa-user" />
+                                                    </p:column>
+                                                    <p:column rendered="#{member.dtype == 'MG'}" style="text-align: center;padding: 0 0;" width="5">
+                                                        <h:outputText styleClass="fas fa-users" />
+                                                    </p:column>
+                                                    <p:column rendered="#{member.dtype == 'ME'}" style="text-align: center;padding: 0 0;" width="5">
+                                                        <h:outputText styleClass="fas fa-building" />
+                                                    </p:column>
+                                                    <p:column width="50">
+                                                        <h:outputText style="float: right;" value="#{member.dateDemande}">
+                                                            <f:convertDateTime type="localDate" pattern="#{dashbordBean.userSession.settings.formats.shortDatePattern}"/>
+                                                        </h:outputText>
+                                                    </p:column>
+                                                    <p:column width="70">
+                                                        <h:outputText value="#{member.numeroMembre}" />
+                                                    </p:column>
+                                                    <p:column >
+                                                        <h:outputText style="float: right;" value="#{member.dateDemande}" />
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </div>
+                                            <br/>
+                                            <p:commandLink style="float: right; margin-bottom: 5px;" action="/biblio/pages/attente/list?faces-redirect=true">
+                                                <i class="fas fa-list" />
+                                                Détails
+                                            </p:commandLink>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 md:col-4 lg:col-4">
+                                    <div class="card stats card-w-title">
+                                        <div class="card profile">
+                                            <div class="profile-header">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 md:col-4 lg:col-4">
+                                    <div class="card stats card-w-title">
+                                        <div class="card profile">
+                                            <div class="profile-header">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>
