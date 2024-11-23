@@ -1,4 +1,4 @@
-package com.mediasofthome.biblio.constants;
+package com.mediasoftstage.biblio.constants;
 
 /**
  *
@@ -10,13 +10,6 @@ public class BiblioPermissionConstants {
     }
 
     public static final String PERM_BIBLIO_TOUT = "biblio:*";
-
-    public static final String PERM_BIBLIO_BIBLIOTEQUE_TOUT = "biblio:biblioteque:*";
-    public static final String PERM_BIBLIO_BIBLIOTEQUE_LIST = "biblio:biblioteque:list";
-    public static final String PERM_BIBLIO_BIBLIOTEQUE_DETAILS = "biblio:biblioteque:details";
-    public static final String PERM_BIBLIO_BIBLIOTEQUE_ADD = "biblio:biblioteque:add";
-    public static final String PERM_BIBLIO_BIBLIOTEQUE_EDIT = "biblio:biblioteque:edit";
-    public static final String PERM_BIBLIO_BIBLIOTEQUE_DELETE = "biblio:biblioteque:delete";
 
     public static final String PERM_BIBLIO_LIVRE_TOUT = "biblio:livre:*";
     public static final String PERM_BIBLIO_LIVRE_LIST = "biblio:livre:list";
