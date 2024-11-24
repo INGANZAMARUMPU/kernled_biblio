@@ -2,8 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <name>krnled_biblio</name>
-    <groupId>com.mediasofthome.biblio</groupId>
-    <artifactId>krnl_biblio</artifactId>
+    <groupId>com.mediasoftstage.biblio</groupId>
+    <artifactId>krnled_biblio</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     
@@ -14,7 +14,6 @@
     </properties>
     
     <modules>
-        <module>ms-core</module>
         <module>ms-biblio</module>
     </modules>
     
@@ -35,38 +34,6 @@
                     <source>17</source>
                     <target>17</target>
                     <showDeprecation>true</showDeprecation>
-                </configuration>
-            </plugin>
-            <plugin> 
-                <groupId>com.amashchenko.maven.plugin</groupId>
-                <artifactId>gitflow-maven-plugin</artifactId>
-                <version>1.20.0</version>
-                <configuration>
-                    <installProject>true</installProject>
-                    <verbose>true</verbose>
-                    <fetchRemote>false</fetchRemote>
-                    <pushRemote>false</pushRemote>
-                    <allowSnapshots>true</allowSnapshots>
-                    <gitFlowConfig>
-                        <productionBranch>master</productionBranch>
-                        <developmentBranch>develop</developmentBranch>
-                        <featureBranchPrefix>feature/</featureBranchPrefix>
-                        <releaseBranchPrefix>release/</releaseBranchPrefix>
-                        <hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
-                        <supportBranchPrefix>support/</supportBranchPrefix>
-                        <versionTagPrefix>v</versionTagPrefix>
-                        <origin>origin</origin>
-                    </gitFlowConfig>
-                    <commitMessages>
-<!--                        <featureStartMessage>gitflow: update versions for feature branch</featureStartMessage>
-                        <featureFinishMessage>gitflow: update versions for development branch</featureFinishMessage>
-                        <hotfixStartMessage>gitflow: update versions for hotfix</hotfixStartMessage>
-                        <hotfixFinishMessage>gitflow: update for next development version</hotfixFinishMessage>
-                        <releaseStartMessage>gitflow: update versions for release</releaseStartMessage>
-                        <releaseFinishMessage>gitflow: update for next development version</releaseFinishMessage>
-                        <tagHotfixMessage>gitflow: tag hotfix</tagHotfixMessage>
-                        <tagReleaseMessage>gitflow: tag release</tagReleaseMessage>-->
-                    </commitMessages>
                 </configuration>
             </plugin>
         </plugins>

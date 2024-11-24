@@ -4,10 +4,10 @@
  */
 package com.mediasofthome.biblio.bean;
 
-import com.mediasofthome.biblio.constants.BiblioPermissionConstants;
+import com.mediasoftstage.biblio.constants.BiblioPermissionConstants;
 import com.mediasofthome.biblio.entities.BrancheActivite;
 import com.mediasofthome.biblio.entities.SecteurActivite;
-import com.mediasofthome.biblio.service.BrancheActiviteServiceBeanLocal;
+import com.mediasoftstage.biblio.service.BrancheActiviteServiceBeanLocal;
 import com.mediasofthome.biblio.service.SecteurActiviteServiceBeanLocal;
 import com.mediasofthome.krnl.service.GenericServiceBeanLocal;
 import com.mediasofthome.krnl.web.beans.GenericCrudBean;
@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  *
- * @author mawuli
+ * @author INGANZAMARUMPU
  */
 @Named
 @ViewScoped

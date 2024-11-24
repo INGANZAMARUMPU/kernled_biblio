@@ -4,13 +4,13 @@
  */
 package com.mediasofthome.biblio.bean;
 
-import com.mediasofthome.biblio.constants.BiblioPermissionConstants;
+import com.mediasoftstage.biblio.constants.BiblioPermissionConstants;
 import com.mediasofthome.biblio.domain.CompteEpargneVo;
-import com.mediasofthome.biblio.entities.Acteur;
+import com.mediasoftstage.biblio.entities.Acteur;
 import com.mediasofthome.biblio.entities.Epargne;
 import com.mediasofthome.biblio.entities.Guichet;
 import com.mediasofthome.biblio.entities.Origine;
-import com.mediasofthome.biblio.service.ActeurServiceBeanLocal;
+import com.mediasoftstage.biblio.service.ActeurServiceBeanLocal;
 import com.mediasofthome.biblio.service.CompteEpargneServiceBeanLocal;
 import com.mediasofthome.biblio.service.EpargneServiceBeanLocal;
 import com.mediasofthome.biblio.service.GuichetServiceBeanLocal;
@@ -35,7 +35,7 @@ import java.util.List;
 
 /**
  *
- * @author TOKPE Kossi Voltaire Ce bean sert à gérer les vues des épargnes
+ * @author INGANZAMARUMPU Ce bean sert à gérer les vues des épargnes
  */
 @Named
 @ViewScoped

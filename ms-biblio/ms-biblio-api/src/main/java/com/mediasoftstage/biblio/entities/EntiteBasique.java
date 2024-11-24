@@ -5,20 +5,20 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.util.Objects;
-import com.mediasofthome.krnl.entities.BaseAuditEntity;
+import com.mediasofthome.krnl.entities.BaseEntity;
 
-public class EntiteBasique extends BaseAuditEntity {
+public class EntiteBasique extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     
@@ -33,7 +33,7 @@ public class EntiteBasique extends BaseAuditEntity {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Acteur other = (Acteur) obj;
+        final EntiteBasique other = (EntiteBasique) obj;
         return Objects.equals(this.id, other.id);
     }
 

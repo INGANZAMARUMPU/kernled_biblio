@@ -4,7 +4,7 @@
  */
 package com.mediasofthome.biblio.bean;
 
-import com.mediasofthome.biblio.constants.BiblioPermissionConstants;
+import com.mediasoftstage.biblio.constants.BiblioPermissionConstants;
 import com.mediasofthome.biblio.entities.Dat;
 import com.mediasofthome.biblio.service.DatServiceBeanLocal;
 import com.mediasofthome.krnl.service.GenericServiceBeanLocal;
@@ -15,7 +15,7 @@ import jakarta.inject.Named;
 
 /**
  *
- * @author TOKPE Kossi Voltaire
+ * @author INGANZAMARUMPU
  */
 @Named
 @ViewScoped

@@ -1,6 +1,6 @@
 package com.mediasofthome.biblio.bean;
 
-import com.mediasofthome.biblio.constants.BiblioPermissionConstants;
+import com.mediasoftstage.biblio.constants.BiblioPermissionConstants;
 import com.mediasofthome.biblio.entities.CategorieMembre;
 import com.mediasofthome.biblio.entities.CategorieMembreCritereFrais;
 import com.mediasofthome.biblio.entities.CritereFrais;

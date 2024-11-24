@@ -4,7 +4,7 @@
  */
 package com.mediasofthome.biblio.bean;
 
-import com.mediasofthome.biblio.constants.BiblioPermissionConstants;
+import com.mediasoftstage.biblio.constants.BiblioPermissionConstants;
 import com.mediasofthome.biblio.domain.CompteEpargneVo;
 import com.mediasofthome.biblio.domain.MembreVo;
 import com.mediasofthome.biblio.entities.CompteEpargne;
@@ -44,7 +44,7 @@ import org.primefaces.event.SelectEvent;
 
 /**
  *
- * @author TOKPE Kossi Voltaire Software Engineer Developer Cette classe
+ * @author INGANZAMARUMPU Software Engineer Developer Cette classe
  * représente le controleur de gestion des comptes épargnes
  */
 @Named

@@ -53,7 +53,6 @@ public class Abonnement extends EntiteBasique {
         this.emprunteur = emprunteur;
     }
 
-    @Override
     public String toString() {
         return "Abonnement{" + "emprunteur=" + emprunteur + ", date_debut=" + date_debut + ", date_fin=" + date_fin + '}';
     }

@@ -4,7 +4,7 @@
  */
 package com.mediasofthome.biblio.bean;
 
-import com.mediasofthome.biblio.constants.BiblioPermissionConstants;
+import com.mediasoftstage.biblio.constants.BiblioPermissionConstants;
 import com.mediasofthome.biblio.entities.CategoriePartSociale;
 import com.mediasofthome.biblio.service.CategoriePartSocialeServiceBeanLocal;
 import com.mediasofthome.krnl.constants.CoreMessageConstants;
@@ -28,7 +28,7 @@ import org.primefaces.event.SelectEvent;
 
 /**
  *
- * @author sama
+ * @author INGANZAMARUMPU
  */
 @ViewScoped
 @Named

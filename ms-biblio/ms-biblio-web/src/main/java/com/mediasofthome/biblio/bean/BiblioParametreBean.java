@@ -4,7 +4,7 @@
  */
 package com.mediasofthome.biblio.bean;
 
-import com.mediasofthome.biblio.constants.BiblioPermissionConstants;
+import com.mediasoftstage.biblio.constants.BiblioPermissionConstants;
 import com.mediasofthome.krnl.constants.CorePermissionConstants;
 import com.mediasofthome.krnl.service.UserServiceBeanLocal;
 import jakarta.ejb.EJB;
@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author komilo
+ * @author INGANZAMARUMPU
  */
 @Named
 @ViewScoped

@@ -15,7 +15,7 @@ import com.mediasofthome.biblio.service.CategorieServiceBeanLocal;
 
 /**
  *
- * @author mawuli
+ * @author INGANZAMARUMPU
  */
 @Named
 @ViewScoped

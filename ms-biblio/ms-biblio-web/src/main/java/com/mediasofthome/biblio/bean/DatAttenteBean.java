@@ -4,10 +4,10 @@
  */
 package com.mediasofthome.biblio.bean;
 
-import com.mediasofthome.biblio.constants.BiblioPermissionConstants;
+import com.mediasoftstage.biblio.constants.BiblioPermissionConstants;
 import com.mediasofthome.biblio.domain.CompteEpargneVo;
 import com.mediasofthome.biblio.domain.MembreVo;
-import com.mediasofthome.biblio.entities.Acteur;
+import com.mediasoftstage.biblio.entities.Acteur;
 import com.mediasofthome.biblio.entities.CertificatDat;
 import com.mediasofthome.biblio.entities.ChargeDat;
 import com.mediasofthome.biblio.entities.Dat;
@@ -46,7 +46,7 @@ import org.primefaces.event.SelectEvent;
 
 /**
  *
- * @author TOKPE Kossi Voltaire
+ * @author INGANZAMARUMPU
  */
 @Named
 @ViewScoped
