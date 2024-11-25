@@ -5,6 +5,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -89,6 +91,16 @@ public class Emprunteur extends EntiteBasique {
 
     public List<Abonnement> getAbonnements() {
         return abonnements;
+    }
+
+    public Boolean hasAbonnement(){
+        Boolean resultat = false;
+        for (Abonnement abonnement : abonnements) {
+            if (abonnement.getDate_fin().isAfter(LocalDate.now())) {
+                return true;
+            }
+        }
+        return resultat;
     }
 
     public void setAbonnements(List<Abonnement> abonnements) {

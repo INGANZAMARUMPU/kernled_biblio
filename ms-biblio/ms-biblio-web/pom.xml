@@ -8,7 +8,7 @@
         <version>0.1.0-SNAPSHOT</version>
     </parent>
     
-    <groupId>com.mediasofthome.biblio</groupId>
+    <groupId>com.mediasoftstage.biblio</groupId>
     <artifactId>ms-biblio-web</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -31,7 +31,12 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>ms-core-web</artifactId>
+            <artifactId>ms-biblio-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mediasofthome.krnl</groupId>
+            <artifactId>krnl-web</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

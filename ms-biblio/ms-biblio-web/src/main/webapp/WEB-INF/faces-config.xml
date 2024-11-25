@@ -9,13 +9,13 @@
             <default-locale>fr</default-locale>
             <supported-locale>en</supported-locale>
         </locale-config>
-        <message-bundle>com.mediasofthome.biblio.Messages</message-bundle>
+        <message-bundle>com.mediasoftstage.biblio.Messages</message-bundle>
         <resource-bundle>
             <base-name>com.mediasofthome.krnl.web.Messages</base-name>
             <var>msg</var>
         </resource-bundle>
         <resource-bundle>
-            <base-name>com.mediasofthome.biblio.Messages</base-name>
+            <base-name>com.mediasoftstage.biblio.Messages</base-name>
             <var>msga</var>
         </resource-bundle>
     </application>
