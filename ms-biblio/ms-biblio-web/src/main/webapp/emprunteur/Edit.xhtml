@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+<f:view>
+        <head>
+            <meta charset="UTF-8" />
+            <title>Editing Emprunteur</title>
+            <link rel="stylesheet" type="text/css" href="/cdc-biblio/style.css" />
+        </head>
+        <body>
+            <ui:include src="/menu.xhtml" />
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <div class="parent">
+                <h1>Modification de l'emprunteur</h1>
+                <h:form>
+                    <h3>
+                        <h:outputText value="Nom:"/>
+                    </h3>
+                    <h:inputText id="nom" value="#{emprunteur.emprunteur.nom}" title="Nom" />
+                    <h3>
+                        <h:outputText value="Prenom:"/>
+                    </h3>
+                    <h:inputText id="prenom" value="#{emprunteur.emprunteur.prenom}" title="Prenom" />
+                    <h3>
+                        <h:outputText value="Addresse:"/>
+                    </h3>
+                    <h:inputText id="addresse" value="#{emprunteur.emprunteur.addresse}" title="Addresse" />
+                    <h3>
+                        <h:outputText value="Telephone:"/>
+                    </h3>
+                    <h:inputText id="telephone" value="#{emprunteur.emprunteur.telephone}" title="Telephone" />
+                    <h3>
+                        <h:outputText value="Email:"/>
+                    </h3>
+                    <h:inputText id="email" value="#{emprunteur.emprunteur.email}" title="Email" />
+                    <h3>
+                        <h:outputText value="Biblioteque:"/>
+                    </h3>
+                    <h:selectOneMenu id="bibliotequeId" value="#{emprunteur.emprunteur.bibliotequeId}" title="BibliotequeId" >
+                        <f:selectItems value="#{biblioteque.bibliotequeItemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <div>
+                        <h:commandLink action="#{emprunteur.edit}" value="Enregister" class="save">
+                            <f:param name="jsfcrud.currentEmprunteur" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][emprunteur.emprunteur][emprunteur.converter].jsfcrud_invoke}"/>
+                        </h:commandLink>
+                    </div>
+                    <h:commandLink action="#{emprunteur.detailSetup}" value="Details" immediate="true">
+                        <f:param name="jsfcrud.currentEmprunteur" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][emprunteur.emprunteur][emprunteur.converter].jsfcrud_invoke}"/>
+                    </h:commandLink>
+                    <h:commandLink action="#{emprunteur.listSetup}"  value="Voir tout les Emprunteurs" immediate="true"/>
+                </h:form>
+            </div>
+        </body>
+    </html>
+</f:view>
+</html>

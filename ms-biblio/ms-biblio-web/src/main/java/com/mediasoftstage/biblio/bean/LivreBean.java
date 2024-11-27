@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Named
 @ViewScoped
-public class LivreActiviteBean extends GenericCrudBean<Livre, Integer> {
+public class LivreBean extends GenericCrudBean<Livre, Integer> {
 
     @EJB
     protected LivreBeanLocal livre_bean_local;

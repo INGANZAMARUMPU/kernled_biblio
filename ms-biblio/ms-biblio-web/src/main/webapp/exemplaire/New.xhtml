@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+<f:view>
+    <html>
+        <head>
+            <meta charset="UTF-8" />
+            <title>New Exemplaire</title>
+            <link rel="stylesheet" type="text/css" href="/cdc-biblio/style.css" />
+        </head>
+        <body>
+            <ui:include src="/menu.xhtml" />
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <div class="parent">
+                <h1>Ajout d'un exemplaire</h1>
+                <h:form>
+                    <h:inputHidden id="validateCreateField" validator="#{exemplaire.validateCreate}" value="value"/>
+                    <h3>
+                        <h:outputText value="Biblioteque:"/>
+                    </h3>
+                    <h:selectOneMenu id="bibliotequeId" value="#{exemplaire.exemplaire.bibliotequeId}" title="BibliotequeId" >
+                        <f:selectItems value="#{biblioteque.bibliotequeItemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h3>
+                        <h:outputText value="Livre:"/>
+                    </h3>
+                    <h:selectOneMenu id="livreId" value="#{exemplaire.exemplaire.livreId}" title="LivreId" >
+                        <f:selectItems value="#{livre.livreItemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h3>
+                        <h:outputText value="Situation:"/>
+                    </h3>
+                    <h:selectOneMenu id="situation" value="#{exemplaire.exemplaire.situation}" title="Situation" >
+                        <f:selectItems value="#{exemplaire.getAvailiableStates()}"/>
+                    </h:selectOneMenu>
+                    <div>
+                        <h:commandLink action="#{exemplaire.create}" value="Ajouter" class="save"/>
+                    </div>
+                    <h:commandLink action="#{exemplaire.listSetup}"  value="Voir tout les Exemplaires" immediate="true"/>
+                </h:form>
+            </div>
+        </body>
+    </html>
+</f:view>
+</html>
