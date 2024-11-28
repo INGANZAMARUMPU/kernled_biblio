@@ -1,66 +1,59 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="jakarta.faces.facelets"
-      xmlns:f="http://java.sun.com/jsf/core">
-<head>
-    <meta charset="UTF-8" />
-    <title>Editing Livre</title>
-    <link rel="stylesheet" type="text/css" href="/cdc-biblio/style.css" />
-</head>
-<body>
-    <f:view>
-        <ui:include src="/menu.xhtml" />
-        <h:panelGroup id="messagePanel" layout="block">
-            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-        </h:panelGroup>
-        <div class="parent">
-            <header>
-                <h1>Modification du livre</h1>
-                <h:form>
-                    <h:commandLink action="#{livre.detailSetup}" value="Details" immediate="true">
-                        <f:param name="jsfcrud.currentLivre" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][livre.livre][livre.converter].jsfcrud_invoke}"/>
-                    </h:commandLink>
-                </h:form>
-            </header>
-            <h:form>
-                <h3>
-                    <h:outputText value="Isbn:"/>
-                </h3>
-                <h:inputText id="isbn" value="#{livre.livre.isbn}" title="Isbn" required="true" requiredMessage="The isbn field is required." />
-                <h3>
-                    <h:outputText value="Titre:"/>
-                </h3>
-                <h:inputText id="titre" value="#{livre.livre.titre}" title="Titre" />
-                <h3>
-                    <h:outputText value="Auteur:"/>
-                </h3>
-                <h:inputText id="auteur" value="#{livre.livre.auteur}" title="Auteur" />
-                <h3>
-                    <h:outputText value="FonctionAuteur:"/>
-                </h3>
-                <h:inputText id="fonctionAuteur" value="#{livre.livre.fonctionAuteur}" title="FonctionAuteur" />
-                <h3>
-                    <h:outputText value="Editeur:"/>
-                </h3>
-                <h:inputText id="editeur" value="#{livre.livre.editeur}" title="Editeur" />
-                <h3>
-                    <h:outputText value="AnneEdition:"/>
-                </h3>
-                <h:inputText id="anneEdition" value="#{livre.livre.anneEdition}" title="AnneEdition" />
-                <h3>
-                    <h:outputText value="Resume:"/>
-                </h3>
-                <h:inputTextarea id="resume" value="#{livre.livre.resume}" title="Resume" />
-                <div>
-                    <h:commandLink action="#{livre.edit}" value="Enregister" class="save">
-                        <f:param name="jsfcrud.currentLivre" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][livre.livre][livre.converter].jsfcrud_invoke}"/>
-                    </h:commandLink>
-                </div>
-                <h:commandLink action="#{livre.listSetup}"  value="Voir tout les Livres" immediate="true"/>
-            </h:form>
-        </div>
-    </f:view>
-</body>
-</html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/core/templates/#{configBean.theme}/layout-list.xhtml">
+    <ui:param name="crudBean" value="#{visaAttenteBean}"/>
+
+    <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
+        <li>*NOM*</li>
+    </ui:define>
+
+    <ui:define name="title">
+        *TITRE*
+    </ui:define>
+
+    <ui:define name="description">
+        *DESCRIPTION*
+    </ui:define>
+    <ui:define name="content">
+        <h:form>
+            <h3>
+                <h:outputText value="Isbn:"/>
+            </h3>
+            <h:inputText id="isbn" value="#{livre.livre.isbn}" title="Isbn" required="true" requiredMessage="The isbn field is required." />
+            <h3>
+                <h:outputText value="Titre:"/>
+            </h3>
+            <h:inputText id="titre" value="#{livre.livre.titre}" title="Titre" />
+            <h3>
+                <h:outputText value="Auteur:"/>
+            </h3>
+            <h:inputText id="auteur" value="#{livre.livre.auteur}" title="Auteur" />
+            <h3>
+                <h:outputText value="FonctionAuteur:"/>
+            </h3>
+            <h:inputText id="fonctionAuteur" value="#{livre.livre.fonctionAuteur}" title="FonctionAuteur" />
+            <h3>
+                <h:outputText value="Editeur:"/>
+            </h3>
+            <h:inputText id="editeur" value="#{livre.livre.editeur}" title="Editeur" />
+            <h3>
+                <h:outputText value="AnneEdition:"/>
+            </h3>
+            <h:inputText id="anneEdition" value="#{livre.livre.anneEdition}" title="AnneEdition" />
+            <h3>
+                <h:outputText value="Resume:"/>
+            </h3>
+            <h:inputTextarea id="resume" value="#{livre.livre.resume}" title="Resume" />
+            <div>
+                <h:commandLink action="#{livre.edit}" value="Enregister" class="save">
+                    <f:param name="jsfcrud.currentLivre" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][livre.livre][livre.converter].jsfcrud_invoke}"/>
+                </h:commandLink>
+            </div>
+            <h:commandLink action="#{livre.listSetup}"  value="Voir tout les Livres" immediate="true"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
