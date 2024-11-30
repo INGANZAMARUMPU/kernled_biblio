@@ -5,7 +5,7 @@
                 xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="/core/templates/#{configBean.theme}/layout-list.xhtml">
-    <ui:param name="crudBean" value="#{visaAttenteBean}"/>
+    <ui:param name="crudBean" value="#{livreBean}"/>
 
     <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
         <li>*NOM*</li>
@@ -20,7 +20,6 @@
     </ui:define>
     <ui:define name="content">
         <h:form>
-            <h:inputHidden id="validateCreateField" validator="#{livre.validateCreate}" value="value"/>
             <h3>
                 <h:outputText value="Isbn:"/>
             </h3>
@@ -36,7 +35,7 @@
             <h3>
                 <h:outputText value="FonctionAuteur:"/>
             </h3>
-            <h:inputText id="fonctionAuteur" value="#{livre.livre.fonctionAuteur}" title="FonctionAuteur" />
+            <h:inputText id="fonctionAuteur" value="#{livre.livre.fonction_auteur}" title="FonctionAuteur" />
             <h3>
                 <h:outputText value="Editeur:"/>
             </h3>
@@ -44,7 +43,7 @@
             <h3>
                 <h:outputText value="AnneEdition:"/>
             </h3>
-            <h:inputText id="anneEdition" value="#{livre.livre.anneEdition}" title="AnneEdition" />
+            <h:inputText id="anneEdition" value="#{livre.livre.anne_edition}" title="AnneEdition" />
             <h3>
                 <h:outputText value="Resume:"/>
             </h3>

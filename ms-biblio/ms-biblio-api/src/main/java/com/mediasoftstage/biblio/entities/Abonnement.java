@@ -3,10 +3,16 @@ package com.mediasoftstage.biblio.entities;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
+import java.util.Objects;
+
+import com.mediasofthome.krnl.entities.BaseEntity;
 
 /**
  *
@@ -14,7 +20,12 @@ import java.time.LocalDate;
  */
 @Entity
 @Table(name = "abonnements")
-public class Abonnement extends EntiteBasique {
+public class Abonnement extends BaseEntity {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn()
@@ -27,6 +38,14 @@ public class Abonnement extends EntiteBasique {
     private LocalDate date_fin;
 
     public Abonnement() {
+    }
+        
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public LocalDate getDate_debut() {
@@ -51,6 +70,21 @@ public class Abonnement extends EntiteBasique {
 
     public void setEmprunteur(Emprunteur emprunteur) {
         this.emprunteur = emprunteur;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Abonnement other = (Abonnement) obj;
+        return Objects.equals(this.id, other.id);
     }
 
     public String toString() {

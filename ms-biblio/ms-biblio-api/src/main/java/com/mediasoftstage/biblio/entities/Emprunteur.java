@@ -3,11 +3,17 @@ package com.mediasoftstage.biblio.entities;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
+
+import com.mediasofthome.krnl.entities.BaseEntity;
 
 /**
  *
@@ -15,7 +21,12 @@ import java.util.List;
  */
 @Entity
 @Table(name = "emprunteurs")
-public class Emprunteur extends EntiteBasique {
+public class Emprunteur extends BaseEntity {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
     
     @Column(nullable = false)
     private String nom;
@@ -39,6 +50,14 @@ public class Emprunteur extends EntiteBasique {
     private List<Abonnement> abonnements;
 
     public Emprunteur() {
+    }
+        
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNom() {
@@ -101,6 +120,21 @@ public class Emprunteur extends EntiteBasique {
             }
         }
         return resultat;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Emprunteur other = (Emprunteur) obj;
+        return Objects.equals(this.id, other.id);
     }
 
     public void setAbonnements(List<Abonnement> abonnements) {

@@ -30,20 +30,6 @@
                     <f:ajax render="@all" event="change" listener="#{appSessionBean.entiteChoisie()}"/>
                 </k:entitySelectOneMenu>
             </div>
-            <div class="col">
-                <p:selectOneMenu 
-                    id="journee" class="w-full" value="#{appSessionBean.journeeCourante}" converter="omnifaces.SelectItemsConverter">
-                    <f:selectItem itemLabel="- #{msga['web-inf.includes.topbar.journee']} -" noSelectionOption="true"/>
-                    <f:selectItems value="#{appSessionBean.journees}" var="j" itemValue="#{j}" itemLabel="#{appSessionBean.formater(j.dateOuverture)}" />
-                </p:selectOneMenu>
-
-            </div>
-            <div class="col">
-                <p:selectOneMenu id="exercice" class="w-full" value="#{appSessionBean.exerciceCourant}" converter="omnifaces.SelectItemsConverter">
-                    <f:selectItem itemLabel="- #{msga['web-inf.includes.topbar.exercice']} -" noSelectionOption="true"/>
-                    <f:selectItems value="#{appSessionBean.exercices}" var="e" itemValue="#{e}" itemLabel="#{appSessionBean.recupererAnnee(e.fin)}" />
-                </p:selectOneMenu>
-            </div>
         </div>
     </h:form>
 

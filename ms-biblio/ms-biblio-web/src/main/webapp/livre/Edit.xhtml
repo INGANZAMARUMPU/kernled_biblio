@@ -5,7 +5,7 @@
                 xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="/core/templates/#{configBean.theme}/layout-list.xhtml">
-    <ui:param name="crudBean" value="#{visaAttenteBean}"/>
+    <ui:param name="crudBean" value="#{livreBean}"/>
 
     <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
         <li>*NOM*</li>
@@ -35,7 +35,7 @@
             <h3>
                 <h:outputText value="FonctionAuteur:"/>
             </h3>
-            <h:inputText id="fonctionAuteur" value="#{livre.livre.fonctionAuteur}" title="FonctionAuteur" />
+            <h:inputText id="fonctionAuteur" value="#{livre.livre.fonction_auteur}" title="FonctionAuteur" />
             <h3>
                 <h:outputText value="Editeur:"/>
             </h3>
@@ -43,14 +43,14 @@
             <h3>
                 <h:outputText value="AnneEdition:"/>
             </h3>
-            <h:inputText id="anneEdition" value="#{livre.livre.anneEdition}" title="AnneEdition" />
+            <h:inputText id="anneEdition" value="#{livre.livre.anne_edition}" title="AnneEdition" />
             <h3>
                 <h:outputText value="Resume:"/>
             </h3>
             <h:inputTextarea id="resume" value="#{livre.livre.resume}" title="Resume" />
             <div>
                 <h:commandLink action="#{livre.edit}" value="Enregister" class="save">
-                    <f:param name="jsfcrud.currentLivre" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][livre.livre][livre.converter].jsfcrud_invoke}"/>
+                    <f:param name="current_livre" value="#{livre.livre.id}"/>
                 </h:commandLink>
             </div>
             <h:commandLink action="#{livre.listSetup}"  value="Voir tout les Livres" immediate="true"/>

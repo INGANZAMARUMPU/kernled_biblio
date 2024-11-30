@@ -3,9 +3,15 @@ package com.mediasoftstage.biblio.entities;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.List;
+import java.util.Objects;
+
+import com.mediasofthome.krnl.entities.BaseEntity;
 
 /**
  *
@@ -13,7 +19,12 @@ import java.util.List;
  */
 @Entity
 @Table(name = "livres")
-public class Livre extends EntiteBasique {
+public class Livre extends BaseEntity {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
     @Column(nullable = false)
     private String isbn;
@@ -40,6 +51,14 @@ public class Livre extends EntiteBasique {
     private List<Exemplaire> exemplaires;
 
     public Livre() {
+    }
+        
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getIsbn() {
@@ -104,6 +123,21 @@ public class Livre extends EntiteBasique {
 
     public void setExemplaires(List<Exemplaire> exemplaires) {
         this.exemplaires = exemplaires;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Livre other = (Livre) obj;
+        return Objects.equals(this.id, other.id);
     }
 
     @Override

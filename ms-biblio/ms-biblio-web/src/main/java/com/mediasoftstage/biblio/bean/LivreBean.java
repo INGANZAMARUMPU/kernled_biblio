@@ -4,15 +4,17 @@
  */
 package com.mediasoftstage.biblio.bean;
 
+import com.mediasofthome.krnl.service.GenericServiceBeanLocal;
 import com.mediasoftstage.biblio.constants.BiblioPermissionConstants;
+import com.mediasoftstage.biblio.entities.Exemplaire;
 import com.mediasoftstage.biblio.entities.Livre;
 import com.mediasoftstage.biblio.service.LivreBeanLocal;
-import com.mediasofthome.krnl.service.GenericServiceBeanLocal;
-import com.mediasofthome.krnl.web.beans.GenericCrudBean;
+import com.mediasofthome.krnl.web.beans.GenericBean;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,19 +23,27 @@ import java.util.List;
  */
 @Named
 @ViewScoped
-public class LivreBean extends GenericCrudBean<Livre, Integer> {
+public class LivreBean extends GenericBean<Livre, Integer> {
 
     @EJB
     protected LivreBeanLocal livre_bean_local;
     
     private List<Livre> livres;
 
-    @PostConstruct
     @Override
-    public void init() {
-        super.init();
+    public void initEntity() {
+        super.initEntity();
+    }
+    
+    @Override
+    @PostConstruct
+    public void initList() {
+        super.initList();
+    }
+    
+    @Override
+    public void initAdd() {
         this.entity = new Livre();
-        this.livres = livre_bean_local.getAll();
     }
 
     @Override
@@ -60,17 +70,25 @@ public class LivreBean extends GenericCrudBean<Livre, Integer> {
             this.userService.isPermitted(BiblioPermissionConstants.PERM_BIBLIO_ALL);
     }
 
-    @Override
-    protected GenericServiceBeanLocal<Livre, Integer> getService() {
-        return this.livre_bean_local;
-    }
-
     public List<Livre> getLivres() {
-        return livres;
+        return livres = livre_bean_local.getAll();
     }
 
     public void setLivres(List<Livre> livres) {
         this.livres = livres;
+    }
+
+    @Override
+    public GenericServiceBeanLocal<Livre, Integer> getService() {
+        return this.livre_bean_local;
+    }
+
+    @Override
+    public boolean canAccessDetails() {
+        return
+            this.userService.isPermitted(BiblioPermissionConstants.PERM_BIBLIO_LIVRE_DETAILS) || 
+            this.userService.isPermitted(BiblioPermissionConstants.PERM_BIBLIO_LIVRE_ALL) ||
+            this.userService.isPermitted(BiblioPermissionConstants.PERM_BIBLIO_ALL);
     }
 
 }

@@ -5,7 +5,7 @@
                 xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="/core/templates/#{configBean.theme}/layout-list.xhtml">
-    <ui:param name="crudBean" value="#{visaAttenteBean}"/>
+    <ui:param name="crudBean" value="#{livreBean}"/>
 
     <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
         <li>*NOM*</li>
@@ -79,24 +79,24 @@
                             <h:outputText escape="false" value=""/>
                         </f:facet>
                         <h:commandLink value="Details" action="#{exemplaire.detailSetup}">
-                            <f:param name="jsfcrud.currentLivre" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][livre.livre][livre.converter].jsfcrud_invoke}"/>
-                            <f:param name="jsfcrud.currentExemplaire" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][item][exemplaire.converter].jsfcrud_invoke}"/>
-                            <f:param name="jsfcrud.relatedController" value="livre" />
-                            <f:param name="jsfcrud.relatedControllerType" value="com.mediasoft.cdc.biblio.LivreController" />
+                            <f:param name="current_livre" value="#{livre.livre.id}"/>
+                            <f:param name="current_exemplaire" value="#{item.id}"/>
+                            <f:param name="related_controller" value="livre" />
+                            <f:param name="related_controllerType" value="com.mediasoft.cdc.biblio.LivreController" />
                         </h:commandLink>
                         <h:outputText value=" "/>
                         <h:commandLink value="Modifier" action="#{exemplaire.editSetup}">
-                            <f:param name="jsfcrud.currentLivre" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][livre.livre][livre.converter].jsfcrud_invoke}"/>
-                            <f:param name="jsfcrud.currentExemplaire" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][item][exemplaire.converter].jsfcrud_invoke}"/>
-                            <f:param name="jsfcrud.relatedController" value="livre" />
-                            <f:param name="jsfcrud.relatedControllerType" value="com.mediasoft.cdc.biblio.LivreController" />
+                            <f:param name="current_livre" value="#{livre.livre.id}"/>
+                            <f:param name="current_exemplaire" value="#{item.id}"/>
+                            <f:param name="related_controller" value="livre" />
+                            <f:param name="related_controllerType" value="com.mediasoft.cdc.biblio.LivreController" />
                         </h:commandLink>
                         <h:outputText value=" "/>
                         <h:commandLink value="Supprimer" action="#{exemplaire.destroy}">
-                            <f:param name="jsfcrud.currentLivre" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][livre.livre][livre.converter].jsfcrud_invoke}"/>
-                            <f:param name="jsfcrud.currentExemplaire" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][item][exemplaire.converter].jsfcrud_invoke}"/>
-                            <f:param name="jsfcrud.relatedController" value="livre" />
-                            <f:param name="jsfcrud.relatedControllerType" value="com.mediasoft.cdc.biblio.LivreController" />
+                            <f:param name="current_livre" value="#{livre.livre.id}"/>
+                            <f:param name="current_exemplaire" value="#{item.id}"/>
+                            <f:param name="related_controller" value="livre" />
+                            <f:param name="related_controllerType" value="com.mediasoft.cdc.biblio.LivreController" />
                         </h:commandLink>
                     </h:column>
                 </h:dataTable>

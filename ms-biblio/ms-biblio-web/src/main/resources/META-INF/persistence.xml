@@ -5,9 +5,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>${datasource.jndiname}</jta-data-source>
     <jar-file>lib/krnl-api-${krnl.version}.jar</jar-file>
-    <jar-file>lib/ms-core-api-${project.version}.jar</jar-file>
     <jar-file>lib/ms-biblio-api-${project.version}.jar</jar-file>
-    <jar-file>lib/ms-compta-api-${project.version}.jar</jar-file>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
