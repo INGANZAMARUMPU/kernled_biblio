@@ -53,28 +53,28 @@
             </h3>
             <h:panelGroup>
                 <h:outputText rendered="#{empty livre.livre.exemplaireCollection}" value="(No Items)"/>
-                <h:dataTable value="#{livre.livre.exemplaireCollection}" var="item" 
+                <p:dataTable value="#{livre.livre.exemplaireCollection}" var="item" 
                                 border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px" 
                                 rendered="#{not empty livre.livre.exemplaireCollection}">
-                    <h:column>
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="Id"/>
                         </f:facet>
                         <h:outputText value="#{item.id}"/>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="Situation"/>
                         </f:facet>
                         <h:outputText value="#{item.situation}"/>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="Biblioteque"/>
                         </f:facet>
                         <h:outputText value="#{item.bibliotequeId.toString()}"/>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText escape="false" value=""/>
                         </f:facet>
@@ -98,8 +98,8 @@
                             <f:param name="related_controller" value="livre" />
                             <f:param name="related_controllerType" value="com.mediasoft.cdc.biblio.LivreController" />
                         </h:commandLink>
-                    </h:column>
-                </h:dataTable>
+                    </p:column>
+                </p:dataTable>
             </h:panelGroup>
             <h:commandLink action="#{livre.listSetup}"  value="Voir tout les Livres"/>
         </h:form>

@@ -9,16 +9,10 @@ import com.mediasoftstage.biblio.constants.BiblioPermissionConstants;
 import com.mediasoftstage.biblio.entities.Livre;
 import com.mediasoftstage.biblio.service.LivreBeanLocal;
 import com.mediasofthome.krnl.web.beans.GenericBean;
-import com.mediasofthome.krnl.web.models.GenericDataModel;
-
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
-import jakarta.faces.model.DataModel;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
-import java.util.List;
-
-import org.primefaces.model.LazyDataModel;
 
 /**
  *

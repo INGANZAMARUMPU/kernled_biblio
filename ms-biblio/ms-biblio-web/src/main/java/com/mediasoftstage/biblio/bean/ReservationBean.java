@@ -4,16 +4,15 @@
  */
 package com.mediasoftstage.biblio.bean;
 
+import com.mediasofthome.krnl.service.GenericServiceBeanLocal;
 import com.mediasoftstage.biblio.constants.BiblioPermissionConstants;
 import com.mediasoftstage.biblio.entities.Reservation;
 import com.mediasoftstage.biblio.service.ReservationBeanLocal;
-import com.mediasofthome.krnl.service.GenericServiceBeanLocal;
-import com.mediasofthome.krnl.web.beans.GenericCrudBean;
+import com.mediasofthome.krnl.web.beans.GenericBean;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
-import java.util.List;
 
 /**
  *
@@ -21,19 +20,25 @@ import java.util.List;
  */
 @Named
 @ViewScoped
-public class ReservationBean extends GenericCrudBean<Reservation, Integer> {
+public class ReservationBean extends GenericBean<Reservation, Integer> {
 
     @EJB
-    protected ReservationBeanLocal reservation_bean_local;
+    protected ReservationBeanLocal service;
     
-    private List<Reservation> reservations;
-
-    @PostConstruct
     @Override
-    public void init() {
-        super.init();
+    public void initEntity() {
+        super.initEntity();
+    }
+    
+    @Override
+    @PostConstruct
+    public void initList() {
+        super.initList();
+    }
+    
+    @Override
+    public void initAdd() {
         this.entity = new Reservation();
-        this.reservations = reservation_bean_local.getAll();
     }
 
     @Override
@@ -61,16 +66,16 @@ public class ReservationBean extends GenericCrudBean<Reservation, Integer> {
     }
 
     @Override
-    protected GenericServiceBeanLocal<Reservation, Integer> getService() {
-        return this.reservation_bean_local;
+    public GenericServiceBeanLocal<Reservation, Integer> getService() {
+        return this.service;
     }
 
-    public List<Reservation> getReservations() {
-        return reservations;
-    }
-
-    public void setReservations(List<Reservation> reservations) {
-        this.reservations = reservations;
+    @Override
+    public boolean canAccessDetails() {
+        return
+            this.userService.isPermitted(BiblioPermissionConstants.PERM_BIBLIO_RESERVATION_DETAILS) || 
+            this.userService.isPermitted(BiblioPermissionConstants.PERM_BIBLIO_RESERVATION_ALL) ||
+            this.userService.isPermitted(BiblioPermissionConstants.PERM_BIBLIO_ALL);
     }
 
 }

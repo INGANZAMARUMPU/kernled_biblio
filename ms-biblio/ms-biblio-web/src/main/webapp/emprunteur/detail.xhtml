@@ -35,44 +35,44 @@
                 <h:outputText value="EmpruntCollection:" />
                 <h:panelGroup>
                     <h:outputText rendered="#{empty emprunteur.emprunteur.empruntCollection}" value="(No Items)"/>
-                    <h:dataTable value="#{emprunteur.emprunteur.empruntCollection}" var="item" 
+                    <p:dataTable value="#{emprunteur.emprunteur.empruntCollection}" var="item" 
                                     border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px" 
                                     rendered="#{not empty emprunteur.emprunteur.empruntCollection}">
-                        <h:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Id"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="DateEmprunt"/>
                             </f:facet>
                             <h:outputText value="#{item.dateEmprunt}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="DateRemise"/>
                             </f:facet>
                             <h:outputText value="#{item.dateRemise}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="EmprunteurId"/>
                             </f:facet>
                             <h:outputText value="#{item.emprunteurId}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="LivreId"/>
                             </f:facet>
                             <h:outputText value="#{item.livreId}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText escape="false" value=""/>
                             </f:facet>
@@ -96,42 +96,42 @@
                                 <f:param name="jsfcrud.relatedController" value="emprunteur" />
                                 <f:param name="jsfcrud.relatedControllerType" value="com.mediasoft.cdc.biblio.EmprunteurController" />
                             </h:commandLink>
-                        </h:column>
-                    </h:dataTable>
+                        </p:column>
+                    </p:dataTable>
                 </h:panelGroup>
                 <h:outputText value="ReservationCollection:" />
                 <h:panelGroup>
                     <h:outputText rendered="#{empty emprunteur.emprunteur.reservationCollection}" value="(No Items)"/>
-                    <h:dataTable value="#{emprunteur.emprunteur.reservationCollection}" var="item" 
+                    <p:dataTable value="#{emprunteur.emprunteur.reservationCollection}" var="item" 
                                     border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px" 
                                     rendered="#{not empty emprunteur.emprunteur.reservationCollection}">
-                        <h:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Id"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Date"/>
                             </f:facet>
                             <h:outputText value="#{item.date}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="EmprunteurId"/>
                             </f:facet>
                             <h:outputText value="#{item.emprunteurId}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="ExemplaireId"/>
                             </f:facet>
                             <h:outputText value="#{item.exemplaireId}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText escape="false" value=""/>
                             </f:facet>
@@ -155,8 +155,8 @@
                                 <f:param name="jsfcrud.relatedController" value="emprunteur" />
                                 <f:param name="jsfcrud.relatedControllerType" value="com.mediasoft.cdc.biblio.EmprunteurController" />
                             </h:commandLink>
-                        </h:column>
-                    </h:dataTable>
+                        </p:column>
+                    </p:dataTable>
                 </h:panelGroup>
 
             </h:panelGrid>

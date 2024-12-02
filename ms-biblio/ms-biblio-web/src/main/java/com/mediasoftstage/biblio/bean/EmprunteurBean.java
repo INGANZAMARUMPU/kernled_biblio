@@ -4,16 +4,15 @@
  */
 package com.mediasoftstage.biblio.bean;
 
+import com.mediasofthome.krnl.service.GenericServiceBeanLocal;
 import com.mediasoftstage.biblio.constants.BiblioPermissionConstants;
 import com.mediasoftstage.biblio.entities.Emprunteur;
 import com.mediasoftstage.biblio.service.EmprunteurBeanLocal;
-import com.mediasofthome.krnl.service.GenericServiceBeanLocal;
-import com.mediasofthome.krnl.web.beans.GenericCrudBean;
+import com.mediasofthome.krnl.web.beans.GenericBean;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
-import java.util.List;
 
 /**
  *
@@ -21,19 +20,25 @@ import java.util.List;
  */
 @Named
 @ViewScoped
-public class EmprunteurBean extends GenericCrudBean<Emprunteur, Integer> {
+public class EmprunteurBean extends GenericBean<Emprunteur, Integer> {
 
     @EJB
-    protected EmprunteurBeanLocal emprunt_bean_local;
+    protected EmprunteurBeanLocal service;
     
-    private List<Emprunteur> emprunts;
-
-    @PostConstruct
     @Override
-    public void init() {
-        super.init();
+    public void initEntity() {
+        super.initEntity();
+    }
+    
+    @Override
+    @PostConstruct
+    public void initList() {
+        super.initList();
+    }
+    
+    @Override
+    public void initAdd() {
         this.entity = new Emprunteur();
-        this.emprunts = emprunt_bean_local.getAll();
     }
 
     @Override
@@ -61,16 +66,16 @@ public class EmprunteurBean extends GenericCrudBean<Emprunteur, Integer> {
     }
 
     @Override
-    protected GenericServiceBeanLocal<Emprunteur, Integer> getService() {
-        return this.emprunt_bean_local;
+    public GenericServiceBeanLocal<Emprunteur, Integer> getService() {
+        return this.service;
     }
 
-    public List<Emprunteur> getEmprunteurs() {
-        return emprunts;
-    }
-
-    public void setEmprunteurs(List<Emprunteur> emprunts) {
-        this.emprunts = emprunts;
+    @Override
+    public boolean canAccessDetails() {
+        return
+            this.userService.isPermitted(BiblioPermissionConstants.PERM_BIBLIO_EMPRUNTEUR_DETAILS) || 
+            this.userService.isPermitted(BiblioPermissionConstants.PERM_BIBLIO_EMPRUNTEUR_ALL) ||
+            this.userService.isPermitted(BiblioPermissionConstants.PERM_BIBLIO_ALL);
     }
 
 }
