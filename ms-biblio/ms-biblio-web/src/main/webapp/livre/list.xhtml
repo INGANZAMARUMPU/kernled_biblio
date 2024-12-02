@@ -1,0 +1,93 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/core/templates/#{configBean.theme}/layout-list.xhtml">
+    <ui:param name="crudBean" value="#{livreBean}"/>
+
+    <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
+        <li>livres</li>
+    </ui:define>
+
+    <ui:define name="title">
+        LES LIVRES
+    </ui:define>
+
+    <ui:define name="description">
+        *DESCRIPTION*
+    </ui:define>
+    <ui:define name="content">
+        <h:form>
+            <p:linkButton value="nouveau" rendered="#{crudBean.canAdd()}" icon="pi pi-plus-circle"
+                class="ui-button-default" outcome="edit?faces-redirect=true"/>
+
+            <div class="ui-g-12 col-12" style="margin-top: 1rem;">
+                <div class="card grid">
+                    <div class="ui-g-12 col-12">
+                        <p:dataTable id="jn" var="item" value="#{crudBean.model}" rowKey="#{item.id}" selection="#{crudBean.selected}" paginator="true" rows="20" styleClass="jn">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Isbn"/>
+                                </f:facet>
+                                <h:outputText value="#{item.isbn}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Titre"/>
+                                </f:facet>
+                                <h:outputText value="#{item.titre}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Auteur"/>
+                                </f:facet>
+                                <h:outputText value="#{item.auteur}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Fonction de l'auteur"/>
+                                </f:facet>
+                                <h:outputText value="#{item.fonction_auteur}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Editeur"/>
+                                </f:facet>
+                                <h:outputText value="#{item.editeur}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Annee d'edition"/>
+                                </f:facet>
+                                <h:outputText value="#{item.anne_edition}"/>
+                            </p:column>
+                            <p:column>
+                                <div class="ui-button-group">
+                                    <p:button title="modifier"
+                                            includeViewParams="true" rendered="#{crudBean.canUpdate()}"
+                                            icon="fa fa-edit" class="ui-button-info" outcome="edit">
+                                        <f:param name="entityId" value="#{crudBean.getId(item)}"/>
+                                    </p:button>
+                                    <p:button title="details" includeViewParams="true"
+                                            rendered="#{crudBean.canAccessDetails()}" icon="pi pi-info-circle" class="ui-button-success"
+                                            outcome="detail">
+                                        <f:param name="entityId" value="#{crudBean.getId(item)}"/>
+                                    </p:button>
+                                    <p:commandButton title="supprimer"
+                                        rendered="#{crudBean.canDelete()}"
+                                        action="#{crudBean.delete(item)}"
+                                        icon="fa fa-trash" class="ui-button-danger">
+                                        <p:confirm header="Confirmation" icon="ui-icon-alert" 
+                                                message="Voulez-vous vraiment effectuer la suppression de ce livre?"/>
+                                    </p:commandButton>
+                                </div>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

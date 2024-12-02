@@ -6,16 +6,19 @@ package com.mediasoftstage.biblio.bean;
 
 import com.mediasofthome.krnl.service.GenericServiceBeanLocal;
 import com.mediasoftstage.biblio.constants.BiblioPermissionConstants;
-import com.mediasoftstage.biblio.entities.Exemplaire;
 import com.mediasoftstage.biblio.entities.Livre;
 import com.mediasoftstage.biblio.service.LivreBeanLocal;
 import com.mediasofthome.krnl.web.beans.GenericBean;
+import com.mediasofthome.krnl.web.models.GenericDataModel;
+
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
+import jakarta.faces.model.DataModel;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
-import java.util.ArrayList;
 import java.util.List;
+
+import org.primefaces.model.LazyDataModel;
 
 /**
  *
@@ -26,10 +29,8 @@ import java.util.List;
 public class LivreBean extends GenericBean<Livre, Integer> {
 
     @EJB
-    protected LivreBeanLocal livre_bean_local;
+    protected LivreBeanLocal service;
     
-    private List<Livre> livres;
-
     @Override
     public void initEntity() {
         super.initEntity();
@@ -70,17 +71,9 @@ public class LivreBean extends GenericBean<Livre, Integer> {
             this.userService.isPermitted(BiblioPermissionConstants.PERM_BIBLIO_ALL);
     }
 
-    public List<Livre> getLivres() {
-        return livres = livre_bean_local.getAll();
-    }
-
-    public void setLivres(List<Livre> livres) {
-        this.livres = livres;
-    }
-
     @Override
     public GenericServiceBeanLocal<Livre, Integer> getService() {
-        return this.livre_bean_local;
+        return this.service;
     }
 
     @Override
