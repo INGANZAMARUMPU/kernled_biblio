@@ -5,7 +5,7 @@
                 xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="/core/templates/#{configBean.theme}/layout-list.xhtml">
-    <ui:param name="crudBean" value="#{visaAttenteBean}"/>
+    <ui:param name="crudBean" value="#{abonnementBean}"/>
 
     <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
         <li>*NOM*</li>
@@ -20,7 +20,6 @@
     </ui:define>
     <ui:define name="content">
         <h:form>
-            <h:inputHidden id="validateCreateField" validator="#{emprunteur.validateCreate}" value="value"/>
             <h3>
                 <h:outputText value="Nom:"/>
             </h3>
@@ -41,15 +40,20 @@
                 <h:outputText value="Email:"/>
             </h3>
             <h:inputText id="email" value="#{emprunteur.emprunteur.email}" title="Email" />
-            <div>
-                <h:commandLink action="#{emprunteur.create}" value="Ajouter" class="save"/>
-            </div>
             <h3>
                 <h:outputText value="Biblioteque:"/>
             </h3>
             <h:selectOneMenu id="bibliotequeId" value="#{emprunteur.emprunteur.bibliotequeId}" title="BibliotequeId" >
                 <f:selectItems value="#{biblioteque.bibliotequeItemsAvailableSelectOne}"/>
             </h:selectOneMenu>
+            <div>
+                <h:commandLink action="#{emprunteur.edit}" value="Enregister" class="save">
+                    <f:param name="jsfcrud.currentEmprunteur" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][emprunteur.emprunteur][emprunteur.converter].jsfcrud_invoke}"/>
+                </h:commandLink>
+            </div>
+            <h:commandLink action="#{emprunteur.detailSetup}" value="Details" immediate="true">
+                <f:param name="jsfcrud.currentEmprunteur" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][emprunteur.emprunteur][emprunteur.converter].jsfcrud_invoke}"/>
+            </h:commandLink>
             <h:commandLink action="#{emprunteur.listSetup}"  value="Voir tout les Emprunteurs" immediate="true"/>
         </h:form>
     </ui:define>

@@ -1,107 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                template="/core/templates/#{configBean.theme}/layout-list.xhtml">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                template="/core/templates/#{configBean.theme}/layout-details.xhtml"
+                xmlns:faces="jakarta.faces">
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="entityId" value="#{livreBean.entityId}" />
+            <f:viewAction action="#{livreBean.initEntity()}"/>
+        </f:metadata>
+    </ui:define>
+
     <ui:param name="crudBean" value="#{livreBean}"/>
 
     <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
-        <li>*NOM*</li>
+        <li>Details Livre</li>
     </ui:define>
 
     <ui:define name="title">
-        *TITRE*
+        <h:outputText value="#{livreBean.entity.titre}"/>
     </ui:define>
 
-    <ui:define name="description">
-        *DESCRIPTION*
-    </ui:define>
-    <ui:define name="content">
-        <h:form>
-            <h3>
-                <h:outputText value="Isbn:"/>
-            </h3>
-            <h:outputText value="#{livre.livre.isbn}" title="Isbn" />
-            <h3>
-                <h:outputText value="Titre:"/>
-            </h3>
-            <h:outputText value="#{livre.livre.titre}" title="Titre" />
-            <h3>
-                <h:outputText value="Auteur:"/>
-            </h3>
-            <h:outputText value="#{livre.livre.auteur}" title="Auteur" />
-            <h3>
-                <h:outputText value="FonctionAuteur:"/>
-            </h3>
-            <h:outputText value="#{livre.livre.fonctionAuteur}" title="FonctionAuteur" />
-            <h3>
-                <h:outputText value="Editeur:"/>
-            </h3>
-            <h:outputText value="#{livre.livre.editeur}" title="Editeur" />
-            <h3>
-                <h:outputText value="AnneEdition:"/>
-            </h3>
-            <h:outputText value="#{livre.livre.anneEdition}" title="AnneEdition" />
-            <h3>
-                <h:outputText value="Resume:"/>
-            </h3>
-            <h:outputText value="#{livre.livre.resume}" title="Resume" />
-            <h3>
-                <h:outputText value="Exemplaires:" />
-            </h3>
-            <h:panelGroup>
-                <h:outputText rendered="#{empty livre.livre.exemplaireCollection}" value="(No Items)"/>
-                <p:dataTable value="#{livre.livre.exemplaireCollection}" var="item" 
-                                border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px" 
-                                rendered="#{not empty livre.livre.exemplaireCollection}">
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Id"/>
-                        </f:facet>
-                        <h:outputText value="#{item.id}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Situation"/>
-                        </f:facet>
-                        <h:outputText value="#{item.situation}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Biblioteque"/>
-                        </f:facet>
-                        <h:outputText value="#{item.bibliotequeId.toString()}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText escape="false" value=""/>
-                        </f:facet>
-                        <h:commandLink value="Details" action="#{exemplaire.detailSetup}">
-                            <f:param name="current_livre" value="#{livre.livre.id}"/>
-                            <f:param name="current_exemplaire" value="#{item.id}"/>
-                            <f:param name="related_controller" value="livre" />
-                            <f:param name="related_controllerType" value="com.mediasoft.cdc.biblio.LivreController" />
-                        </h:commandLink>
-                        <h:outputText value=" "/>
-                        <h:commandLink value="Modifier" action="#{exemplaire.editSetup}">
-                            <f:param name="current_livre" value="#{livre.livre.id}"/>
-                            <f:param name="current_exemplaire" value="#{item.id}"/>
-                            <f:param name="related_controller" value="livre" />
-                            <f:param name="related_controllerType" value="com.mediasoft.cdc.biblio.LivreController" />
-                        </h:commandLink>
-                        <h:outputText value=" "/>
-                        <h:commandLink value="Supprimer" action="#{exemplaire.destroy}">
-                            <f:param name="current_livre" value="#{livre.livre.id}"/>
-                            <f:param name="current_exemplaire" value="#{item.id}"/>
-                            <f:param name="related_controller" value="livre" />
-                            <f:param name="related_controllerType" value="com.mediasoft.cdc.biblio.LivreController" />
-                        </h:commandLink>
-                    </p:column>
-                </p:dataTable>
-            </h:panelGroup>
-            <h:commandLink action="#{livre.listSetup}"  value="Voir tout les Livres"/>
-        </h:form>
+    <ui:define name="fields">
+        <p:fieldset  class="mt-4" legend="LIBELLÉ">
+            <p:dataTable id="table" editable="true" paginator="true" rows="10" emptyMessage="aucune donnée" value="0" var="r">
+                <p:column headerText="titre">
+                    <h:outputText value="#{livreBean.entity.titre}"/>
+                </p:column>
+                <p:column headerText="auteur">
+                    <h:outputText value="#{livreBean.entity.auteur}"/>
+                </p:column>
+                <p:column headerText="fonction">
+                    <h:outputText value="#{livreBean.entity.fonction_auteur}"/>
+                </p:column>
+                <p:column headerText="editeur">
+                    <h:outputText value="#{livreBean.entity.editeur}"/>
+                </p:column>
+                <p:column headerText="isbn">
+                    <h:outputText value="#{livreBean.entity.isbn}"/>
+                </p:column>
+                <p:column headerText="anne d'edition">
+                    <h:outputText value="#{livreBean.entity.anne_edition}"/>
+                </p:column>
+                <p:column headerText="resume">
+                    <h:outputText value="#{livreBean.entity.resume}"/>
+                </p:column>
+            </p:dataTable>
+        </p:fieldset>
+
     </ui:define>
 </ui:composition>
