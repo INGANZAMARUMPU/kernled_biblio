@@ -28,7 +28,6 @@ public class LivreBean extends GenericBean<Livre, Integer> {
     @EJB
     protected LivreBeanLocal service;
     
-    
     @Override
     @PostConstruct
     public void initList() {
@@ -136,7 +135,7 @@ public class LivreBean extends GenericBean<Livre, Integer> {
         } catch (BusinessException ex) {
             Messages.addFlashGlobalError(ex.getMessage());
         } catch (Exception ex) {
-            Messages.addFlashGlobalError("Une erreur est survenue lors de la suppression.");
+            Messages.addFlashGlobalError("Une erreur est survenue lors de la suppression. " + ex.getMessage());
         }
         return "list?faces-redirect=true";
     }

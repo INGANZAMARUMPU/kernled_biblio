@@ -1,7 +1,7 @@
 package com.mediasoftstage.biblio.service;
 
-import com.mediasoftstage.biblio.dao.EmprunteurDaoBean;
-import com.mediasoftstage.biblio.entities.Emprunteur;
+import com.mediasoftstage.biblio.dao.ReservationDaoBean;
+import com.mediasoftstage.biblio.entities.Reservation;
 
 import com.mediasofthome.krnl.dao.GenericDAOBean;
 import com.mediasofthome.krnl.service.GenericServiceBean;
@@ -13,18 +13,18 @@ import jakarta.ejb.Stateless;
  * @author INGANZAMARUMPU
  */
 @Stateless
-public class EmprunteurBean extends GenericServiceBean<Emprunteur, Integer> implements EmprunteurBeanLocal {
+public class ReservationServiceBean extends GenericServiceBean<Reservation, Integer> implements ReservationBeanLocal {
 
     @EJB
-    private EmprunteurDaoBean dao;
+    private ReservationDaoBean dao;
 
     @Override
-    protected GenericDAOBean<Emprunteur, Integer> getDAO() {
+    protected GenericDAOBean<Reservation, Integer> getDAO() {
         return this.dao;
     }
 
     @Override
-    public Integer getId(Emprunteur e) {
+    public Integer getId(Reservation e) {
         return e.getId();
     }
 

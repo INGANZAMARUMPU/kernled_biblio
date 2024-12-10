@@ -31,13 +31,25 @@
                                 <f:facet name="header">
                                     <h:outputText value="Livre"/>
                                 </f:facet>
-                                <h:outputText value="#{item.livreId.toString()}"/>
+                                <h:outputText value="#{item.livre.titre}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Biblioteque"/>
+                                    <h:outputText value="ISBN"/>
                                 </f:facet>
-                                <h:outputText value="#{item.bibliotequeId.toString()}"/>
+                                <h:outputText value="#{item.livre.isbn}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Année"/>
+                                </f:facet>
+                                <h:outputText value="#{item.livre.anne_edition}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Numero"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numero}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
@@ -46,20 +58,25 @@
                                 <h:outputText value="#{item.situation}"/>
                             </p:column>
                             <p:column>
-                                <f:facet name="header">
-                                    <h:outputText escape="false" value=""/>
-                                </f:facet>
-                                <p:commandLink value="Details" action="#{exemplaire.detailSetup}">
-                                    <f:param name="jsfcrud.currentExemplaire" value="#{item.id}"/>
-                                </p:commandLink>
-                                <h:outputText value=" "/>
-                                <p:commandLink value="Modifier" action="#{exemplaire.editSetup}">
-                                    <f:param name="jsfcrud.currentExemplaire" value="#{item.id}"/>
-                                </p:commandLink>
-                                <h:outputText value=" "/>
-                                <p:commandLink value="Supprimer" action="#{exemplaire.destroy}">
-                                    <f:param name="jsfcrud.currentExemplaire" value="#{item.id}"/>
-                                </p:commandLink>
+                                <div class="ui-button-group">
+                                    <p:button title="modifier"
+                                            includeViewParams="true" rendered="#{crudBean.canUpdate()}"
+                                            icon="fa fa-edit" class="ui-button-info" outcome="edit">
+                                        <f:param name="entityId" value="#{crudBean.getId(item)}"/>
+                                    </p:button>
+                                    <p:button title="details" includeViewParams="true"
+                                            rendered="#{crudBean.canAccessDetails()}" icon="pi pi-info-circle" class="ui-button-success"
+                                            outcome="detail">
+                                        <f:param name="entityId" value="#{crudBean.getId(item)}"/>
+                                    </p:button>
+                                    <p:commandButton title="supprimer"
+                                        rendered="#{crudBean.canDelete()}"
+                                        action="#{crudBean.delete(item)}"
+                                        icon="fa fa-trash" class="ui-button-danger">
+                                        <p:confirm header="Confirmation" icon="ui-icon-alert" 
+                                                message="Voulez-vous vraiment effectuer la suppression de cet exemplaire?"/>
+                                    </p:commandButton>
+                                </div>
                             </p:column>
                         </p:dataTable>
                     </div>

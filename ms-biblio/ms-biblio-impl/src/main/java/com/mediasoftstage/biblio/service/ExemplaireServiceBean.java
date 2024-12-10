@@ -1,7 +1,7 @@
 package com.mediasoftstage.biblio.service;
 
-import com.mediasoftstage.biblio.dao.LivreDaoBean;
-import com.mediasoftstage.biblio.entities.Livre;
+import com.mediasoftstage.biblio.dao.ExemplaireDaoBean;
+import com.mediasoftstage.biblio.entities.Exemplaire;
 
 import com.mediasofthome.krnl.dao.GenericDAOBean;
 import com.mediasofthome.krnl.service.GenericServiceBean;
@@ -13,18 +13,18 @@ import jakarta.ejb.Stateless;
  * @author INGANZAMARUMPU
  */
 @Stateless
-public class LivreBean extends GenericServiceBean<Livre, Integer> implements LivreBeanLocal {
+public class ExemplaireServiceBean extends GenericServiceBean<Exemplaire, Integer> implements ExemplaireBeanLocal {
 
     @EJB
-    private LivreDaoBean dao;
+    private ExemplaireDaoBean dao;
 
     @Override
-    protected GenericDAOBean<Livre, Integer> getDAO() {
+    protected GenericDAOBean<Exemplaire, Integer> getDAO() {
         return this.dao;
     }
 
     @Override
-    public Integer getId(Livre e) {
+    public Integer getId(Exemplaire e) {
         return e.getId();
     }
 

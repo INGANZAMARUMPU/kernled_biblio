@@ -1,91 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                template="/core/templates/#{configBean.theme}/layout-list.xhtml">
-    <ui:param name="crudBean" value="#{visaAttenteBean}"/>
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                template="/core/templates/#{configBean.theme}/layout-details.xhtml"
+                xmlns:faces="jakarta.faces">
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="entityId" value="#{exemplaireBean.entityId}" />
+            <f:viewAction action="#{exemplaireBean.initEntity()}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:param name="crudBean" value="#{exemplaireBean}"/>
 
     <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
-        <li>*NOM*</li>
+        <li>Details Livre</li>
     </ui:define>
 
     <ui:define name="title">
-        *TITRE*
+        <h:outputText value="#{exemplaireBean.entity.titre}"/>
     </ui:define>
 
-    <ui:define name="description">
-        *DESCRIPTION*
-    </ui:define>
-    <ui:define name="content">
-        <h:form>
-            <h3>
-                <h:outputText value="Situation:"/>
-            </h3>
-            <h:outputText value="#{exemplaire.exemplaire.situation}" title="Situation" />
-            <h3>
-                <h:outputText value="Biblioteque:"/>
-            </h3>
-            <h:panelGroup>
-                <h:outputText value="#{exemplaire.exemplaire.bibliotequeId.toString()}"/>
-                <h:panelGroup rendered="#{exemplaire.exemplaire.bibliotequeId != null}">
-                    <h:outputText value=" ("/>
-                    <h:commandLink value="Details" action="#{biblioteque.detailSetup}">
-                        <f:param name="jsfcrud.currentExemplaire" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][exemplaire.exemplaire][exemplaire.converter].jsfcrud_invoke}"/>
-                        <f:param name="jsfcrud.currentBiblioteque" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][exemplaire.exemplaire.bibliotequeId][biblioteque.converter].jsfcrud_invoke}"/>
-                        <f:param name="jsfcrud.relatedController" value="exemplaire"/>
-                        <f:param name="jsfcrud.relatedControllerType" value="com.mediasoft.cdc.biblio.ExemplaireController"/>
-                    </h:commandLink>
-                    <h:outputText value=" "/>
-                    <h:commandLink value="Modifier" action="#{biblioteque.editSetup}">
-                        <f:param name="jsfcrud.currentExemplaire" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][exemplaire.exemplaire][exemplaire.converter].jsfcrud_invoke}"/>
-                        <f:param name="jsfcrud.currentBiblioteque" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][exemplaire.exemplaire.bibliotequeId][biblioteque.converter].jsfcrud_invoke}"/>
-                        <f:param name="jsfcrud.relatedController" value="exemplaire"/>
-                        <f:param name="jsfcrud.relatedControllerType" value="com.mediasoft.cdc.biblio.ExemplaireController"/>
-                    </h:commandLink>
-                    <h:outputText value=" "/>
-                    <h:commandLink value="Supprimer" action="#{biblioteque.destroy}">
-                        <f:param name="jsfcrud.currentExemplaire" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][exemplaire.exemplaire][exemplaire.converter].jsfcrud_invoke}"/>
-                        <f:param name="jsfcrud.currentBiblioteque" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][exemplaire.exemplaire.bibliotequeId][biblioteque.converter].jsfcrud_invoke}"/>
-                        <f:param name="jsfcrud.relatedController" value="exemplaire"/>
-                        <f:param name="jsfcrud.relatedControllerType" value="com.mediasoft.cdc.biblio.ExemplaireController"/>
-                    </h:commandLink>
-                    <h:outputText value=" )"/>
-                </h:panelGroup>
-            </h:panelGroup>
-            <h3>
-                <h:outputText value="Livre:"/>
-            </h3>
-            <h:panelGroup>
-                <h:outputText value="#{exemplaire.exemplaire.livreId.toString()}"/>
-                <h:panelGroup rendered="#{exemplaire.exemplaire.livreId != null}">
-                    <h:outputText value=" ("/>
-                    <h:commandLink value="Details" action="#{livre.detailSetup}">
-                        <f:param name="jsfcrud.currentExemplaire" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][exemplaire.exemplaire][exemplaire.converter].jsfcrud_invoke}"/>
-                        <f:param name="jsfcrud.currentLivre" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][exemplaire.exemplaire.livreId][livre.converter].jsfcrud_invoke}"/>
-                        <f:param name="jsfcrud.relatedController" value="exemplaire"/>
-                        <f:param name="jsfcrud.relatedControllerType" value="com.mediasoft.cdc.biblio.ExemplaireController"/>
-                    </h:commandLink>
-                    <h:outputText value=" "/>
-                    <h:commandLink value="Modifier" action="#{livre.editSetup}">
-                        <f:param name="jsfcrud.currentExemplaire" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][exemplaire.exemplaire][exemplaire.converter].jsfcrud_invoke}"/>
-                        <f:param name="jsfcrud.currentLivre" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][exemplaire.exemplaire.livreId][livre.converter].jsfcrud_invoke}"/>
-                        <f:param name="jsfcrud.relatedController" value="exemplaire"/>
-                        <f:param name="jsfcrud.relatedControllerType" value="com.mediasoft.cdc.biblio.ExemplaireController"/>
-                    </h:commandLink>
-                    <h:outputText value=" "/>
-                    <h:commandLink value="Supprimer" action="#{livre.destroy}">
-                        <f:param name="jsfcrud.currentExemplaire" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][exemplaire.exemplaire][exemplaire.converter].jsfcrud_invoke}"/>
-                        <f:param name="jsfcrud.currentLivre" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][exemplaire.exemplaire.livreId][livre.converter].jsfcrud_invoke}"/>
-                        <f:param name="jsfcrud.relatedController" value="exemplaire"/>
-                        <f:param name="jsfcrud.relatedControllerType" value="com.mediasoft.cdc.biblio.ExemplaireController"/>
-                    </h:commandLink>
-                    <h:outputText value=" )"/>
-                </h:panelGroup>
-            </h:panelGroup>
-            <br/><br/>
-            <h:commandLink action="#{exemplaire.listSetup}"  value="Voir tout les Exemplaires"/>
-        </h:form>
+    <ui:define name="fields">
+        <p:fieldset  class="mt-4" legend="LIBELLÉ">
+            <p:dataTable id="table" editable="true" paginator="true" rows="10" emptyMessage="aucune donnée" value="0" var="r">
+                <p:column headerText="titre">
+                    <h:outputText value="#{exemplaireBean.entity.titre}"/>
+                </p:column>
+                <p:column headerText="auteur">
+                    <h:outputText value="#{exemplaireBean.entity.auteur}"/>
+                </p:column>
+                <p:column headerText="fonction">
+                    <h:outputText value="#{exemplaireBean.entity.fonction_auteur}"/>
+                </p:column>
+                <p:column headerText="editeur">
+                    <h:outputText value="#{exemplaireBean.entity.editeur}"/>
+                </p:column>
+                <p:column headerText="isbn">
+                    <h:outputText value="#{exemplaireBean.entity.isbn}"/>
+                </p:column>
+                <p:column headerText="anne d'edition">
+                    <h:outputText value="#{exemplaireBean.entity.anne_edition}"/>
+                </p:column>
+                <p:column headerText="resume">
+                    <h:outputText value="#{exemplaireBean.entity.resume}"/>
+                </p:column>
+            </p:dataTable>
+        </p:fieldset>
+
     </ui:define>
 </ui:composition>

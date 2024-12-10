@@ -75,6 +75,11 @@
                                             outcome="detail">
                                         <f:param name="entityId" value="#{crudBean.getId(item)}"/>
                                     </p:button>
+                                    <p:button title="Ajouter un exemplaire" includeViewParams="true"
+                                            rendered="#{crudBean.canUpdate()}" icon="pi pi-plus-circle" class="ui-button-info"
+                                            outcome="/exemplaire/edit.xhtml">
+                                        <f:param name="livre_id" value="#{crudBean.getId(item)}"/>
+                                    </p:button>
                                     <p:commandButton title="supprimer"
                                         rendered="#{crudBean.canDelete()}"
                                         action="#{crudBean.delete(item)}"

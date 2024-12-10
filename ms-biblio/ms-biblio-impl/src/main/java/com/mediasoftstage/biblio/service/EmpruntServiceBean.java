@@ -1,7 +1,7 @@
 package com.mediasoftstage.biblio.service;
 
-import com.mediasoftstage.biblio.dao.AbonnementDaoBean;
-import com.mediasoftstage.biblio.entities.Abonnement;
+import com.mediasoftstage.biblio.dao.EmpruntDaoBean;
+import com.mediasoftstage.biblio.entities.Emprunt;
 
 import com.mediasofthome.krnl.dao.GenericDAOBean;
 import com.mediasofthome.krnl.service.GenericServiceBean;
@@ -13,18 +13,18 @@ import jakarta.ejb.Stateless;
  * @author INGANZAMARUMPU
  */
 @Stateless
-public class AbonnementBean extends GenericServiceBean<Abonnement, Integer> implements AbonnementBeanLocal {
+public class EmpruntServiceBean extends GenericServiceBean<Emprunt, Integer> implements EmpruntBeanLocal {
 
     @EJB
-    private AbonnementDaoBean dao;
+    private EmpruntDaoBean dao;
 
     @Override
-    protected GenericDAOBean<Abonnement, Integer> getDAO() {
+    protected GenericDAOBean<Emprunt, Integer> getDAO() {
         return this.dao;
     }
 
     @Override
-    public Integer getId(Abonnement e) {
+    public Integer getId(Emprunt e) {
         return e.getId();
     }
 
