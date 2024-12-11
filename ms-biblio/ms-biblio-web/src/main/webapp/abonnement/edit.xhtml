@@ -1,60 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                template="/core/templates/#{configBean.theme}/layout-list.xhtml">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                template="/core/templates/#{configBean.theme}/layout-details.xhtml"
+                xmlns:faces="jakarta.faces">
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="entityId" value="#{abonnementBean.entityId}" />
+            <f:viewParam name="emprunteur_id" value="#{abonnementBean.emprunteur_id}" />
+            <f:viewAction action="#{abonnementBean.initEntity()}"/>
+        </f:metadata>
+    </ui:define>
+
     <ui:param name="crudBean" value="#{abonnementBean}"/>
 
-    <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
-        <li>*NOM*</li>
+    <ui:define name="breadcrumb">
+        Edition Abonnement
     </ui:define>
 
     <ui:define name="title">
-        *TITRE*
+        <h:outputText value="#{emprunteurs}"/> ok 
+        <h:outputText value="#{emprunteur_bean}"/>
     </ui:define>
-
-    <ui:define name="description">
-        *DESCRIPTION*
-    </ui:define>
-    <ui:define name="content">
+    <ui:define name="fields">
         <h:form>
-            <h3>
-                <h:outputText value="Nom:"/>
-            </h3>
-            <h:inputText id="nom" value="#{emprunteur.emprunteur.nom}" title="Nom" />
-            <h3>
-                <h:outputText value="Prenom:"/>
-            </h3>
-            <h:inputText id="prenom" value="#{emprunteur.emprunteur.prenom}" title="Prenom" />
-            <h3>
-                <h:outputText value="Addresse:"/>
-            </h3>
-            <h:inputText id="addresse" value="#{emprunteur.emprunteur.addresse}" title="Addresse" />
-            <h3>
-                <h:outputText value="Telephone:"/>
-            </h3>
-            <h:inputText id="telephone" value="#{emprunteur.emprunteur.telephone}" title="Telephone" />
-            <h3>
-                <h:outputText value="Email:"/>
-            </h3>
-            <h:inputText id="email" value="#{emprunteur.emprunteur.email}" title="Email" />
-            <h3>
-                <h:outputText value="Biblioteque:"/>
-            </h3>
-            <h:selectOneMenu id="bibliotequeId" value="#{emprunteur.emprunteur.bibliotequeId}" title="BibliotequeId" >
-                <f:selectItems value="#{biblioteque.bibliotequeItemsAvailableSelectOne}"/>
-            </h:selectOneMenu>
-            <div>
-                <h:commandLink action="#{emprunteur.edit}" value="Enregister" class="save">
-                    <f:param name="jsfcrud.currentEmprunteur" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][emprunteur.emprunteur][emprunteur.converter].jsfcrud_invoke}"/>
-                </h:commandLink>
-            </div>
-            <h:commandLink action="#{emprunteur.detailSetup}" value="Details" immediate="true">
-                <f:param name="jsfcrud.currentEmprunteur" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][emprunteur.emprunteur][emprunteur.converter].jsfcrud_invoke}"/>
-            </h:commandLink>
-            <h:commandLink action="#{emprunteur.listSetup}"  value="Voir tout les Emprunteurs" immediate="true"/>
-        </h:form>
+        <p:card>
+            <p:fieldset class="mt-2" id="stmpsField" legend="ABONNEMENT">          
+                <p:fieldset id="formField">
+                    <div>
+                        <div class="field col-12 md:col-6 lg:col-6">
+                            <p:outputLabel for="emprunteur" value="Livre"/>
+                            <p:selectOneMenu class="w-full"  required="true" 
+                                    rendered="#{crudBean.emprunteur_id == null}"
+                                    requiredMessage="Vous devez renseigner l'emprunteur"
+                                    id="emprunteur" value="#{crudBean.entity.emprunteur}" converter="omnifaces.SelectItemsConverter">
+                                <f:selectItems value="#{crudBean.emprunteurs}" var="item" itemLabel="#{item.toString()}" itemValue="#{item}" />
+                            </p:selectOneMenu>
+                            <div>
+                                <b>
+                                    <p:outputLabel rendered="#{crudBean.emprunteur_id != null}" value="#{crudBean.entity.emprunteur.titre}"/>
+                                </b>
+                            </div>
+                        </div>
+                        <div class="field col-12 md:col-6">
+                            <p:outputLabel for="date_debut" value="Date de debut de l'abonnement"/>
+                            <p:datePicker id="date_debut" class="w-full" placeholder="Date de debut de l'abonnement" value="#{crudBean.entity.date_debut}"/>
+                        </div>
+                        <div class="field col-12 md:col-6">
+                            <p:outputLabel for="date_fin" value="Date final de l'abonnement"/>
+                            <p:datePicker id="date_fin" required="true" requiredMessage="Vous devez renseigner la date final de l'abonnement"
+                                class="w-full" placeholder="Date final de l'abonnement" value="#{crudBean.entity.date_fin}"/>
+                        </div>
+                    </div>
+                </p:fieldset>
+
+                <div class="text-right">
+                        <div class="mt-2">
+                            <p:commandButton id="ajouterStmps" icon="fa fa-plus"
+                                rendered="#{abonnementBean.isAdding()}"
+                                value="Ajouter" 
+                                action="#{abonnementBean.add()}"/>
+                            <p:commandButton id="editerStmps" icon="fa fa-edit"
+                                rendered="#{not abonnementBean.isAdding()}"
+                                value="Modifier" 
+                                action="#{abonnementBean.update()}"/>
+                            <p:spacer width="2"/>
+                            <p:commandButton id="btnReinit" value="Reinitialiser" 
+                                type="reset" class="ui-button-warning" process="stmpsField" 
+                                icon="fa fa-refresh">
+                                <p:ajax listener="#{abonnementBean.reinitialiser()}" update="stmpsField"/>
+                            </p:commandButton>
+                        </div>
+                </div>
+            </p:fieldset> 
+        </p:card>
+    </h:form>
     </ui:define>
 </ui:composition>

@@ -58,12 +58,6 @@
                                 <h:outputText value="#{item.email}"/>
                             </p:column>
                             <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Bibliotheque"/>
-                                </f:facet>
-                                <h:outputText value="#{item.bibliotequeId.toString()}"/>
-                            </p:column>
-                            <p:column>
                                 <div class="ui-button-group">
                                     <p:button title="modifier"
                                             includeViewParams="true" rendered="#{crudBean.canUpdate()}"

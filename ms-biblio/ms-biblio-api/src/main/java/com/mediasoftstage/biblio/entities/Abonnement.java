@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 import com.mediasofthome.krnl.entities.BaseEntity;
@@ -31,13 +32,14 @@ public class Abonnement extends BaseEntity {
     @JoinColumn()
     private Emprunteur emprunteur;
 
-    @Column(nullable = true)
-    private LocalDate date_debut;
+    @Column(nullable = false)
+    private LocalDate date_debut = LocalDate.now();
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private LocalDate date_fin;
 
     public Abonnement() {
+        this.date_debut = LocalDate.now();
     }
         
     public Integer getId() {

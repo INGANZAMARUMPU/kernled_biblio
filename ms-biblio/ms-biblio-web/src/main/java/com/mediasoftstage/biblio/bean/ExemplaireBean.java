@@ -130,7 +130,6 @@ public class ExemplaireBean extends GenericBean<Exemplaire, Integer> {
             this.initAdd();
         } else {
             this.initUpdate();
-            System.out.println(livre_bean.getOne(livre_id));
         }
     }
 

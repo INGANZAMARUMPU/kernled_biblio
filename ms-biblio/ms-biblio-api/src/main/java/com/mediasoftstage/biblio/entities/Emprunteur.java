@@ -141,4 +141,9 @@ public class Emprunteur extends BaseEntity {
         this.abonnements = abonnements;
     }
 
+    @Override
+    public String toString() {
+        return nom + " " + prenom;
+    }
+
 }

@@ -1,60 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:k="http://xmlns.jcp.org/jsf/composite/components"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                template="/core/templates/#{configBean.theme}/layout-list.xhtml">
-    <ui:param name="crudBean" value="#{visaAttenteBean}"/>
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                template="/core/templates/#{configBean.theme}/layout-details.xhtml"
+                xmlns:faces="jakarta.faces">
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="entityId" value="#{emprunteurBean.entityId}" />
+            <f:viewAction action="#{emprunteurBean.initEntity()}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:param name="crudBean" value="#{emprunteurBean}"/>
 
     <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
-        <li>*NOM*</li>
+        <li>edition Emprunteur</li>
     </ui:define>
 
     <ui:define name="title">
-        *TITRE*
+        <h:outputText value="Emprunteur"/>
     </ui:define>
-
-    <ui:define name="description">
-        *DESCRIPTION*
-    </ui:define>
-    <ui:define name="content">
+    <ui:define name="fields">
         <h:form>
-            <h3>
-                <h:outputText value="Nom:"/>
-            </h3>
-            <h:inputText id="nom" value="#{emprunteur.emprunteur.nom}" title="Nom" />
-            <h3>
-                <h:outputText value="Prenom:"/>
-            </h3>
-            <h:inputText id="prenom" value="#{emprunteur.emprunteur.prenom}" title="Prenom" />
-            <h3>
-                <h:outputText value="Addresse:"/>
-            </h3>
-            <h:inputText id="addresse" value="#{emprunteur.emprunteur.addresse}" title="Addresse" />
-            <h3>
-                <h:outputText value="Telephone:"/>
-            </h3>
-            <h:inputText id="telephone" value="#{emprunteur.emprunteur.telephone}" title="Telephone" />
-            <h3>
-                <h:outputText value="Email:"/>
-            </h3>
-            <h:inputText id="email" value="#{emprunteur.emprunteur.email}" title="Email" />
-            <h3>
-                <h:outputText value="Biblioteque:"/>
-            </h3>
-            <h:selectOneMenu id="bibliotequeId" value="#{emprunteur.emprunteur.bibliotequeId}" title="BibliotequeId" >
-                <f:selectItems value="#{biblioteque.bibliotequeItemsAvailableSelectOne}"/>
-            </h:selectOneMenu>
-            <div>
-                <h:commandLink action="#{emprunteur.edit}" value="Enregister" class="save">
-                    <f:param name="jsfcrud.currentEmprunteur" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][emprunteur.emprunteur][emprunteur.converter].jsfcrud_invoke}"/>
-                </h:commandLink>
+        <p:card>
+            <p:fieldset class="mt-2" id="stmpsField" legend="Emprunteur">          
+                <p:fieldset id="formField">
+                    <div class="field col-12 md:col-6">
+                        <p:outputLabel for="nom" value="Nom de l'emprunteur"/>
+                        <p:inputText id="nom" required="true" requiredMessage="le nom est obligatoire"
+                            class="w-full" placeholder="nom" value="#{emprunteurBean.entity.nom}"/>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <p:outputLabel for="prenom" value="Prenom de l'emprunteur"/>
+                        <p:inputText id="prenom" required="true" requiredMessage="le prenom est obligatoire"
+                            class="w-full" placeholder="prenom" value="#{emprunteurBean.entity.prenom}"/>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <p:outputLabel for="addresse" value="Addresse de l'emprunteur"/>
+                        <p:inputText id="addresse" required="true" requiredMessage="l'addresse est obligatoire"
+                            class="w-full" placeholder="addresse" value="#{emprunteurBean.entity.addresse}"/>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <p:outputLabel for="telephone" value="Telephone de l'emprunteur"/>
+                        <p:inputText id="telephone" required="true" requiredMessage="le telephone est obligatoire"
+                            class="w-full" placeholder="telephone" value="#{emprunteurBean.entity.telephone}"/>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <p:outputLabel for="email" value="Email de l'emprunteur"/>
+                        <p:inputText id="email" required="true" requiredMessage="le email est obligatoire"
+                            class="w-full" placeholder="email" value="#{emprunteurBean.entity.email}"/>
+                    </div>
+            </p:fieldset>
+
+            <div class="text-right">
+                <div class="mt-2">
+                    <p:commandButton id="ajouterStmps" icon="fa fa-plus"
+                        rendered="#{emprunteurBean.isAdding()}"
+                        value="Ajouter" 
+                        action="#{emprunteurBean.add()}"/>
+                    <p:commandButton id="editerStmps" icon="fa fa-edit"
+                        rendered="#{not emprunteurBean.isAdding()}"
+                        value="Modifier" 
+                        action="#{emprunteurBean.update()}"/>
+                    <p:spacer width="2"/>
+                    <p:commandButton id="btnReinit" value="Reinitialiser" 
+                        type="reset" class="ui-button-warning" process="stmpsField" 
+                        icon="fa fa-refresh">
+                        <p:ajax listener="#{emprunteurBean.reinitialiser()}" update="stmpsField"/>
+                    </p:commandButton>
+                </div>
             </div>
-            <h:commandLink action="#{emprunteur.detailSetup}" value="Details" immediate="true">
-                <f:param name="jsfcrud.currentEmprunteur" value="#{jsfcrud_class['com.mediasoft.cdc.biblio.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][emprunteur.emprunteur][emprunteur.converter].jsfcrud_invoke}"/>
-            </h:commandLink>
-            <h:commandLink action="#{emprunteur.listSetup}"  value="Voir tout les Emprunteurs" immediate="true"/>
-        </h:form>
-    </ui:define>
+        </p:fieldset> 
+    </p:card>
+</h:form>
+</ui:define>
 </ui:composition>

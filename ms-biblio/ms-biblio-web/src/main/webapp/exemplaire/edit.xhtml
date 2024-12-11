@@ -20,10 +20,9 @@
     <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
         <li>edition Livre</li>
     </ui:define>
-
+    
     <ui:define name="title">
-        <h:outputText value="#{livres}"/>
-        <h:outputText value="#{livre_bean}"/>
+        <li>edition Livre</li>
     </ui:define>
     <ui:define name="fields">
         <h:form>
@@ -34,10 +33,16 @@
                         <div class="field col-12 md:col-6 lg:col-6">
                             <p:outputLabel for="livre" value="Livre"/>
                             <p:selectOneMenu class="w-full"  required="true" 
+                                    rendered="#{crudBean.livre_id == null}"
                                     requiredMessage="Vous devez renseigner le livre"
                                     id="livre" value="#{crudBean.entity.livre}" converter="omnifaces.SelectItemsConverter">
                                 <f:selectItems value="#{crudBean.livres}" var="item" itemLabel="#{item.titre}" itemValue="#{item}" />
                             </p:selectOneMenu>
+                            <div>
+                                <b>
+                                    <p:outputLabel rendered="#{crudBean.livre_id != null}" value="#{crudBean.entity.livre.titre}"/>
+                                </b>
+                            </div>
                         </div>
                         <div class="field col-12 md:col-6">
                             <p:outputLabel for="numero" value="Numero de l'exemplaire"/>
@@ -45,11 +50,11 @@
                                 class="w-full" placeholder="fonction" value="#{crudBean.entity.numero}"/>
                         </div>
                         <div class="field col-12 md:col-6 lg:col-6">
-                            <p:outputLabel for="state" value="Livre"/>
+                            <p:outputLabel for="value" value="Livre"/>
                             <p:selectOneMenu class="w-full"  required="true" 
                                     requiredMessage="Vous devez renseigner la situation"
-                                    id="state" value="#{crudBean.entity.situation}" converter="omnifaces.SelectItemsConverter">
-                                <f:selectItems value="#{crudBean.states}" var="item" itemLabel="#{item.state}" itemValue="#{item.state}" />
+                                    id="value" value="#{crudBean.entity.situation}" converter="omnifaces.SelectItemsConverter">
+                                <f:selectItems value="#{crudBean.states}" var="item" itemLabel="#{item.value}" itemValue="#{item.value}" />
                             </p:selectOneMenu>
                         </div>
                     </div>

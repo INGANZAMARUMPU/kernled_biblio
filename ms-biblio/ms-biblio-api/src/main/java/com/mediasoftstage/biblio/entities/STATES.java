@@ -8,14 +8,19 @@ public enum STATES {
     NON_RETOURNE("NON RETOURNÉ"),
     EXCLU("EXCLU");
 
-    private String state;
-    
-    public String getState() {
-        return state;
+    public String value;
+
+    STATES(String value) {
+        this.value = value;
     }
 
-    STATES(String state) {
-        this.state = state;
+    @Override
+    public String toString() {
+        return value;
+    }
+
+    public String getValue() {
+        return value;
     }
 
 }

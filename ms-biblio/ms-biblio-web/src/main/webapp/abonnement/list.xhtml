@@ -29,39 +29,21 @@
                         <p:dataTable id="jn" var="item" value="#{crudBean.model}" rowKey="#{item.id}" selection="#{crudBean.selected}" paginator="true" rows="20" styleClass="jn">
                             <p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Nom"/>
+                                    <h:outputText value="Emprunteur"/>
                                 </f:facet>
-                                <h:outputText value="#{item.nom}"/>
+                                <h:outputText value="#{item.emprunteur}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Prenom"/>
+                                    <h:outputText value="Depuis"/>
                                 </f:facet>
-                                <h:outputText value="#{item.prenom}"/>
+                                <h:outputText value="#{item.date_debut}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Addresse"/>
+                                    <h:outputText value="Date final"/>
                                 </f:facet>
-                                <h:outputText value="#{item.addresse}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Telephone"/>
-                                </f:facet>
-                                <h:outputText value="#{item.telephone}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Email"/>
-                                </f:facet>
-                                <h:outputText value="#{item.email}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Bibliotheque"/>
-                                </f:facet>
-                                <h:outputText value="#{item.bibliotequeId.toString()}"/>
+                                <h:outputText value="#{item.date_fin}"/>
                             </p:column>
                             <p:column>
                                 <div class="ui-button-group">
