@@ -35,8 +35,8 @@ public class Emprunt extends BaseEntity {
     private Emprunteur emprunteur;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "livre")
-    private Livre livre;
+    @JoinColumn(name = "exemplaire")
+    private Exemplaire exemplaire;
 
     public Emprunt() {
     }
@@ -65,12 +65,12 @@ public class Emprunt extends BaseEntity {
         this.emprunteur = emprunteur;
     }
 
-    public Livre getLivre() {
-        return livre;
+    public Exemplaire getExemplaire() {
+        return exemplaire;
     }
 
-    public void setLivre(Livre livre) {
-        this.livre = livre;
+    public void setExemplaire(Exemplaire exemplaire) {
+        this.exemplaire = exemplaire;
     }
 
     @Override
@@ -90,6 +90,6 @@ public class Emprunt extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Emprunt{" + "date=" + date + ", emprunteur=" + emprunteur + ", livre=" + livre + '}';
+        return "Emprunt{" + "date=" + date + ", emprunteur=" + emprunteur + ", exemplaire=" + exemplaire + '}';
     }
 }

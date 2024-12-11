@@ -93,7 +93,7 @@ public class Exemplaire extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Exemplaire{" + "numero=" + numero + ", livre=" + livre + '}';
+        return "Exemplaire " + "no. " + numero + " de " + livre.getTitre();
     }
 
 }
