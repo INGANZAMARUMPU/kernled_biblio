@@ -180,6 +180,19 @@ public class ExemplaireBean extends GenericBean<Exemplaire, Integer> {
         }
         return "list?faces-redirect=true";
     }
+
+    public String disponibiliser(Exemplaire exemplaire) {
+        try {
+            exemplaire.setSituation(STATES.DISPONIBLE.value);
+            this.getService().updateOne(exemplaire);
+            Messages.addFlashGlobalInfo(exemplaire.toString() + " est desormais disponible!");
+        } catch (BusinessException ex) {
+            Messages.addFlashGlobalError(ex.getMessage());
+        } catch (Exception ex) {
+            Messages.addFlashGlobalError("Une erreur est survenue lors de la disponibilisation. " + ex.getMessage());
+        }
+        return "list?faces-redirect=true";
+    }
     
     public String reinitialiser(){
         Exemplaire empty = new Exemplaire();
