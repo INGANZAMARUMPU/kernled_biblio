@@ -8,11 +8,11 @@
     <ui:param name="crudBean" value="#{empruntBean}"/>
 
     <ui:define name="breadcrumb"><li><i class="pi pi-angle-right"/></li>
-        <li>emprunts</li>
+        <li>emprunt</li>
     </ui:define>
 
     <ui:define name="title">
-        LES EMPRUNTS
+        LES EMPRUNTEURS
     </ui:define>
 
     <ui:define name="description">
@@ -29,33 +29,41 @@
                         <p:dataTable id="jn" var="item" value="#{crudBean.model}" rowKey="#{item.id}" selection="#{crudBean.selected}" paginator="true" rows="20" styleClass="jn">
                             <p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="DateEmprunt"/>
+                                    <h:outputText value="Emprunteur"/>
                                 </f:facet>
-                                <h:outputText value="#{item.dateEmprunt}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy" />
-                                </h:outputText>
+                                <h:outputText value="#{item.emprunteur}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="DateRemise"/>
+                                    <h:outputText value="Exemplaire"/>
                                 </f:facet>
-                                <h:outputText value="#{item.dateRemise}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy" />
-                                </h:outputText>
+                                <h:outputText value="#{item.exemplaire}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="EmprunteurId"/>
+                                    <h:outputText value="Date"/>
                                 </f:facet>
-                                <h:outputText value="#{item.emprunteurId}"/>
+                                <h:outputText value="#{item.date}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="LivreId"/>
+                                    <h:outputText value="Date retour"/>
                                 </f:facet>
-                                <h:outputText value="#{item.livreId}"/>
+                                <h:outputText value="#{item.date_retour}"/>
                             </p:column>
                             <p:column>
+                                <p:commandButton value="retourner"
+                                    rendered="#{crudBean.canUpdate() and item.date_retour == null}"
+                                    action="#{crudBean.retourner(item)}" class="ui-button ui-button-default">
+                                    <p:confirm header="Confirmation" icon="ui-icon-alert" 
+                                            message="Etes-vous sur que le livre est desormais disponible?"/>
+                                </p:commandButton>
+                                <p:commandButton value="signaler"
+                                    rendered="#{crudBean.canUpdate() and item.date_retour == null}"
+                                    action="#{crudBean.signalerRetard(item)}" class="ui-button-danger">
+                                    <p:confirm header="Confirmation" icon="ui-icon-alert" 
+                                            message="Etes-vous sur de vouloir notifier le retard?"/>
+                                </p:commandButton>
                                 <div class="ui-button-group">
                                     <p:button title="modifier"
                                             includeViewParams="true" rendered="#{crudBean.canUpdate()}"
@@ -83,4 +91,3 @@
         </h:form>
     </ui:define>
 </ui:composition>
-            

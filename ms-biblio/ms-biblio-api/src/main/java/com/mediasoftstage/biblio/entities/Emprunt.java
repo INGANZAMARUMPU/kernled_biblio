@@ -27,8 +27,11 @@ public class Emprunt extends BaseEntity {
     @Column(name = "id")
     private Integer id;
 
+    @Column()
+    private LocalDate date = LocalDate.now();
+
     @Column(nullable = true)
-    private LocalDate date;
+    private LocalDate date_retour;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "emprunteur")
@@ -55,6 +58,14 @@ public class Emprunt extends BaseEntity {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public LocalDate getDate_retour() {
+        return date_retour;
+    }
+
+    public void setDate_retour(LocalDate date_retour) {
+        this.date_retour = date_retour;
     }
 
     public Emprunteur getEmprunteur() {

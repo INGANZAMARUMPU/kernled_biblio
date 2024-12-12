@@ -4,6 +4,7 @@
  */
 package com.mediasoftstage.biblio.bean;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.omnifaces.util.Messages;
@@ -125,7 +126,7 @@ public class ExemplaireBean extends GenericBean<Exemplaire, Integer> {
 
     public void initEntity() {
         this.setLivres(livre_bean.getAll());
-        this.states = Arrays.asList(STATES.values());
+        this.states = Arrays.asList(STATES.REPARATION, STATES.EXCLU);
         if (this.isAdding()) {
             this.initAdd();
         } else {

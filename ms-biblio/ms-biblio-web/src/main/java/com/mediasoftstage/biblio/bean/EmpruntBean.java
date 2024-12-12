@@ -4,6 +4,7 @@
  */
 package com.mediasoftstage.biblio.bean;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.omnifaces.util.Messages;
 
@@ -13,6 +14,7 @@ import com.mediasoftstage.biblio.constants.BiblioPermissionConstants;
 import com.mediasoftstage.biblio.entities.Emprunt;
 import com.mediasoftstage.biblio.entities.Emprunteur;
 import com.mediasoftstage.biblio.entities.Exemplaire;
+import com.mediasoftstage.biblio.entities.STATES;
 import com.mediasoftstage.biblio.service.EmpruntBeanLocal;
 import com.mediasoftstage.biblio.service.EmprunteurBeanLocal;
 import com.mediasoftstage.biblio.service.ExemplaireBeanLocal;
@@ -161,7 +163,8 @@ public class EmpruntBean extends GenericBean<Emprunt, Integer> {
     }
     
     public String add() {
-        if (!entity.getExemplaire().isDispo()) {
+        Exemplaire exemplaire = this.entity.getExemplaire();
+        if (!exemplaire.isDispo()) {
             Messages.addGlobalError(
                 "L'exemplaire que vous voulez prendre est déjà marqué comme \""
                 + entity.getExemplaire().getSituation()
@@ -169,9 +172,11 @@ public class EmpruntBean extends GenericBean<Emprunt, Integer> {
             return null;
         }
         try {
+            exemplaire.setSituation(STATES.PRETE.value);
+            exemplaire_bean.updateOne(exemplaire);
             this.getService().addOne(this.entity);
             this.initList();
-            Messages.addFlashGlobalInfo("Ajout effectué avec succès.");
+            Messages.addFlashGlobalInfo(exemplaire.toString() + " a été prété avec succès.");
             return "list?faces-redirect=true";
         } catch (BusinessException ex) {
             Messages.addGlobalError(ex.getMessage());
@@ -205,6 +210,36 @@ public class EmpruntBean extends GenericBean<Emprunt, Integer> {
             Messages.addFlashGlobalError(ex.getMessage());
         } catch (Exception ex) {
             Messages.addFlashGlobalError("Une erreur est survenue lors de la suppression. " + ex.getMessage());
+        }
+        return "list?faces-redirect=true";
+    }
+
+    public String retourner(Emprunt emprunt) {
+        try {
+            Exemplaire exemplaire = emprunt.getExemplaire();
+            exemplaire.setSituation(STATES.DISPONIBLE.value);
+            exemplaire_bean.updateOne(exemplaire);
+            emprunt.setDate_retour(LocalDate.now());
+            this.getService().updateOne(emprunt);
+            Messages.addFlashGlobalInfo(exemplaire.toString() + " est desormais disponible!");
+        } catch (BusinessException ex) {
+            Messages.addFlashGlobalError(ex.getMessage());
+        } catch (Exception ex) {
+            Messages.addFlashGlobalError("Une erreur est survenue lors de la disponibilisation. " + ex.getMessage());
+        }
+        return "list?faces-redirect=true";
+    }
+
+    public String signalerRetard(Emprunt emprunt) {
+        try {
+            Exemplaire exemplaire = emprunt.getExemplaire();
+            exemplaire.setSituation(STATES.NON_RETOURNE.value);
+            exemplaire_bean.updateOne(exemplaire);
+            Messages.addFlashGlobalInfo(exemplaire.toString() + " est desormais marqué comme \""+ STATES.NON_RETOURNE +"\"!");
+        } catch (BusinessException ex) {
+            Messages.addFlashGlobalError(ex.getMessage());
+        } catch (Exception ex) {
+            Messages.addFlashGlobalError("Une erreur est survenue lors du changement de l'etat du livre. " + ex.getMessage());
         }
         return "list?faces-redirect=true";
     }

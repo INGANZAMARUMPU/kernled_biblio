@@ -16,7 +16,7 @@
     </ui:define>
 
     <ui:define name="description">
-        *DESCRIPTION*
+        Tout les exemplaire des livres existants
     </ui:define>
     <ui:define name="content">
         <h:form>
@@ -58,18 +58,18 @@
                                 <h:outputText value="#{item.situation}"/>
                             </p:column>
                             <p:column>
-                                <p:button title="preter" includeViewParams="true"
+                                <p:button value="preter" includeViewParams="true"
                                         rendered="#{item.isDispo()}" class="ui-button-secondary"
                                         outcome="/emprunt/edit.xhtml">
                                     <f:param name="exemplaire_id" value="#{crudBean.getId(item)}"/>
                                 </p:button>
-                                <p:button title="reserver" includeViewParams="true"
-                                        rendered="#{item.isDispo()}" class="ui-button-success ui-button-flat"
+                                <p:button value="reserver" includeViewParams="true"
+                                        rendered="#{item.isDispo()}" class="ui-button-success ui-button-default"
                                         outcome="/reservation/edit.xhtml">
                                     <f:param name="exemplaire_id" value="#{crudBean.getId(item)}"/>
                                 </p:button>
-                                <p:commandButton title="disponibiliser"
-                                    rendered="#{crudBean.canUpdate() and not item.isDispo()}"
+                                <p:commandButton value="disponibiliser"
+                                    rendered="#{crudBean.canUpdate() and not item.isPretee() and not item.isDispo()}"
                                     action="#{crudBean.disponibiliser(item)}" class="ui-button-danger">
                                     <p:confirm header="Confirmation" icon="ui-icon-alert" 
                                             message="Etes-vous sur que le livre est desormais disponible?"/>

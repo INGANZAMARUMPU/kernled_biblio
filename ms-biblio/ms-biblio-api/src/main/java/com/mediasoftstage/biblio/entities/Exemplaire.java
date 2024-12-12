@@ -76,6 +76,10 @@ public class Exemplaire extends BaseEntity {
         return this.situation.equals(STATES.DISPONIBLE.value);
     }
 
+    public Boolean isPretee(){
+        return this.situation.equals(STATES.PRETE.value);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
